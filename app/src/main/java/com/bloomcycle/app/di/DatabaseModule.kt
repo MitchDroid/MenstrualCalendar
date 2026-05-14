@@ -24,7 +24,15 @@ object DatabaseModule {
             BloomCycleDatabase::class.java,
             "bloomcycle_database"
         )
-            .fallbackToDestructiveMigration()
+            // When adding new schema versions, register migrations here:
+            // .addMigrations(MIGRATION_1_2, MIGRATION_2_3, ...)
+            // Room's AutoMigration (annotated on the Database class) handles
+            // simple additive changes automatically. Use manual Migration
+            // objects only for complex transformations (column renames,
+            // data conversions, index changes, etc.).
+            //
+            // NEVER use fallbackToDestructiveMigration() in production —
+            // it silently wipes all user data on schema changes.
             .build()
 
     @Provides
