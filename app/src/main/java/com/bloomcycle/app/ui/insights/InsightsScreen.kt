@@ -1,32 +1,51 @@
 package com.bloomcycle.app.ui.insights
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.filled.Psychology
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.bloomcycle.app.ui.theme.FertileGreen
+import com.bloomcycle.app.ui.theme.PredictedPurple
 
 @Composable
 fun InsightsScreen(
     modifier: Modifier = Modifier,
-    viewModel: InsightsViewModel = hiltViewModel()
+    viewModel: InsightsViewModel = hiltViewModel(),
+    onNavigateToCycleGuide: () -> Unit = {},
+    onNavigateToSymptomGuide: () -> Unit = {},
+    onNavigateToHealthTips: (String?) -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -107,6 +126,110 @@ fun InsightsScreen(
             }
         }
 
+        // ── Education Section ────────────────────────────
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "\uD83D\uDCDA  Learn & Understand",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = "Deepen your understanding of your body",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        EducationNavigationCard(
+            icon = Icons.Filled.Psychology,
+            title = "Cycle Phase Guide",
+            subtitle = "Learn what happens in each phase of your cycle",
+            accentColor = PredictedPurple,
+            onClick = onNavigateToCycleGuide
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        EducationNavigationCard(
+            icon = Icons.Filled.MenuBook,
+            title = "Symptom Guide",
+            subtitle = "Understand and manage your symptoms",
+            accentColor = MaterialTheme.colorScheme.tertiary,
+            onClick = onNavigateToSymptomGuide
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        EducationNavigationCard(
+            icon = Icons.Filled.AutoAwesome,
+            title = "Health Tips",
+            subtitle = "Phase-aware wellness tips for nutrition, exercise & more",
+            accentColor = FertileGreen,
+            onClick = {
+                val phaseArg = uiState.prediction?.currentPhase?.name
+                onNavigateToHealthTips(phaseArg)
+            }
+        )
+
         Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+// ── Education Navigation Card ───────────────────────────────────
+
+@Composable
+private fun EducationNavigationCard(
+    icon: ImageVector,
+    title: String,
+    subtitle: String,
+    accentColor: Color,
+    onClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        colors = CardDefaults.cardColors(
+            containerColor = accentColor.copy(alpha = 0.08f)
+        ),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                icon,
+                contentDescription = null,
+                modifier = Modifier.size(32.dp),
+                tint = accentColor
+            )
+            Spacer(modifier = Modifier.width(14.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Icon(
+                Icons.AutoMirrored.Filled.ArrowForward,
+                contentDescription = "Go",
+                modifier = Modifier.size(20.dp),
+                tint = accentColor
+            )
+        }
     }
 }

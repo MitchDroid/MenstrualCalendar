@@ -93,7 +93,10 @@ private fun BloomCycleApp(
             // Hide the bottom bar during onboarding and full-screen flows
             val showBottomBar = currentRoute != null &&
                     currentRoute != Screen.Onboarding.route &&
-                    !currentRoute.startsWith("daily_tracking")
+                    !currentRoute.startsWith("daily_tracking") &&
+                    currentRoute != Screen.CyclePhaseGuide.route &&
+                    currentRoute != Screen.SymptomGuide.route &&
+                    !currentRoute.startsWith("health_tips")
 
             val startDestination = when (startState) {
                 MainViewModel.StartState.Onboarding -> Screen.Onboarding.route

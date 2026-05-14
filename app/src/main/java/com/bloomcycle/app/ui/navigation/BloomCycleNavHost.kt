@@ -7,7 +7,11 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.bloomcycle.app.domain.model.CyclePhase
 import com.bloomcycle.app.ui.calendar.CalendarScreen
+import com.bloomcycle.app.ui.education.CyclePhaseGuideScreen
+import com.bloomcycle.app.ui.education.HealthTipsScreen
+import com.bloomcycle.app.ui.education.SymptomGuideScreen
 import com.bloomcycle.app.ui.home.HomeScreen
 import com.bloomcycle.app.ui.insights.InsightsScreen
 import com.bloomcycle.app.ui.onboarding.OnboardingScreen
@@ -63,7 +67,47 @@ fun BloomCycleNavHost(
             )
         }
         composable(Screen.Insights.route) {
-            InsightsScreen()
+            InsightsScreen(
+                onNavigateToCycleGuide = {
+                    navController.navigate(Screen.CyclePhaseGuide.route)
+                },
+                onNavigateToSymptomGuide = {
+                    navController.navigate(Screen.SymptomGuide.route)
+                },
+                onNavigateToHealthTips = { phase ->
+                    navController.navigate(Screen.HealthTips.createRoute(phase ?: "none"))
+                }
+            )
+        }
+        composable(Screen.CyclePhaseGuide.route) {
+            CyclePhaseGuideScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+        composable(Screen.SymptomGuide.route) {
+            SymptomGuideScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+        composable(
+            route = Screen.HealthTips.route,
+            arguments = listOf(
+                navArgument("phase") {
+                    type = NavType.StringType
+                    defaultValue = "none"
+                }
+            )
+        ) { backStackEntry ->
+            val phaseArg = backStackEntry.arguments?.getString("phase") ?: "none"
+            val currentPhase = try {
+                CyclePhase.valueOf(phaseArg)
+            } catch (_: IllegalArgumentException) {
+                null
+            }
+            HealthTipsScreen(
+                currentPhase = currentPhase,
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
         composable(Screen.Settings.route) {
             SettingsScreen()
