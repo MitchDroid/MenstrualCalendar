@@ -36,6 +36,7 @@ import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.model.FlowIntensity
 import com.bloomcycle.app.domain.model.Mood
 import com.bloomcycle.app.domain.model.Symptom
+import com.bloomcycle.app.ui.util.displayNameRes
 import com.bloomcycle.app.domain.usecase.CyclePrediction
 import com.bloomcycle.app.domain.usecase.CycleStats
 import com.bloomcycle.app.domain.usecase.FlowPattern
@@ -307,7 +308,7 @@ fun MoodDistributionCard(
 
             distribution.forEach { mood ->
                 BarChartRow(
-                    label = "${moodEmoji(mood.mood)} ${formatEnum(mood.mood.name)}",
+                    label = "${moodEmoji(mood.mood)} ${stringResource(mood.mood.displayNameRes())}",
                     count = mood.count,
                     percentage = mood.percentage,
                     color = moodColor(mood.mood)
@@ -353,7 +354,7 @@ fun FlowPatternCard(
 
             patterns.forEach { pattern ->
                 BarChartRow(
-                    label = formatEnum(pattern.intensity.name),
+                    label = stringResource(pattern.intensity.displayNameRes()),
                     count = pattern.dayCount,
                     percentage = pattern.percentage,
                     color = flowIntensityColor(pattern.intensity)
@@ -512,9 +513,6 @@ private fun phaseDisplayName(phase: com.bloomcycle.app.domain.model.CyclePhase):
 }
 
 // ── Helpers ──────────────────────────────────────────────────
-
-private fun formatEnum(name: String): String =
-    name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
 
 @Composable
 private fun symptomDisplayName(symptom: Symptom): String = when (symptom) {

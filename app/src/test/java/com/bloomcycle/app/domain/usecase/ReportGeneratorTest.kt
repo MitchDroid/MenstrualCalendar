@@ -112,6 +112,9 @@ class ReportGeneratorTest {
     @Test
     fun `generateCsvExport includes log data rows`() {
         every { context.getString(R.string.report_csv_header) } returns "Header"
+        every { context.getString(R.string.flow_heavy) } returns "Heavy"
+        every { context.getString(R.string.mood_sad) } returns "Sad"
+        every { context.getString(R.string.symptom_cramps) } returns "Cramps"
         val logs = listOf(
             DailyLog(
                 date = LocalDate.of(2026, 5, 1),

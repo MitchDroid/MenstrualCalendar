@@ -23,6 +23,21 @@
     <string name="fertility_high">High</string>
     <string name="fertility_peak">Peak</string>
 
+    <!-- Flow intensity labels -->
+    <string name="flow_none">None</string>
+    <string name="flow_spotting">Spotting</string>
+    <string name="flow_light">Light</string>
+    <string name="flow_medium">Medium</string>
+    <string name="flow_heavy">Heavy</string>
+
+    <!-- Mood labels -->
+    <string name="mood_happy">Happy</string>
+    <string name="mood_sad">Sad</string>
+    <string name="mood_anxious">Anxious</string>
+    <string name="mood_irritable">Irritable</string>
+    <string name="mood_calm">Calm</string>
+    <string name="mood_energetic">Energetic</string>
+
     <!-- Symptom labels -->
     <string name="symptom_cramps">Cramps</string>
     <string name="symptom_headache">Headache</string>
@@ -34,6 +49,25 @@
     <string name="symptom_back_pain">Back pain</string>
     <string name="symptom_nausea">Nausea</string>
     <string name="symptom_food_cravings">Food cravings</string>
+
+    <!-- Cervical mucus labels -->
+    <string name="cervical_dry">Dry</string>
+    <string name="cervical_sticky">Sticky</string>
+    <string name="cervical_creamy">Creamy</string>
+    <string name="cervical_watery">Watery</string>
+    <string name="cervical_egg_white">Egg white</string>
+
+    <!-- Sexual activity labels -->
+    <string name="sexual_protected">Protected</string>
+    <string name="sexual_unprotected">Unprotected</string>
+    <string name="sexual_solo">Solo</string>
+
+    <!-- Dedication screen -->
+    <string name="dedication_for_name">Para Karen Villarreal</string>
+    <string name="dedication_message_1">This app was built with love,\ninspired by you and for you.</string>
+    <string name="dedication_message_2">Every line of code carries\na piece of my heart.</string>
+    <string name="dedication_with_love">— With all my love —</string>
+    <string name="dedication_signature">Your husband Miller</string>
 
     <!-- ── Onboarding ─────────────────────────────────── -->
     <string name="onboarding_step_indicator">Step %1$d of %2$d</string>

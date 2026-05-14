@@ -4,6 +4,7 @@ import android.content.Context
 import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.model.DailyLog
 import com.bloomcycle.app.domain.model.FlowIntensity
+import com.bloomcycle.app.ui.util.displayNameRes
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -90,15 +91,15 @@ class ReportGenerator @Inject constructor(
 
         // Rows sorted by date
         logs.sortedBy { it.date }.forEach { log ->
-            val symptoms = log.symptoms.joinToString("; ") { formatEnum(it.name) }
+            val symptoms = log.symptoms.joinToString("; ") { context.getString(it.displayNameRes()) }
             sb.appendLine(
                 listOf(
                     log.date.toString(),
-                    log.flowIntensity?.name?.let { formatEnum(it) } ?: "",
-                    log.mood?.name?.let { formatEnum(it) } ?: "",
+                    log.flowIntensity?.let { context.getString(it.displayNameRes()) } ?: "",
+                    log.mood?.let { context.getString(it.displayNameRes()) } ?: "",
                     "\"$symptoms\"",
-                    log.sexualActivity?.name?.let { formatEnum(it) } ?: "",
-                    log.cervicalMucus?.name?.let { formatEnum(it) } ?: "",
+                    log.sexualActivity?.let { context.getString(it.displayNameRes()) } ?: "",
+                    log.cervicalMucus?.let { context.getString(it.displayNameRes()) } ?: "",
                     log.temperature?.let { String.format("%.1f", it) } ?: "",
                     log.weight?.let { String.format("%.1f", it) } ?: "",
                     "\"${log.notes?.replace("\"", "\"\"") ?: ""}\""
@@ -179,7 +180,7 @@ class ReportGenerator @Inject constructor(
                 sb.appendLine(
                     context.getString(
                         R.string.report_symptom_entry,
-                        formatEnum(freq.symptom.name),
+                        context.getString(freq.symptom.displayNameRes()),
                         freq.count,
                         (freq.percentage * 100).toInt()
                     )
@@ -195,7 +196,7 @@ class ReportGenerator @Inject constructor(
                 sb.appendLine(
                     context.getString(
                         R.string.report_mood_entry,
-                        formatEnum(mood.mood.name),
+                        context.getString(mood.mood.displayNameRes()),
                         mood.count,
                         (mood.percentage * 100).toInt()
                     )
@@ -211,7 +212,7 @@ class ReportGenerator @Inject constructor(
                 sb.appendLine(
                     context.getString(
                         R.string.report_flow_entry,
-                        formatEnum(flow.intensity.name),
+                        context.getString(flow.intensity.displayNameRes()),
                         flow.dayCount,
                         (flow.percentage * 100).toInt()
                     )
@@ -279,6 +280,4 @@ class ReportGenerator @Inject constructor(
         }
     }
 
-    private fun formatEnum(name: String): String =
-        name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
 }
