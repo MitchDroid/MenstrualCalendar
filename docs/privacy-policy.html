@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloomCycle — Privacy Policy</title>
+    <style>
+        :root {
+            --pink: #D81B60;
+            --pink-light: #FCE4EC;
+            --text: #1C1B1F;
+            --text-muted: #534349;
+            --bg: #FFFBFE;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 0 16px;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 0 80px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header .emoji { font-size: 48px; }
+        header h1 {
+            font-size: 28px;
+            color: var(--pink);
+            margin: 8px 0 4px;
+        }
+        header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .card p, .card li {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+        .card ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+        .card li { margin-bottom: 4px; }
+        .highlight {
+            background: var(--pink-light);
+            border-left: 4px solid var(--pink);
+        }
+        .badge {
+            display: inline-block;
+            background: var(--pink-light);
+            color: var(--pink);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 99px;
+            margin-bottom: 8px;
+        }
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        footer a { color: var(--pink); text-decoration: none; }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --pink: #F8BBD0;
+                --pink-light: #3E2D33;
+                --text: #E6E1E5;
+                --text-muted: #D6C2C8;
+                --bg: #1C1B1F;
+            }
+            .card {
+                background: #2B2930;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="emoji">🌸</div>
+            <h1>BloomCycle</h1>
+            <p>Privacy Policy</p>
+            <p>Last updated: May 14, 2026</p>
+        </header>
+
+        <div class="card highlight">
+            <span class="badge">Our Promise</span>
+            <h2>🔒 Your Data Never Leaves Your Device</h2>
+            <p>BloomCycle is a 100% offline, privacy-first menstrual health tracker. We do not collect, store, transmit, or share any of your personal or health data. Period.</p>
+        </div>
+
+        <div class="card">
+            <h2>📱 Local-Only Storage</h2>
+            <p>All data you enter — daily logs, cycle predictions, symptoms, moods, and preferences — is stored exclusively on your device using Android's Room database and DataStore, both within the app's private sandboxed directory.</p>
+            <ul>
+                <li>No cloud sync</li>
+                <li>No external servers</li>
+                <li>No third-party storage</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🚫 No Account Required</h2>
+            <p>BloomCycle works without any account registration, email address, or personal identity information. You never need to sign in, create a profile, or share identifying information to use any feature.</p>
+        </div>
+
+        <div class="card">
+            <h2>📊 No Analytics or Tracking</h2>
+            <p>We do not collect any form of:</p>
+            <ul>
+                <li>Usage analytics or behavioral data</li>
+                <li>Crash reports or diagnostic telemetry</li>
+                <li>Advertising identifiers or tracking pixels</li>
+                <li>Third-party SDKs that monitor activity</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🌐 No Internet Access</h2>
+            <p>BloomCycle does not request internet permission. The app functions entirely offline. No data is ever transmitted over any network. You can verify this by checking the app's permissions in your device settings.</p>
+        </div>
+
+        <div class="card">
+            <h2>🔐 Security Features</h2>
+            <p>BloomCycle offers optional security features to protect your data:</p>
+            <ul>
+                <li><strong>Biometric Lock</strong> — Require fingerprint or face authentication to open the app. Biometric data is handled entirely by your device's secure hardware; BloomCycle never accesses it.</li>
+                <li><strong>Screen Security</strong> — Block screenshots and screen recordings of the app using Android's FLAG_SECURE.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📤 Your Data, Your Control</h2>
+            <ul>
+                <li><strong>Export</strong> — You can export all your data at any time in CSV or text format.</li>
+                <li><strong>Delete</strong> — One-tap permanent deletion of all data from Settings. When deleted, data is immediately and irreversibly removed.</li>
+                <li><strong>Uninstall</strong> — Uninstalling BloomCycle permanently deletes all data from your device. No residual data, no external backups.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📋 Permissions</h2>
+            <p>BloomCycle requests only two optional permissions:</p>
+            <ul>
+                <li><strong>Notifications</strong> (POST_NOTIFICATIONS) — For period reminders, daily log reminders, and fertile window alerts. Optional; the app works without it.</li>
+                <li><strong>Exact Alarms</strong> (SCHEDULE_EXACT_ALARM) — For precise notification timing. Optional; gracefully falls back if not granted.</li>
+            </ul>
+            <p>No camera, storage, location, contacts, microphone, or internet permissions are requested.</p>
+        </div>
+
+        <div class="card">
+            <h2>👶 Children's Privacy</h2>
+            <p>BloomCycle is not directed at children under the age of 13. We do not knowingly collect data from children, as the app does not collect data from anyone.</p>
+        </div>
+
+        <div class="card">
+            <h2>📝 Changes to This Policy</h2>
+            <p>If we update this privacy policy, the changes will be reflected on this page with an updated "Last updated" date. Since BloomCycle collects no data and has no server component, material changes are unlikely.</p>
+        </div>
+
+        <div class="card">
+            <h2>💬 Contact</h2>
+            <p>If you have questions or concerns about this privacy policy or the app's data handling, the entire codebase is available for audit. Your trust matters.</p>
+        </div>
+
+        <footer>
+            <p>🌸 <strong>BloomCycle</strong> — Your cycle, your way.</p>
+            <p>Privacy-first period tracking. All data stays on your device.</p>
+        </footer>
+    </div>
+</body>
+</html>
