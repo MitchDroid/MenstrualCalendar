@@ -1,5 +1,10 @@
 package com.bloomcycle.app.ui.home
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,7 +30,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -37,6 +46,7 @@ import com.bloomcycle.app.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.domain.model.CyclePhase
 import com.bloomcycle.app.domain.model.FertilityStatus
+import kotlinx.coroutines.delay
 import java.time.LocalDate
 
 @Composable
@@ -47,6 +57,32 @@ fun HomeScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    // ── Staggered entrance animation ─────────────────────
+    var showHeader by remember { mutableStateOf(false) }
+    var showCircle by remember { mutableStateOf(false) }
+    var showStats by remember { mutableStateOf(false) }
+    var showCta by remember { mutableStateOf(false) }
+    var showTip by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        showHeader = true
+        delay(100)
+        showCircle = true
+        delay(120)
+        showStats = true
+        delay(120)
+        showCta = true
+        delay(100)
+        showTip = true
+    }
+
+    // ── Phase color smooth transition ────────────────────
+    val animatedPhaseColor by animateColorAsState(
+        targetValue = phaseColor(uiState.currentPhase),
+        animationSpec = tween(durationMillis = 600),
+        label = "phaseColor"
+    )
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -55,30 +91,41 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // ── Header ────────────────────────────────────────────
-        Text(
-            text = stringResource(R.string.app_name),
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.primary,
-            fontWeight = FontWeight.Bold
-        )
+        AnimatedVisibility(
+            visible = showHeader,
+            enter = fadeIn(tween(400)) + slideInVertically(tween(400)) { -it / 4 }
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = stringResource(R.string.app_name),
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold
+                )
 
-        Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
-        Text(
-            text = stringResource(R.string.home_subtitle),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+                Text(
+                    text = stringResource(R.string.home_subtitle),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // ── Cycle Day Circle ──────────────────────────────────
+        AnimatedVisibility(
+            visible = showCircle,
+            enter = fadeIn(tween(500)) + slideInVertically(tween(500)) { it / 3 }
+        ) {
         Card(
             modifier = Modifier
                 .size(180.dp),
             shape = MaterialTheme.shapes.extraLarge,
             colors = CardDefaults.cardColors(
-                containerColor = phaseColor(uiState.currentPhase)
+                containerColor = animatedPhaseColor
             )
         ) {
             Column(
@@ -106,47 +153,59 @@ fun HomeScreen(
                 )
             }
         }
+        } // close AnimatedVisibility for circle
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // ── Quick Stats ───────────────────────────────────────
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        AnimatedVisibility(
+            visible = showStats,
+            enter = fadeIn(tween(400)) + slideInVertically(tween(400)) { it / 4 }
         ) {
-            QuickStatCard(
-                title = stringResource(R.string.home_next_period),
-                value = "${uiState.daysUntilNextPeriod} ${stringResource(R.string.days)}",
-                modifier = Modifier.weight(1f)
-            )
-            QuickStatCard(
-                title = stringResource(R.string.home_cycle_length),
-                value = "${uiState.cycleLength} ${stringResource(R.string.days)}",
-                modifier = Modifier.weight(1f)
-            )
-        }
+            Column {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    QuickStatCard(
+                        title = stringResource(R.string.home_next_period),
+                        value = "${uiState.daysUntilNextPeriod} ${stringResource(R.string.days)}",
+                        modifier = Modifier.weight(1f)
+                    )
+                    QuickStatCard(
+                        title = stringResource(R.string.home_cycle_length),
+                        value = "${uiState.cycleLength} ${stringResource(R.string.days)}",
+                        modifier = Modifier.weight(1f)
+                    )
+                }
 
-        Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            QuickStatCard(
-                title = stringResource(R.string.home_fertility),
-                value = fertilityDisplayName(uiState.fertilityStatus),
-                modifier = Modifier.weight(1f)
-            )
-            QuickStatCard(
-                title = stringResource(R.string.home_phase),
-                value = phaseDisplayName(uiState.currentPhase),
-                modifier = Modifier.weight(1f)
-            )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    QuickStatCard(
+                        title = stringResource(R.string.home_fertility),
+                        value = fertilityDisplayName(uiState.fertilityStatus),
+                        modifier = Modifier.weight(1f)
+                    )
+                    QuickStatCard(
+                        title = stringResource(R.string.home_phase),
+                        value = phaseDisplayName(uiState.currentPhase),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // ── Log Today CTA ─────────────────────────────────────
+        AnimatedVisibility(
+            visible = showCta,
+            enter = fadeIn(tween(350))
+        ) {
         val todayStr = LocalDate.now().toString()
         if (uiState.todayLog != null) {
             Button(
@@ -185,10 +244,15 @@ fun HomeScreen(
                 )
             }
         }
+        } // close AnimatedVisibility for CTA
 
         Spacer(modifier = Modifier.height(20.dp))
 
         // ── Today's Tip ───────────────────────────────────────
+        AnimatedVisibility(
+            visible = showTip,
+            enter = fadeIn(tween(400)) + slideInVertically(tween(400)) { it / 4 }
+        ) {
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
@@ -221,6 +285,7 @@ fun HomeScreen(
                 }
             }
         }
+        } // close AnimatedVisibility for Tip
     }
 }
 

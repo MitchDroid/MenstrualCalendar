@@ -1,5 +1,8 @@
 package com.bloomcycle.app.ui.insights
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +20,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -29,6 +34,7 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
@@ -184,6 +190,13 @@ private fun CycleLengthLineChart(
     val textMeasurer = rememberTextMeasurer()
     val avgLabel = stringResource(R.string.insights_avg_line)
 
+    // Draw-on animation: 0f → 1f reveals the chart left-to-right
+    val progress = remember { Animatable(0f) }
+    LaunchedEffect(cycleLengths) {
+        progress.snapTo(0f)
+        progress.animateTo(1f, tween(durationMillis = 800, easing = FastOutSlowInEasing))
+    }
+
     Canvas(modifier = modifier) {
         val leftPadding = 36.dp.toPx()
         val rightPadding = 16.dp.toPx()
@@ -266,74 +279,83 @@ private fun CycleLengthLineChart(
             )
         )
 
-        // ── Data points and connecting line ─────────
+        // ── Data points and connecting line (animated clip) ─
         val points = cycleLengths.mapIndexed { index, value ->
             Offset(xToPixel(index), yToPixel(value.toFloat()))
         }
 
-        // Gradient fill under the line
-        if (points.size >= 2) {
-            val fillPath = Path().apply {
-                moveTo(points.first().x, yToPixel(yMin))
-                points.forEach { lineTo(it.x, it.y) }
-                lineTo(points.last().x, yToPixel(yMin))
-                close()
+        // Clip to animated progress — reveals chart left-to-right
+        val revealRight = leftPadding + chartWidth * progress.value
+
+        clipRect(right = revealRight) {
+            // Gradient fill under the line
+            if (points.size >= 2) {
+                val fillPath = Path().apply {
+                    moveTo(points.first().x, yToPixel(yMin))
+                    points.forEach { lineTo(it.x, it.y) }
+                    lineTo(points.last().x, yToPixel(yMin))
+                    close()
+                }
+                drawPath(
+                    fillPath,
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            lineColor.copy(alpha = 0.15f),
+                            lineColor.copy(alpha = 0.02f)
+                        ),
+                        startY = points.minOf { it.y },
+                        endY = yToPixel(yMin)
+                    )
+                )
+            }
+
+            // Line
+            val linePath = Path().apply {
+                if (points.isNotEmpty()) {
+                    moveTo(points.first().x, points.first().y)
+                    for (i in 1 until points.size) {
+                        lineTo(points[i].x, points[i].y)
+                    }
+                }
             }
             drawPath(
-                fillPath,
-                Brush.verticalGradient(
-                    colors = listOf(
-                        lineColor.copy(alpha = 0.15f),
-                        lineColor.copy(alpha = 0.02f)
-                    ),
-                    startY = points.minOf { it.y },
-                    endY = yToPixel(yMin)
+                linePath,
+                color = lineColor,
+                style = Stroke(
+                    width = 2.5.dp.toPx(),
+                    cap = StrokeCap.Round,
+                    join = StrokeJoin.Round
                 )
             )
-        }
 
-        // Line
-        val linePath = Path().apply {
-            if (points.isNotEmpty()) {
-                moveTo(points.first().x, points.first().y)
-                for (i in 1 until points.size) {
-                    lineTo(points[i].x, points[i].y)
+            // Dots — only show when the reveal has reached them
+            points.forEach { point ->
+                if (point.x <= revealRight) {
+                    drawCircle(color = Color.White, radius = 5.dp.toPx(), center = point)
+                    drawCircle(color = lineColor, radius = 4.dp.toPx(), center = point)
                 }
             }
         }
-        drawPath(
-            linePath,
-            color = lineColor,
-            style = Stroke(
-                width = 2.5.dp.toPx(),
-                cap = StrokeCap.Round,
-                join = StrokeJoin.Round
-            )
-        )
 
-        // Dots
-        points.forEach { point ->
-            drawCircle(color = Color.White, radius = 5.dp.toPx(), center = point)
-            drawCircle(color = lineColor, radius = 4.dp.toPx(), center = point)
-        }
-
-        // ── X-axis labels (cycle numbers) ───────────
+        // ── X-axis labels (cycle numbers) — also animated
         cycleLengths.forEachIndexed { index, _ ->
             val x = xToPixel(index)
-            val label = "C${index + 1}"
-            val textLayoutResult = textMeasurer.measure(
-                text = label,
-                style = TextStyle(fontSize = 9.sp, color = labelColor)
-            )
-            drawText(
-                textMeasurer = textMeasurer,
-                text = label,
-                topLeft = Offset(
-                    x - textLayoutResult.size.width / 2f,
-                    size.height - bottomPadding + 6.dp.toPx()
-                ),
-                style = TextStyle(fontSize = 9.sp, color = labelColor)
-            )
+            if (x <= revealRight) {
+                val label = "C${index + 1}"
+                val textLayoutResult = textMeasurer.measure(
+                    text = label,
+                    style = TextStyle(fontSize = 9.sp, color = labelColor)
+                )
+                drawText(
+                    textMeasurer = textMeasurer,
+                    text = label,
+                    topLeft = Offset(
+                        x - textLayoutResult.size.width / 2f,
+                        size.height - bottomPadding + 6.dp.toPx()
+                    ),
+                    style = TextStyle(fontSize = 9.sp, color = labelColor)
+                )
+            }
         }
     }
 }
@@ -351,6 +373,13 @@ private fun PeriodDurationBarChart(
 ) {
     val textMeasurer = rememberTextMeasurer()
     val avgLabel = stringResource(R.string.insights_avg_line)
+
+    // Grow-up animation: bars rise from 0 to full height
+    val progress = remember { Animatable(0f) }
+    LaunchedEffect(periodLengths) {
+        progress.snapTo(0f)
+        progress.animateTo(1f, tween(durationMillis = 700, delayMillis = 200, easing = FastOutSlowInEasing))
+    }
 
     Canvas(modifier = modifier) {
         val leftPadding = 36.dp.toPx()
@@ -393,12 +422,15 @@ private fun PeriodDurationBarChart(
             )
         }
 
-        // ── Bars ────────────────────────────────────
+        // ── Bars (animated grow-up) ─────────────────
+        val animProgress = progress.value
         periodLengths.forEachIndexed { index, value ->
             val centerX = leftPadding + barSpacing * index + barSpacing / 2
             val barLeft = centerX - barWidth / 2
-            val barTop = yToPixel(value.toFloat())
+            val fullBarTop = yToPixel(value.toFloat())
             val barBottom = yToPixel(0f)
+            // Animate: bar grows from bottom → full height
+            val barTop = barBottom + (fullBarTop - barBottom) * animProgress
 
             // Bar with rounded top via gradient
             drawRoundedBar(
@@ -410,7 +442,7 @@ private fun PeriodDurationBarChart(
                 cornerRadius = 4.dp.toPx()
             )
 
-            // X-axis label
+            // X-axis label (always visible)
             val label = "C${index + 1}"
             val textLayoutResult = textMeasurer.measure(
                 text = label,
@@ -426,25 +458,28 @@ private fun PeriodDurationBarChart(
                 style = TextStyle(fontSize = 9.sp, color = labelColor)
             )
 
-            // Value label on top of bar
-            val valueLabel = "${value}d"
-            val valueMeasure = textMeasurer.measure(
-                text = valueLabel,
-                style = TextStyle(fontSize = 8.sp, color = barColor)
-            )
-            drawText(
-                textMeasurer = textMeasurer,
-                text = valueLabel,
-                topLeft = Offset(
-                    centerX - valueMeasure.size.width / 2f,
-                    barTop - valueMeasure.size.height - 2.dp.toPx()
-                ),
-                style = TextStyle(
-                    fontSize = 8.sp,
-                    color = barColor,
-                    fontWeight = FontWeight.Medium
+            // Value label on top of bar (fade in at end of animation)
+            if (animProgress > 0.7f) {
+                val labelAlpha = ((animProgress - 0.7f) / 0.3f).coerceIn(0f, 1f)
+                val valueLabel = "${value}d"
+                val valueMeasure = textMeasurer.measure(
+                    text = valueLabel,
+                    style = TextStyle(fontSize = 8.sp, color = barColor)
                 )
-            )
+                drawText(
+                    textMeasurer = textMeasurer,
+                    text = valueLabel,
+                    topLeft = Offset(
+                        centerX - valueMeasure.size.width / 2f,
+                        barTop - valueMeasure.size.height - 2.dp.toPx()
+                    ),
+                    style = TextStyle(
+                        fontSize = 8.sp,
+                        color = barColor.copy(alpha = labelAlpha),
+                        fontWeight = FontWeight.Medium
+                    )
+                )
+            }
         }
 
         // ── Average dashed line ─────────────────────
