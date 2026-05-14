@@ -1,3 +1,377 @@
 <resources>
     <string name="app_name">BloomCycle</string>
+
+    <!-- ── Common / Shared ────────────────────────────── -->
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="days">days</string>
+    <string name="day_singular">day</string>
+    <string name="go">Go</string>
+    <string name="view">View</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
+
+    <!-- Cycle phases -->
+    <string name="phase_menstrual">Menstrual</string>
+    <string name="phase_follicular">Follicular</string>
+    <string name="phase_ovulation">Ovulation</string>
+    <string name="phase_luteal">Luteal</string>
+
+    <!-- Fertility status -->
+    <string name="fertility_low">Low</string>
+    <string name="fertility_medium">Medium</string>
+    <string name="fertility_high">High</string>
+    <string name="fertility_peak">Peak</string>
+
+    <!-- Symptom labels -->
+    <string name="symptom_cramps">Cramps</string>
+    <string name="symptom_headache">Headache</string>
+    <string name="symptom_bloating">Bloating</string>
+    <string name="symptom_acne">Acne</string>
+    <string name="symptom_mood_swings">Mood swings</string>
+    <string name="symptom_fatigue">Fatigue</string>
+    <string name="symptom_tender_breasts">Tender breasts</string>
+    <string name="symptom_back_pain">Back pain</string>
+    <string name="symptom_nausea">Nausea</string>
+    <string name="symptom_food_cravings">Food cravings</string>
+
+    <!-- ── Onboarding ─────────────────────────────────── -->
+    <string name="onboarding_step_indicator">Step %1$d of %2$d</string>
+    <string name="onboarding_get_started">Get Started</string>
+    <string name="onboarding_complete_setup">Complete Setup</string>
+    <string name="onboarding_continue">Continue</string>
+
+    <!-- Welcome step -->
+    <string name="welcome_title">Welcome to\nBloomCycle</string>
+    <string name="welcome_description">Your personal menstrual health companion.\nPrivate, beautiful, and designed with care.</string>
+    <string name="welcome_feature_track">Track your cycle with ease</string>
+    <string name="welcome_feature_privacy">Your data stays on your device</string>
+    <string name="welcome_feature_insights">Get personalized insights</string>
+
+    <!-- Last period step -->
+    <string name="last_period_title">When did your last\nperiod start?</string>
+    <string name="last_period_description">This helps us predict your next cycle.\nAn approximate date is fine!</string>
+    <string name="last_period_placeholder">Tap to select date</string>
+    <string name="last_period_confirm">Confirm</string>
+    <string name="last_period_today">Today</string>
+    <string name="last_period_yesterday">Yesterday</string>
+    <string name="last_period_days_ago">%d days ago</string>
+
+    <!-- Cycle length step -->
+    <string name="cycle_length_title">How long is\nyour cycle?</string>
+    <string name="cycle_length_description">The average cycle is 28 days.\nCount from the first day of one period\nto the first day of the next.</string>
+    <string name="cycle_length_decrease">Decrease</string>
+    <string name="cycle_length_increase">Increase</string>
+    <string name="cycle_length_min">18 days</string>
+    <string name="cycle_length_max">45 days</string>
+    <string name="cycle_length_info">Most cycles are 24–35 days. Don\'t worry if yours is different!</string>
+
+    <!-- Period duration step -->
+    <string name="period_duration_title">How long does\nyour period last?</string>
+    <string name="period_duration_description">The average period lasts 3–7 days.\nThis helps us track your flow accurately.</string>
+    <string name="period_duration_min">1 day</string>
+    <string name="period_duration_max">14 days</string>
+
+    <!-- User goal step -->
+    <string name="user_goal_title">What\'s your\nmain goal?</string>
+    <string name="user_goal_description">This helps us personalize your experience.\nYou can change this anytime in settings.</string>
+    <string name="goal_track_cycle">Track My Cycle</string>
+    <string name="goal_track_cycle_desc">Keep track of periods and understand patterns</string>
+    <string name="goal_conceive">Trying to Conceive</string>
+    <string name="goal_conceive_desc">Track fertile days and ovulation window</string>
+    <string name="goal_avoid_pregnancy">Avoid Pregnancy</string>
+    <string name="goal_avoid_pregnancy_desc">Know your fertile window for planning</string>
+    <string name="goal_monitor_health">Monitor Health</string>
+    <string name="goal_monitor_health_desc">Track symptoms and overall wellness</string>
+
+    <!-- ── Home Screen ────────────────────────────────── -->
+    <string name="home_subtitle">Your cycle, your way</string>
+    <string name="home_cycle_day">Day %d</string>
+    <string name="home_next_period">Next Period</string>
+    <string name="home_cycle_length">Cycle Length</string>
+    <string name="home_fertility">Fertility</string>
+    <string name="home_phase">Phase</string>
+    <string name="home_edit_today_log">Edit Today\'s Log</string>
+    <string name="home_log_today">Log Today</string>
+    <string name="home_todays_tip">Today\'s Tip</string>
+    <string name="home_tip_menstrual">Stay hydrated and get plenty of rest. Gentle exercise like yoga can help ease cramps.</string>
+    <string name="home_tip_follicular">Your energy is rising! Great time for starting new projects and intense workouts.</string>
+    <string name="home_tip_ovulation">You\'re at peak energy and sociability. Perfect time for important conversations and events.</string>
+    <string name="home_tip_luteal">Your body is winding down. Focus on self-care, warm foods, and stress management.</string>
+
+    <!-- ── Calendar Screen ────────────────────────────── -->
+    <string name="calendar_log_day">Log Day</string>
+    <string name="calendar_previous_month">Previous month</string>
+    <string name="calendar_go_to_today">Go to today</string>
+    <string name="calendar_next_month">Next month</string>
+    <string name="calendar_legend_period">Period</string>
+    <string name="calendar_legend_predicted">Predicted</string>
+    <string name="calendar_legend_fertile">Fertile</string>
+    <string name="calendar_legend_ovulation">Ovulation</string>
+    <string name="calendar_cycle_day">Cycle Day</string>
+    <string name="calendar_phase">Phase</string>
+    <string name="calendar_status">Status</string>
+    <string name="calendar_todays_log">Today\'s Log</string>
+    <string name="calendar_edit_log">Edit Log</string>
+    <string name="calendar_add_log">Add log for this day</string>
+    <string name="calendar_marker_period">Period</string>
+    <string name="calendar_marker_predicted">Predicted</string>
+    <string name="calendar_marker_fertile">Fertile</string>
+    <string name="calendar_marker_ovulation">Ovulation</string>
+    <string name="calendar_marker_logged">Logged</string>
+    <string name="calendar_marker_regular">Regular</string>
+
+    <!-- ── Daily Tracking Screen ──────────────────────── -->
+    <string name="tracking_title">Daily Log</string>
+    <string name="tracking_delete_log">Delete log</string>
+    <string name="tracking_section_flow">Flow</string>
+    <string name="tracking_section_mood">Mood</string>
+    <string name="tracking_section_symptoms">Symptoms</string>
+    <string name="tracking_section_cervical_mucus">Cervical Mucus</string>
+    <string name="tracking_section_intimacy">Intimacy</string>
+    <string name="tracking_section_vitals">Vitals</string>
+    <string name="tracking_temp_label">Temp (°F)</string>
+    <string name="tracking_weight_label">Weight (lb)</string>
+    <string name="tracking_section_notes">Notes</string>
+    <string name="tracking_notes_placeholder">How are you feeling today?</string>
+    <string name="tracking_update_log">Update Log</string>
+    <string name="tracking_save_log">Save Log</string>
+
+    <!-- ── Insights Screen ────────────────────────────── -->
+    <string name="insights_title">Insights</string>
+    <string name="insights_subtitle">Your cycle analytics &amp; predictions</string>
+    <string name="insights_learn_section">📚  Learn &amp; Understand</string>
+    <string name="insights_learn_subtitle">Deepen your understanding of your body</string>
+    <string name="insights_cycle_phase_guide">Cycle Phase Guide</string>
+    <string name="insights_cycle_phase_guide_desc">Learn what happens in each phase of your cycle</string>
+    <string name="insights_symptom_guide">Symptom Guide</string>
+    <string name="insights_symptom_guide_desc">Understand and manage your symptoms</string>
+    <string name="insights_health_tips">Health Tips</string>
+    <string name="insights_health_tips_desc">Phase-aware wellness tips for nutrition, exercise &amp; more</string>
+
+    <!-- Insights cards -->
+    <string name="insights_upcoming_predictions">Upcoming Predictions</string>
+    <string name="insights_next_period">Next Period</string>
+    <string name="insights_days_away">days away</string>
+    <string name="insights_fertile_window">Fertile Window</string>
+    <string name="insights_ovulation">Ovulation</string>
+    <string name="insights_cycle_statistics">📊  Cycle Statistics</string>
+    <string name="insights_avg_cycle">Avg Cycle</string>
+    <string name="insights_avg_period">Avg Period</string>
+    <string name="insights_variation">Variation</string>
+    <string name="insights_shortest">Shortest</string>
+    <string name="insights_longest">Longest</string>
+    <string name="insights_days_logged">Days</string>
+    <string name="insights_logged">logged</string>
+    <string name="insights_top_symptoms">🤧  Top Symptoms</string>
+    <string name="insights_mood_trends">😊  Mood Trends</string>
+    <string name="insights_flow_pattern">Flow Pattern</string>
+    <string name="insights_empty_title">Start logging to see insights</string>
+    <string name="insights_empty_description">Log your daily symptoms, mood, and flow to unlock personalized analytics and predictions.</string>
+
+    <!-- Goal insight cards -->
+    <string name="insights_goal_fertility_title">Fertility Focus</string>
+    <string name="insights_goal_fertility_msg">Your next fertile window is %1$s. Ovulation is expected on %2$s.</string>
+    <string name="insights_goal_protection_title">Protection Reminder</string>
+    <string name="insights_goal_protection_msg">Your fertile window is %1$s. Use extra precaution during this period.</string>
+    <string name="insights_goal_tracking_title">Cycle Tracking</string>
+    <string name="insights_goal_tracking_msg">You\'re on day %1$d of your cycle (%2$s phase). Next period in %3$d days.</string>
+    <string name="insights_goal_health_title">Health Monitor</string>
+    <string name="insights_goal_health_msg">Keep logging daily to build a comprehensive health profile. Consistent tracking reveals patterns your doctor can use.</string>
+
+    <!-- ── Education — Cycle Phase Guide ──────────────── -->
+    <string name="phase_guide_title">Cycle Phase Guide</string>
+    <string name="phase_guide_intro_title">Understanding your cycle</string>
+    <string name="phase_guide_intro_desc">Your menstrual cycle has four distinct phases, each with unique hormonal changes that affect how you feel physically and emotionally.</string>
+    <string name="phase_guide_at_a_glance">Your Cycle at a Glance</string>
+    <string name="phase_guide_what_happens">What Happens</string>
+    <string name="phase_guide_common_symptoms">Common Symptoms</string>
+    <string name="phase_guide_self_care">Self-Care Tips</string>
+    <string name="phase_guide_nutrition">Nutrition</string>
+    <string name="phase_guide_exercise">Exercise</string>
+
+    <!-- ── Education — Symptom Guide ──────────────────── -->
+    <string name="symptom_guide_title">Symptom Guide</string>
+    <string name="symptom_guide_intro_title">Understanding your symptoms</string>
+    <string name="symptom_guide_intro_desc">Learn why common menstrual symptoms happen and how to manage them effectively. Tap any symptom to expand details.</string>
+    <string name="symptom_guide_why">Why It Happens</string>
+    <string name="symptom_guide_management">Management Tips</string>
+    <string name="symptom_guide_doctor">When to See a Doctor</string>
+    <string name="symptom_guide_disclaimer_title">ℹ️ Disclaimer</string>
+    <string name="symptom_guide_disclaimer_text">This information is for educational purposes only and does not replace professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment of any health condition.</string>
+
+    <!-- ── Education — Health Tips ─────────────────────── -->
+    <string name="health_tips_title">Health Tips</string>
+    <string name="health_tips_filter_phase">Filter by phase</string>
+    <string name="health_tips_all_phases">All Phases</string>
+    <string name="health_tips_filter_category">Filter by category</string>
+    <string name="health_tips_all">All</string>
+    <string name="health_tips_count">%d tips</string>
+    <string name="health_tips_current_phase">You\'re in the</string>
+    <string name="health_tips_phase_suffix">Phase</string>
+    <string name="health_tips_current_phase_subtitle">Tips marked below are especially relevant for you right now</string>
+    <string name="health_tips_empty_title">No tips match your filters</string>
+    <string name="health_tips_empty_subtitle">Try adjusting your phase or category filters</string>
+    <string name="category_nutrition">Nutrition</string>
+    <string name="category_exercise">Exercise</string>
+    <string name="category_self_care">Self-Care</string>
+    <string name="category_sleep">Sleep</string>
+    <string name="category_mental_health">Mental Health</string>
+
+    <!-- ── Settings Screen ────────────────────────────── -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_subtitle">Notifications, privacy &amp; preferences</string>
+
+    <!-- Notification permission banner -->
+    <string name="settings_notif_disabled_title">Notifications Disabled</string>
+    <string name="settings_notif_disabled_body">BloomCycle needs notification permission to send period reminders and alerts.</string>
+    <string name="settings_grant_permission">Grant Permission</string>
+    <string name="settings_open_settings">Open Settings</string>
+
+    <!-- Notifications section -->
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_period_reminders">Period Reminders</string>
+    <string name="settings_period_reminders_desc">Get notified before your next period starts</string>
+    <string name="settings_daily_log_reminders">Daily Log Reminders</string>
+    <string name="settings_daily_log_reminders_desc">Reminder to log your symptoms and mood each day</string>
+    <string name="settings_fertile_window_alerts">Fertile Window Alerts</string>
+    <string name="settings_fertile_window_alerts_desc">Get notified when your fertile window begins</string>
+    <string name="settings_remind_me">Remind me</string>
+    <string name="settings_day_before">%d day before</string>
+    <string name="settings_days_before">%d days before</string>
+
+    <!-- Privacy & Security section -->
+    <string name="settings_privacy_security">Privacy &amp; Security</string>
+    <string name="settings_biometric_lock">Biometric Lock</string>
+    <string name="settings_biometric_available_desc">Require fingerprint or face to open the app</string>
+    <string name="settings_biometric_unavailable_desc">Not available on this device</string>
+    <string name="settings_screen_security">Screen Security</string>
+    <string name="settings_screen_security_desc">Block screenshots and screen recordings</string>
+    <string name="settings_privacy_policy">Privacy &amp; Data Policy</string>
+    <string name="settings_privacy_policy_desc">How your data is stored and protected</string>
+
+    <!-- Cycle settings section -->
+    <string name="settings_cycle_settings">Cycle Settings</string>
+    <string name="settings_avg_cycle_length">Average Cycle Length</string>
+    <string name="settings_avg_period_duration">Average Period Duration</string>
+
+    <!-- Reports & Export -->
+    <string name="settings_reports_export">Reports &amp; Export</string>
+    <string name="settings_reports_export_desc">View cycle history, stats, and export your data</string>
+
+    <!-- Danger zone -->
+    <string name="settings_danger_zone">Danger Zone</string>
+    <string name="settings_delete_warning">Permanently delete all your data including logs, preferences, and cycle history. This cannot be undone.</string>
+    <string name="settings_delete_all_data">Delete All Data</string>
+    <string name="settings_delete_dialog_title">Delete All Data?</string>
+    <string name="settings_delete_dialog_body">This will permanently delete all your daily logs, cycle data, preferences, and notification settings. This action cannot be undone.\n\nConsider exporting your data first from Reports &amp; Export.</string>
+    <string name="settings_delete_everything">Delete Everything</string>
+
+    <!-- About section -->
+    <string name="settings_version">Version 1.0</string>
+    <string name="settings_about_description">Privacy-first menstrual health tracking.\nAll data stays on your device.</string>
+
+    <!-- ── Reports Screen ─────────────────────────────── -->
+    <string name="reports_title">Reports &amp; Export</string>
+    <string name="reports_overview">📊 Report Overview</string>
+    <string name="reports_generated">Generated %s</string>
+    <string name="reports_days_tracked">Days\nTracked</string>
+    <string name="reports_periods_detected">Periods\nDetected</string>
+    <string name="reports_avg_cycle_days">Avg Cycle\n(days)</string>
+    <string name="reports_avg_period_days">Avg Period\n(days)</string>
+    <string name="reports_tracking_period">Tracking period: %s</string>
+    <string name="reports_cycle_history">📅 Cycle History</string>
+    <string name="reports_period_detected_singular">%d period detected from your flow data</string>
+    <string name="reports_periods_detected_plural">%d periods detected from your flow data</string>
+    <string name="reports_period_duration">%dd period</string>
+    <string name="reports_cycle_duration">%dd cycle</string>
+    <string name="reports_current_cycle">current cycle</string>
+    <string name="reports_latest">Latest</string>
+    <string name="reports_cycle_statistics">📊 Cycle Statistics</string>
+    <string name="reports_shortest">Shortest</string>
+    <string name="reports_average">Average</string>
+    <string name="reports_longest">Longest</string>
+    <string name="reports_very_regular">Very regular</string>
+    <string name="reports_fairly_regular">Fairly regular</string>
+    <string name="reports_somewhat_irregular">Somewhat irregular</string>
+    <string name="reports_irregular">Irregular</string>
+    <string name="reports_days_variation">%d days variation</string>
+    <string name="reports_health_summary">❤️ Health Summary</string>
+    <string name="reports_frequent_symptoms">Most frequent symptoms</string>
+    <string name="reports_frequent_moods">Most logged moods</string>
+    <string name="reports_flow_breakdown">Flow breakdown</string>
+    <string name="reports_days_percent">%1$d days (%2$d%%)</string>
+    <string name="reports_export_title">📤 Export Your Data</string>
+    <string name="reports_export_description">Your data belongs to you. Export it anytime.</string>
+    <string name="reports_export_csv">Export CSV</string>
+    <string name="reports_export_csv_desc">Spreadsheet-compatible daily log data</string>
+    <string name="reports_export_report">Export Report</string>
+    <string name="reports_export_report_desc">Formatted text summary as .txt file</string>
+    <string name="reports_quick_share">Quick Share</string>
+    <string name="reports_quick_share_desc">Share summary text to any app</string>
+    <string name="reports_empty_title">No data to report yet</string>
+    <string name="reports_empty_description">Start logging your daily symptoms, mood, and flow to generate reports and export your health data.</string>
+
+    <!-- ── Privacy Policy Screen ──────────────────────── -->
+    <string name="privacy_title">Privacy &amp; Data</string>
+    <string name="privacy_commitment_title">🔒 Our Privacy Commitment</string>
+    <string name="privacy_commitment_body">BloomCycle is designed with privacy as its foundation. Your menstrual health data is deeply personal, and we believe you should have complete control over it.</string>
+    <string name="privacy_local_storage_title">100% Local Storage</string>
+    <string name="privacy_local_storage_body">All your data — daily logs, cycle predictions, symptoms, moods, and preferences — is stored exclusively on your device. Nothing is sent to external servers, cloud services, or third parties. Your phone is the only place your data exists.</string>
+    <string name="privacy_no_account_title">No Account Required</string>
+    <string name="privacy_no_account_body">BloomCycle works without any account registration, email, or personal identity information. You don\'t need to sign in, create a profile, or share identifying information to use any feature.</string>
+    <string name="privacy_no_analytics_title">No Analytics or Tracking</string>
+    <string name="privacy_no_analytics_body">We do not collect usage analytics, behavioral data, crash reports, or any form of telemetry. There are no tracking pixels, advertising identifiers, or third-party SDKs that monitor your activity.</string>
+    <string name="privacy_no_internet_title">No Internet Access</string>
+    <string name="privacy_no_internet_body">BloomCycle does not require an internet connection to function. The app works entirely offline. No data is ever transmitted over the network. If you check your device\'s network permissions, you\'ll see BloomCycle requests none.</string>
+    <string name="privacy_your_data_title">Your Data, Your Control</string>
+    <string name="privacy_your_data_body">You can export all your data at any time in CSV or text format via the Reports &amp; Export screen. You can also permanently delete all data from Settings. When you delete data, it is immediately and irreversibly removed from your device.</string>
+    <string name="privacy_biometric_title">Biometric Protection</string>
+    <string name="privacy_biometric_body">Enable biometric lock (fingerprint or face) to prevent unauthorized access to your health data. When enabled, you must authenticate each time you open the app. Biometric data is handled entirely by your device\'s secure hardware — BloomCycle never accesses or stores your biometric information.</string>
+    <string name="privacy_screenshot_title">Screenshot Protection</string>
+    <string name="privacy_screenshot_body">Enable screen security in Settings to prevent screenshots and screen recordings of the app. This adds FLAG_SECURE to the app window, ensuring your health data cannot be captured by other apps or screen recording tools.</string>
+    <string name="privacy_encryption_title">Data Encryption</string>
+    <string name="privacy_encryption_body">Your data is stored in Android\'s Room database and DataStore, both of which reside in the app\'s private storage directory. This directory is protected by Android\'s sandboxing security model, meaning no other app can access it without root permissions.</string>
+    <string name="privacy_open_source_title">Open Source Philosophy</string>
+    <string name="privacy_open_source_body">BloomCycle\'s privacy claims are verifiable. The app requests minimal permissions (only notifications and alarms), contains no hidden network calls, and stores all data locally. You are in complete control.</string>
+    <string name="privacy_uninstall_title">Uninstall = Complete Deletion</string>
+    <string name="privacy_uninstall_body">If you uninstall BloomCycle, all data is permanently deleted from your device. There is no residual data, no backups on external servers, and no way to recover your information after uninstallation unless you\'ve exported it beforehand.</string>
+    <string name="privacy_questions_title">Questions about your privacy?</string>
+    <string name="privacy_questions_body">BloomCycle is a personal project built with care. If you have any concerns about data handling, the entire codebase can be audited. Your trust matters.</string>
+
+    <!-- ── App Lock Screen ────────────────────────────── -->
+    <string name="lock_title">🌸 BloomCycle</string>
+    <string name="lock_protected">Your health data is protected</string>
+    <string name="lock_authenticate">Authenticate to access BloomCycle</string>
+    <string name="lock_unlock">Unlock</string>
+
+    <!-- ── Bottom Navigation ──────────────────────────── -->
+    <string name="nav_home">Home</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_insights">Insights</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- ── Notifications ──────────────────────────────── -->
+    <string name="notif_channel_period">Period Reminders</string>
+    <string name="notif_channel_period_desc">Reminders before your next predicted period</string>
+    <string name="notif_channel_daily">Daily Log Reminders</string>
+    <string name="notif_channel_daily_desc">Daily reminders to log your symptoms and mood</string>
+    <string name="notif_channel_fertile">Fertile Window Alerts</string>
+    <string name="notif_channel_fertile_desc">Notifications when your fertile window begins</string>
+    <string name="notif_period_today_title">🌸 Period starting today</string>
+    <string name="notif_period_tomorrow_title">🌸 Period expected tomorrow</string>
+    <string name="notif_period_days_title">🌸 Period in %d days</string>
+    <string name="notif_period_today_body">Your period is predicted to start today. Be prepared and take care of yourself!</string>
+    <string name="notif_period_tomorrow_body">Your period is likely starting tomorrow. Stock up on supplies and plan for comfort.</string>
+    <string name="notif_period_days_body">Your next period is predicted in %d days. Time to prepare!</string>
+    <string name="notif_daily_title">📝 Time to log your day</string>
+    <string name="notif_daily_body">Take a moment to record your symptoms, mood, and flow. Consistent tracking unlocks better insights!</string>
+    <string name="notif_fertile_starting_title">✨ Fertile window starting</string>
+    <string name="notif_fertile_active_title">✨ You\'re in your fertile window</string>
+    <string name="notif_fertile_starting_body">Your fertile window is beginning. Check the Insights tab for details.</string>
+    <string name="notif_fertile_active_body">You\'re currently in your fertile window. Open BloomCycle for more information.</string>
+
+    <!-- Biometric prompt -->
+    <string name="biometric_prompt_title">BloomCycle Locked</string>
+    <string name="biometric_prompt_subtitle">Authenticate to access your data</string>
 </resources>

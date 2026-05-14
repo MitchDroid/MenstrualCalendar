@@ -40,8 +40,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.model.CyclePhase
 import com.bloomcycle.app.ui.theme.FertileGreen
 import com.bloomcycle.app.ui.theme.InfoBlue
@@ -74,7 +76,7 @@ fun HealthTipsScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Health Tips",
+                        text = stringResource(R.string.health_tips_title),
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -82,7 +84,7 @@ fun HealthTipsScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -107,7 +109,7 @@ fun HealthTipsScreen(
 
             // ── Phase Filter Chips ───────────────────────────
             Text(
-                text = "Filter by phase",
+                text = stringResource(R.string.health_tips_filter_phase),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -120,7 +122,7 @@ fun HealthTipsScreen(
                 FilterChip(
                     selected = selectedPhase == null,
                     onClick = { selectedPhase = null },
-                    label = { Text("All Phases") },
+                    label = { Text(stringResource(R.string.health_tips_all_phases)) },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = MaterialTheme.colorScheme.primaryContainer
                     )
@@ -143,7 +145,7 @@ fun HealthTipsScreen(
 
             // ── Category Filter Chips ────────────────────────
             Text(
-                text = "Filter by category",
+                text = stringResource(R.string.health_tips_filter_category),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -156,7 +158,7 @@ fun HealthTipsScreen(
                 FilterChip(
                     selected = selectedCategory == null,
                     onClick = { selectedCategory = null },
-                    label = { Text("All") },
+                    label = { Text(stringResource(R.string.health_tips_all)) },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = MaterialTheme.colorScheme.primaryContainer
                     )
@@ -179,7 +181,7 @@ fun HealthTipsScreen(
                 EmptyTipsState()
             } else {
                 Text(
-                    text = "${filteredTips.size} tips",
+                    text = stringResource(R.string.health_tips_count, filteredTips.size),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -228,13 +230,13 @@ private fun CurrentPhaseHeader(phase: CyclePhase) {
             Spacer(modifier = Modifier.width(12.dp))
             Column {
                 Text(
-                    text = "You're in the ${phaseChipLabel(phase)} Phase",
+                    text = "${stringResource(R.string.health_tips_current_phase)} ${phaseChipLabel(phase)} ${stringResource(R.string.health_tips_phase_suffix)}",
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     color = color
                 )
                 Text(
-                    text = "Tips marked below are especially relevant for you right now",
+                    text = stringResource(R.string.health_tips_current_phase_subtitle),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                 )
@@ -308,8 +310,14 @@ private fun HealthTipCard(tip: HealthTip) {
                         )
                     }
                     Spacer(modifier = Modifier.width(4.dp))
+                    val phaseLabelsMap = mapOf(
+                        CyclePhase.MENSTRUAL to stringResource(R.string.phase_menstrual),
+                        CyclePhase.FOLLICULAR to stringResource(R.string.phase_follicular),
+                        CyclePhase.OVULATION to stringResource(R.string.phase_ovulation),
+                        CyclePhase.LUTEAL to stringResource(R.string.phase_luteal)
+                    )
                     Text(
-                        text = tip.applicablePhases.joinToString(", ") { phaseChipLabel(it) },
+                        text = tip.applicablePhases.joinToString(", ") { phaseLabelsMap[it] ?: it.name },
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -341,13 +349,13 @@ private fun EmptyTipsState() {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "No tips match your filters",
+                text = stringResource(R.string.health_tips_empty_title),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = "Try adjusting your phase or category filters",
+                text = stringResource(R.string.health_tips_empty_subtitle),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -357,19 +365,21 @@ private fun EmptyTipsState() {
 
 // ── Helpers ─────────────────────────────────────────────────────
 
+@Composable
 private fun phaseChipLabel(phase: CyclePhase): String = when (phase) {
-    CyclePhase.MENSTRUAL -> "Menstrual"
-    CyclePhase.FOLLICULAR -> "Follicular"
-    CyclePhase.OVULATION -> "Ovulation"
-    CyclePhase.LUTEAL -> "Luteal"
+    CyclePhase.MENSTRUAL -> stringResource(R.string.phase_menstrual)
+    CyclePhase.FOLLICULAR -> stringResource(R.string.phase_follicular)
+    CyclePhase.OVULATION -> stringResource(R.string.phase_ovulation)
+    CyclePhase.LUTEAL -> stringResource(R.string.phase_luteal)
 }
 
+@Composable
 private fun categoryLabel(category: TipCategory): String = when (category) {
-    TipCategory.NUTRITION -> "\uD83E\uDD57 Nutrition"
-    TipCategory.EXERCISE -> "\uD83C\uDFCB\uFE0F Exercise"
-    TipCategory.SELF_CARE -> "\uD83D\uDC9C Self-Care"
-    TipCategory.SLEEP -> "\uD83D\uDCA4 Sleep"
-    TipCategory.MENTAL_HEALTH -> "\uD83E\uDDD8 Mental Health"
+    TipCategory.NUTRITION -> "\uD83E\uDD57 ${stringResource(R.string.category_nutrition)}"
+    TipCategory.EXERCISE -> "\uD83C\uDFCB\uFE0F ${stringResource(R.string.category_exercise)}"
+    TipCategory.SELF_CARE -> "\uD83D\uDC9C ${stringResource(R.string.category_self_care)}"
+    TipCategory.SLEEP -> "\uD83D\uDCA4 ${stringResource(R.string.category_sleep)}"
+    TipCategory.MENTAL_HEALTH -> "\uD83E\uDDD8 ${stringResource(R.string.category_mental_health)}"
 }
 
 @Composable

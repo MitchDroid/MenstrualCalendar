@@ -42,8 +42,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 import com.bloomcycle.app.ui.theme.PeriodRed
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,7 +62,7 @@ fun SymptomGuideScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Symptom Guide",
+                        text = stringResource(R.string.symptom_guide_title),
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -68,7 +70,7 @@ fun SymptomGuideScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -87,14 +89,14 @@ fun SymptomGuideScreen(
         ) {
             // ── Intro ────────────────────────────────────────
             Text(
-                text = "Understanding your symptoms",
+                text = stringResource(R.string.symptom_guide_intro_title),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Learn why common menstrual symptoms happen and how to manage them effectively. Tap any symptom to expand details.",
+                text = stringResource(R.string.symptom_guide_intro_desc),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -170,7 +172,7 @@ private fun SymptomGuideCard(guide: SymptomGuide) {
                 }
                 Icon(
                     if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                    contentDescription = if (expanded) "Collapse" else "Expand",
+                    contentDescription = if (expanded) stringResource(R.string.collapse) else stringResource(R.string.expand),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -194,7 +196,7 @@ private fun SymptomGuideCard(guide: SymptomGuide) {
                     Spacer(modifier = Modifier.height(14.dp))
 
                     // Why it happens
-                    SectionHeader(text = "\uD83D\uDD2C Why It Happens")
+                    SectionHeader(text = "\uD83D\uDD2C ${stringResource(R.string.symptom_guide_why)}")
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = guide.whyItHappens,
@@ -205,7 +207,7 @@ private fun SymptomGuideCard(guide: SymptomGuide) {
                     Spacer(modifier = Modifier.height(14.dp))
 
                     // Management tips
-                    SectionHeader(text = "\uD83D\uDCA1 Management Tips")
+                    SectionHeader(text = "\uD83D\uDCA1 ${stringResource(R.string.symptom_guide_management)}")
                     Spacer(modifier = Modifier.height(4.dp))
                     guide.managementTips.forEach { tip ->
                         BulletPoint(text = tip, color = MaterialTheme.colorScheme.primary)
@@ -279,7 +281,7 @@ private fun DoctorWarningBox(text: String) {
             Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(
-                    text = "When to See a Doctor",
+                    text = stringResource(R.string.symptom_guide_doctor),
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Bold,
                     color = PeriodRed
@@ -308,14 +310,14 @@ private fun DisclaimerCard() {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "\u2139\uFE0F Disclaimer",
+                text = stringResource(R.string.symptom_guide_disclaimer_title),
                 style = MaterialTheme.typography.labelMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "This information is for educational purposes only and does not replace professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment of any health condition.",
+                text = stringResource(R.string.symptom_guide_disclaimer_text),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
             )

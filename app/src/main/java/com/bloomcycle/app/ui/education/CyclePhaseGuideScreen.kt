@@ -43,8 +43,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.model.CyclePhase
 import com.bloomcycle.app.ui.theme.FertileGreen
 import com.bloomcycle.app.ui.theme.OvulationYellow
@@ -65,7 +67,7 @@ fun CyclePhaseGuideScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Cycle Phase Guide",
+                        text = stringResource(R.string.phase_guide_title),
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -73,7 +75,7 @@ fun CyclePhaseGuideScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -92,14 +94,14 @@ fun CyclePhaseGuideScreen(
         ) {
             // ── Intro ────────────────────────────────────────
             Text(
-                text = "Understanding your cycle",
+                text = stringResource(R.string.phase_guide_intro_title),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Your menstrual cycle has four distinct phases, each with unique hormonal changes that affect how you feel physically and emotionally.",
+                text = stringResource(R.string.phase_guide_intro_desc),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -134,7 +136,7 @@ private fun PhaseTimelineBar() {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Your Cycle at a Glance",
+                text = stringResource(R.string.phase_guide_at_a_glance),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -183,10 +185,10 @@ private fun PhaseTimelineBar() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                TimelineLegendItem(color = PeriodRed, label = "Menstrual")
-                TimelineLegendItem(color = PredictedPurple, label = "Follicular")
-                TimelineLegendItem(color = OvulationYellow, label = "Ovulation")
-                TimelineLegendItem(color = FertileGreen, label = "Luteal")
+                TimelineLegendItem(color = PeriodRed, label = stringResource(R.string.phase_menstrual))
+                TimelineLegendItem(color = PredictedPurple, label = stringResource(R.string.phase_follicular))
+                TimelineLegendItem(color = OvulationYellow, label = stringResource(R.string.phase_ovulation))
+                TimelineLegendItem(color = FertileGreen, label = stringResource(R.string.phase_luteal))
             }
         }
     }
@@ -259,7 +261,7 @@ private fun PhaseGuideCard(guide: PhaseGuide) {
                 }
                 Icon(
                     if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                    contentDescription = if (expanded) "Collapse" else "Expand",
+                    contentDescription = if (expanded) stringResource(R.string.collapse) else stringResource(R.string.expand),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -283,7 +285,7 @@ private fun PhaseGuideCard(guide: PhaseGuide) {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     EducationSection(
-                        title = "\uD83D\uDD2C What Happens",
+                        title = "\uD83D\uDD2C ${stringResource(R.string.phase_guide_what_happens)}",
                         items = guide.whatHappens,
                         accentColor = accentColor
                     )
@@ -291,7 +293,7 @@ private fun PhaseGuideCard(guide: PhaseGuide) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     EducationSection(
-                        title = "\uD83E\uDE7A Common Symptoms",
+                        title = "\uD83E\uDE7A ${stringResource(R.string.phase_guide_common_symptoms)}",
                         items = guide.commonSymptoms,
                         accentColor = accentColor
                     )
@@ -299,7 +301,7 @@ private fun PhaseGuideCard(guide: PhaseGuide) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     EducationSection(
-                        title = "\uD83D\uDC9C Self-Care Tips",
+                        title = "\uD83D\uDC9C ${stringResource(R.string.phase_guide_self_care)}",
                         items = guide.selfCareTips,
                         accentColor = accentColor
                     )
@@ -307,7 +309,7 @@ private fun PhaseGuideCard(guide: PhaseGuide) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     EducationSection(
-                        title = "\uD83E\uDD57 Nutrition",
+                        title = "\uD83E\uDD57 ${stringResource(R.string.phase_guide_nutrition)}",
                         items = guide.nutritionTips,
                         accentColor = accentColor
                     )
@@ -315,7 +317,7 @@ private fun PhaseGuideCard(guide: PhaseGuide) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     EducationSection(
-                        title = "\uD83C\uDFCB\uFE0F Exercise",
+                        title = "\uD83C\uDFCB\uFE0F ${stringResource(R.string.phase_guide_exercise)}",
                         items = guide.exerciseTips,
                         accentColor = accentColor
                     )

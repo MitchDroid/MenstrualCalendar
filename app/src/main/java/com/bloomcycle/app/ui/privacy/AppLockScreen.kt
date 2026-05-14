@@ -16,9 +16,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 
 /**
  * Lock screen shown when biometric authentication is enabled
@@ -46,7 +48,7 @@ fun AppLockScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = "\uD83C\uDF38 BloomCycle",
+            text = stringResource(R.string.lock_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
@@ -55,7 +57,7 @@ fun AppLockScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Your health data is protected",
+            text = stringResource(R.string.lock_protected),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center
@@ -64,7 +66,7 @@ fun AppLockScreen(
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = "Authenticate to access BloomCycle",
+            text = stringResource(R.string.lock_authenticate),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
@@ -74,7 +76,7 @@ fun AppLockScreen(
 
         Button(onClick = onUnlockClick) {
             Text(
-                text = "Unlock",
+                text = stringResource(R.string.lock_unlock),
                 fontWeight = FontWeight.SemiBold
             )
         }

@@ -32,10 +32,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.bloomcycle.app.R
 import com.bloomcycle.app.ui.theme.FertileGreen
 import com.bloomcycle.app.ui.theme.PredictedPurple
 
@@ -70,13 +72,13 @@ fun InsightsScreen(
     ) {
         // ── Header ───────────────────────────────────────
         Text(
-            text = "Insights",
+            text = stringResource(R.string.insights_title),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
         )
         Text(
-            text = "Your cycle analytics & predictions",
+            text = stringResource(R.string.insights_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -130,14 +132,14 @@ fun InsightsScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "\uD83D\uDCDA  Learn & Understand",
+            text = stringResource(R.string.insights_learn_section),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "Deepen your understanding of your body",
+            text = stringResource(R.string.insights_learn_subtitle),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -146,8 +148,8 @@ fun InsightsScreen(
 
         EducationNavigationCard(
             icon = Icons.Filled.Psychology,
-            title = "Cycle Phase Guide",
-            subtitle = "Learn what happens in each phase of your cycle",
+            title = stringResource(R.string.insights_cycle_phase_guide),
+            subtitle = stringResource(R.string.insights_cycle_phase_guide_desc),
             accentColor = PredictedPurple,
             onClick = onNavigateToCycleGuide
         )
@@ -156,8 +158,8 @@ fun InsightsScreen(
 
         EducationNavigationCard(
             icon = Icons.Filled.MenuBook,
-            title = "Symptom Guide",
-            subtitle = "Understand and manage your symptoms",
+            title = stringResource(R.string.insights_symptom_guide),
+            subtitle = stringResource(R.string.insights_symptom_guide_desc),
             accentColor = MaterialTheme.colorScheme.tertiary,
             onClick = onNavigateToSymptomGuide
         )
@@ -166,8 +168,8 @@ fun InsightsScreen(
 
         EducationNavigationCard(
             icon = Icons.Filled.AutoAwesome,
-            title = "Health Tips",
-            subtitle = "Phase-aware wellness tips for nutrition, exercise & more",
+            title = stringResource(R.string.insights_health_tips),
+            subtitle = stringResource(R.string.insights_health_tips_desc),
             accentColor = FertileGreen,
             onClick = {
                 val phaseArg = uiState.prediction?.currentPhase?.name
@@ -226,7 +228,7 @@ private fun EducationNavigationCard(
             }
             Icon(
                 Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = "Go",
+                contentDescription = stringResource(R.string.go),
                 modifier = Modifier.size(20.dp),
                 tint = accentColor
             )

@@ -16,9 +16,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 
 @Composable
 fun WelcomeStep(
@@ -34,7 +36,7 @@ fun WelcomeStep(
         // Brand icon
         Icon(
             imageVector = Icons.Filled.Spa,
-            contentDescription = "BloomCycle",
+            contentDescription = stringResource(R.string.app_name),
             modifier = Modifier.size(96.dp),
             tint = MaterialTheme.colorScheme.primary
         )
@@ -42,7 +44,7 @@ fun WelcomeStep(
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
-            text = "Welcome to\nBloomCycle",
+            text = stringResource(R.string.welcome_title),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -52,7 +54,7 @@ fun WelcomeStep(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Your personal menstrual health companion.\nPrivate, beautiful, and designed with care.",
+            text = stringResource(R.string.welcome_description),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -64,17 +66,17 @@ fun WelcomeStep(
         // Feature highlights
         FeatureItem(
             emoji = "\uD83C\uDF38",
-            text = "Track your cycle with ease"
+            text = stringResource(R.string.welcome_feature_track)
         )
         Spacer(modifier = Modifier.height(12.dp))
         FeatureItem(
             emoji = "\uD83D\uDD12",
-            text = "Your data stays on your device"
+            text = stringResource(R.string.welcome_feature_privacy)
         )
         Spacer(modifier = Modifier.height(12.dp))
         FeatureItem(
             emoji = "\uD83D\uDCA1",
-            text = "Get personalized insights"
+            text = stringResource(R.string.welcome_feature_insights)
         )
     }
 }

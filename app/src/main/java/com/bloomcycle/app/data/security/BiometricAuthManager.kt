@@ -8,6 +8,7 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.bloomcycle.app.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -95,8 +96,8 @@ class BiometricAuthManager @Inject constructor(
         }
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("BloomCycle Locked")
-            .setSubtitle("Verify your identity to access your health data")
+            .setTitle(context.getString(R.string.biometric_prompt_title))
+            .setSubtitle(context.getString(R.string.biometric_prompt_subtitle))
             .setAllowedAuthenticators(BIOMETRIC_STRONG or BIOMETRIC_WEAK or DEVICE_CREDENTIAL)
             .build()
 

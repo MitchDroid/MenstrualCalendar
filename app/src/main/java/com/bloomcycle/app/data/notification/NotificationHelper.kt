@@ -40,27 +40,27 @@ class NotificationHelper @Inject constructor(
 
             val periodChannel = NotificationChannel(
                 CHANNEL_PERIOD_REMINDER,
-                "Period Reminders",
+                context.getString(R.string.notif_channel_period),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Reminders before your next predicted period"
+                description = context.getString(R.string.notif_channel_period_desc)
                 enableVibration(true)
             }
 
             val dailyChannel = NotificationChannel(
                 CHANNEL_DAILY_REMINDER,
-                "Daily Log Reminders",
+                context.getString(R.string.notif_channel_daily),
                 NotificationManager.IMPORTANCE_DEFAULT
             ).apply {
-                description = "Daily reminders to log your symptoms and mood"
+                description = context.getString(R.string.notif_channel_daily_desc)
             }
 
             val fertileChannel = NotificationChannel(
                 CHANNEL_FERTILE_WINDOW,
-                "Fertile Window Alerts",
+                context.getString(R.string.notif_channel_fertile),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Notifications when your fertile window begins"
+                description = context.getString(R.string.notif_channel_fertile_desc)
                 enableVibration(true)
             }
 
@@ -74,14 +74,14 @@ class NotificationHelper @Inject constructor(
 
     fun showPeriodReminder(daysUntil: Int) {
         val title = when {
-            daysUntil == 0 -> "\uD83C\uDF3A Period starting today"
-            daysUntil == 1 -> "\uD83C\uDF3A Period expected tomorrow"
-            else -> "\uD83C\uDF3A Period in $daysUntil days"
+            daysUntil == 0 -> context.getString(R.string.notif_period_today_title)
+            daysUntil == 1 -> context.getString(R.string.notif_period_tomorrow_title)
+            else -> context.getString(R.string.notif_period_days_title, daysUntil)
         }
         val message = when {
-            daysUntil == 0 -> "Your period is predicted to start today. Be prepared and take care of yourself!"
-            daysUntil == 1 -> "Your period is likely starting tomorrow. Stock up on supplies and plan for comfort."
-            else -> "Your next period is predicted in $daysUntil days. Time to prepare!"
+            daysUntil == 0 -> context.getString(R.string.notif_period_today_body)
+            daysUntil == 1 -> context.getString(R.string.notif_period_tomorrow_body)
+            else -> context.getString(R.string.notif_period_days_body, daysUntil)
         }
 
         showNotification(
@@ -96,21 +96,21 @@ class NotificationHelper @Inject constructor(
         showNotification(
             channelId = CHANNEL_DAILY_REMINDER,
             notificationId = NOTIFICATION_DAILY_REMINDER,
-            title = "\uD83D\uDCDD Time to log your day",
-            message = "Take a moment to record your symptoms, mood, and flow. Consistent tracking unlocks better insights!"
+            title = context.getString(R.string.notif_daily_title),
+            message = context.getString(R.string.notif_daily_body)
         )
     }
 
     fun showFertileWindowAlert(isStarting: Boolean) {
         val title = if (isStarting) {
-            "\u2728 Fertile window starting"
+            context.getString(R.string.notif_fertile_starting_title)
         } else {
-            "\u2728 You're in your fertile window"
+            context.getString(R.string.notif_fertile_active_title)
         }
         val message = if (isStarting) {
-            "Your fertile window is beginning. Check the Insights tab for details."
+            context.getString(R.string.notif_fertile_starting_body)
         } else {
-            "You're currently in your fertile window. Open BloomCycle for more information."
+            context.getString(R.string.notif_fertile_active_body)
         }
 
         showNotification(

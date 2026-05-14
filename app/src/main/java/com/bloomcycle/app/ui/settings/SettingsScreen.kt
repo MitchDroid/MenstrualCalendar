@@ -55,6 +55,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.ui.res.stringResource
+import com.bloomcycle.app.R
 import com.bloomcycle.app.ui.theme.InfoBlue
 import com.bloomcycle.app.ui.theme.PeriodRed
 import kotlin.math.roundToInt
@@ -101,13 +103,13 @@ fun SettingsScreen(
     ) {
         // ── Header ───────────────────────────────────────
         Text(
-            text = "Settings",
+            text = stringResource(R.string.settings_title),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
         )
         Text(
-            text = "Notifications, privacy & preferences",
+            text = stringResource(R.string.settings_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -133,7 +135,7 @@ fun SettingsScreen(
         // ── Notifications Section ────────────────────────
         SectionHeader(
             icon = Icons.Filled.Notifications,
-            title = "Notifications"
+            title = stringResource(R.string.settings_notifications)
         )
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -146,8 +148,8 @@ fun SettingsScreen(
         ) {
             Column(modifier = Modifier.padding(4.dp)) {
                 SettingsToggleRow(
-                    title = "Period Reminders",
-                    subtitle = "Get notified before your next period starts",
+                    title = stringResource(R.string.settings_period_reminders),
+                    subtitle = stringResource(R.string.settings_period_reminders_desc),
                     emoji = "\uD83C\uDF3A",
                     checked = uiState.periodRemindersEnabled,
                     onCheckedChange = { viewModel.setPeriodReminders(it) }
@@ -166,8 +168,8 @@ fun SettingsScreen(
                 )
 
                 SettingsToggleRow(
-                    title = "Daily Log Reminders",
-                    subtitle = "Reminder to log your symptoms and mood each day",
+                    title = stringResource(R.string.settings_daily_log_reminders),
+                    subtitle = stringResource(R.string.settings_daily_log_reminders_desc),
                     emoji = "\uD83D\uDCDD",
                     checked = uiState.dailyLogRemindersEnabled,
                     onCheckedChange = { viewModel.setDailyLogReminders(it) }
@@ -179,8 +181,8 @@ fun SettingsScreen(
                 )
 
                 SettingsToggleRow(
-                    title = "Fertile Window Alerts",
-                    subtitle = "Get notified when your fertile window begins",
+                    title = stringResource(R.string.settings_fertile_window_alerts),
+                    subtitle = stringResource(R.string.settings_fertile_window_alerts_desc),
                     emoji = "\u2728",
                     checked = uiState.fertileWindowAlertsEnabled,
                     onCheckedChange = { viewModel.setFertileWindowAlerts(it) }
@@ -193,7 +195,7 @@ fun SettingsScreen(
         // ── Privacy & Security Section ───────────────────
         SectionHeader(
             icon = Icons.Filled.Shield,
-            title = "Privacy & Security"
+            title = stringResource(R.string.settings_privacy_security)
         )
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -207,11 +209,11 @@ fun SettingsScreen(
             Column(modifier = Modifier.padding(4.dp)) {
                 // Biometric lock
                 SettingsToggleRow(
-                    title = "Biometric Lock",
+                    title = stringResource(R.string.settings_biometric_lock),
                     subtitle = if (uiState.biometricAvailable)
-                        "Require fingerprint or face to open the app"
+                        stringResource(R.string.settings_biometric_available_desc)
                     else
-                        "Not available on this device",
+                        stringResource(R.string.settings_biometric_unavailable_desc),
                     emoji = "\uD83D\uDD10",
                     checked = uiState.biometricEnabled,
                     onCheckedChange = { viewModel.setBiometricEnabled(it) },
@@ -225,8 +227,8 @@ fun SettingsScreen(
 
                 // Screen security
                 SettingsToggleRow(
-                    title = "Screen Security",
-                    subtitle = "Block screenshots and screen recordings",
+                    title = stringResource(R.string.settings_screen_security),
+                    subtitle = stringResource(R.string.settings_screen_security_desc),
                     emoji = "\uD83D\uDCF7",
                     checked = uiState.screenSecurityEnabled,
                     onCheckedChange = { viewModel.setScreenSecurity(it) }
@@ -252,20 +254,20 @@ fun SettingsScreen(
                     )
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Privacy & Data Policy",
+                            text = stringResource(R.string.settings_privacy_policy),
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = "How your data is stored and protected",
+                            text = stringResource(R.string.settings_privacy_policy_desc),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowForward,
-                        contentDescription = "View",
+                        contentDescription = stringResource(R.string.view),
                         modifier = Modifier.size(18.dp),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -278,7 +280,7 @@ fun SettingsScreen(
         // ── Cycle Settings Section ───────────────────────
         SectionHeader(
             icon = Icons.Filled.CalendarMonth,
-            title = "Cycle Settings"
+            title = stringResource(R.string.settings_cycle_settings)
         )
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -291,10 +293,10 @@ fun SettingsScreen(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 CycleSettingSlider(
-                    label = "Average Cycle Length",
+                    label = stringResource(R.string.settings_avg_cycle_length),
                     value = uiState.averageCycleLength,
                     range = 18f..45f,
-                    unit = "days",
+                    unit = stringResource(R.string.days),
                     onValueChange = { viewModel.setCycleLength(it) }
                 )
 
@@ -303,10 +305,10 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 CycleSettingSlider(
-                    label = "Average Period Duration",
+                    label = stringResource(R.string.settings_avg_period_duration),
                     value = uiState.averagePeriodDuration,
                     range = 1f..14f,
-                    unit = "days",
+                    unit = stringResource(R.string.days),
                     onValueChange = { viewModel.setPeriodDuration(it) }
                 )
             }
@@ -317,8 +319,8 @@ fun SettingsScreen(
         // ── Reports & Export ─────────────────────────────
         NavigationCard(
             icon = Icons.Filled.Description,
-            title = "Reports & Export",
-            subtitle = "View cycle history, stats, and export your data",
+            title = stringResource(R.string.settings_reports_export),
+            subtitle = stringResource(R.string.settings_reports_export_desc),
             accentColor = InfoBlue,
             onClick = onNavigateToReports
         )
@@ -338,14 +340,14 @@ fun SettingsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Danger Zone",
+                    text = stringResource(R.string.settings_danger_zone),
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Bold,
                     color = PeriodRed
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Permanently delete all your data including logs, preferences, and cycle history. This cannot be undone.",
+                    text = stringResource(R.string.settings_delete_warning),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                     textAlign = TextAlign.Center
@@ -365,7 +367,7 @@ fun SettingsScreen(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "Delete All Data",
+                        text = stringResource(R.string.settings_delete_all_data),
                         fontWeight = FontWeight.SemiBold
                     )
                 }
@@ -386,19 +388,19 @@ fun SettingsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "\uD83C\uDF38 BloomCycle",
+                    text = "\uD83C\uDF38 ${stringResource(R.string.app_name)}",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Text(
-                    text = "Version 1.0",
+                    text = stringResource(R.string.settings_version),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Privacy-first menstrual health tracking.\nAll data stays on your device.",
+                    text = stringResource(R.string.settings_about_description),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
@@ -429,13 +431,13 @@ private fun DeleteConfirmationDialog(
         },
         title = {
             Text(
-                text = "Delete All Data?",
+                text = stringResource(R.string.settings_delete_dialog_title),
                 fontWeight = FontWeight.Bold
             )
         },
         text = {
             Text(
-                text = "This will permanently delete all your daily logs, cycle data, preferences, and notification settings. This action cannot be undone.\n\nConsider exporting your data first from Reports & Export.",
+                text = stringResource(R.string.settings_delete_dialog_body),
                 style = MaterialTheme.typography.bodyMedium
             )
         },
@@ -446,12 +448,12 @@ private fun DeleteConfirmationDialog(
                     containerColor = PeriodRed
                 )
             ) {
-                Text("Delete Everything")
+                Text(stringResource(R.string.settings_delete_everything))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -481,7 +483,7 @@ private fun PermissionBanner(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Notifications Disabled",
+                    text = stringResource(R.string.settings_notif_disabled_title),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     color = PeriodRed
@@ -489,17 +491,17 @@ private fun PermissionBanner(
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "BloomCycle needs notification permission to send period reminders and alerts.",
+                text = stringResource(R.string.settings_notif_disabled_body),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
             )
             Spacer(modifier = Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 TextButton(onClick = onGrantPermission) {
-                    Text("Grant Permission")
+                    Text(stringResource(R.string.settings_grant_permission))
                 }
                 TextButton(onClick = onOpenSettings) {
-                    Text("Open Settings")
+                    Text(stringResource(R.string.settings_open_settings))
                 }
             }
         }
@@ -553,7 +555,7 @@ private fun NavigationCard(
             }
             Icon(
                 Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = "Go",
+                contentDescription = stringResource(R.string.go),
                 modifier = Modifier.size(20.dp),
                 tint = accentColor
             )
@@ -645,12 +647,15 @@ private fun ReminderDaysSlider(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Remind me",
+                text = stringResource(R.string.settings_remind_me),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = "$daysBefore day${if (daysBefore > 1) "s" else ""} before",
+                text = if (daysBefore > 1)
+                    stringResource(R.string.settings_days_before, daysBefore)
+                else
+                    stringResource(R.string.settings_day_before, daysBefore),
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.primary

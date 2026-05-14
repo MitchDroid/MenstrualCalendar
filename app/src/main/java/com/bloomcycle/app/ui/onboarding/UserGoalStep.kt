@@ -25,9 +25,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.model.UserGoal
 
 @Composable
@@ -44,7 +46,7 @@ fun UserGoalStep(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "What's your\nmain goal?",
+            text = stringResource(R.string.user_goal_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -54,7 +56,7 @@ fun UserGoalStep(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "This helps us personalize your experience.\nYou can change this anytime in settings.",
+            text = stringResource(R.string.user_goal_description),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -67,8 +69,8 @@ fun UserGoalStep(
         GoalCard(
             goal = UserGoal.TRACK_CYCLE,
             icon = Icons.Filled.CalendarMonth,
-            title = "Track My Cycle",
-            description = "Keep track of periods and understand patterns",
+            title = stringResource(R.string.goal_track_cycle),
+            description = stringResource(R.string.goal_track_cycle_desc),
             isSelected = selectedGoal == UserGoal.TRACK_CYCLE,
             onClick = { onGoalSelected(UserGoal.TRACK_CYCLE) }
         )
@@ -78,8 +80,8 @@ fun UserGoalStep(
         GoalCard(
             goal = UserGoal.TRYING_TO_CONCEIVE,
             icon = Icons.Filled.ChildCare,
-            title = "Trying to Conceive",
-            description = "Track fertile days and ovulation window",
+            title = stringResource(R.string.goal_conceive),
+            description = stringResource(R.string.goal_conceive_desc),
             isSelected = selectedGoal == UserGoal.TRYING_TO_CONCEIVE,
             onClick = { onGoalSelected(UserGoal.TRYING_TO_CONCEIVE) }
         )
@@ -89,8 +91,8 @@ fun UserGoalStep(
         GoalCard(
             goal = UserGoal.AVOID_PREGNANCY,
             icon = Icons.Filled.Shield,
-            title = "Avoid Pregnancy",
-            description = "Know your fertile window for planning",
+            title = stringResource(R.string.goal_avoid_pregnancy),
+            description = stringResource(R.string.goal_avoid_pregnancy_desc),
             isSelected = selectedGoal == UserGoal.AVOID_PREGNANCY,
             onClick = { onGoalSelected(UserGoal.AVOID_PREGNANCY) }
         )
@@ -100,8 +102,8 @@ fun UserGoalStep(
         GoalCard(
             goal = UserGoal.MONITOR_HEALTH,
             icon = Icons.Filled.MonitorHeart,
-            title = "Monitor Health",
-            description = "Track symptoms and overall wellness",
+            title = stringResource(R.string.goal_monitor_health),
+            description = stringResource(R.string.goal_monitor_health_desc),
             isSelected = selectedGoal == UserGoal.MONITOR_HEALTH,
             onClick = { onGoalSelected(UserGoal.MONITOR_HEALTH) }
         )

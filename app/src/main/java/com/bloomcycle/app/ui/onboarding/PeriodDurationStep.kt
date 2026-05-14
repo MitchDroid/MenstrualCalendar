@@ -25,9 +25,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 
 @Composable
 fun PeriodDurationStep(
@@ -43,7 +45,7 @@ fun PeriodDurationStep(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "How long does\nyour period last?",
+            text = stringResource(R.string.period_duration_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -53,7 +55,7 @@ fun PeriodDurationStep(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "The average period lasts 3-7 days.\nThis helps us track your flow accurately.",
+            text = stringResource(R.string.period_duration_description),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -82,7 +84,7 @@ fun PeriodDurationStep(
                     color = MaterialTheme.colorScheme.onTertiaryContainer
                 )
                 Text(
-                    text = "days",
+                    text = stringResource(R.string.days),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f)
                 )
@@ -106,7 +108,7 @@ fun PeriodDurationStep(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Remove,
-                    contentDescription = "Decrease",
+                    contentDescription = stringResource(R.string.cycle_length_decrease),
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -123,7 +125,7 @@ fun PeriodDurationStep(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "Increase",
+                    contentDescription = stringResource(R.string.cycle_length_increase),
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -150,12 +152,12 @@ fun PeriodDurationStep(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "1 day",
+                text = stringResource(R.string.period_duration_min),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = "14 days",
+                text = stringResource(R.string.period_duration_max),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

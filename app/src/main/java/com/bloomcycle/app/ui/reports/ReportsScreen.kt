@@ -51,6 +51,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.ui.res.stringResource
+import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.usecase.CycleHistoryEntry
 import com.bloomcycle.app.domain.usecase.CycleSummaryReport
 import com.bloomcycle.app.ui.theme.FertileGreen
@@ -89,7 +91,7 @@ fun ReportsScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Reports & Export",
+                        text = stringResource(R.string.reports_title),
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -97,7 +99,7 @@ fun ReportsScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -180,6 +182,8 @@ fun ReportsScreen(
 private fun OverviewCard(report: CycleSummaryReport) {
     val dateFormat = DateTimeFormatter.ofPattern("MMM d, yyyy")
 
+    val dateStr = report.generatedAt.format(dateFormat)
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -188,14 +192,14 @@ private fun OverviewCard(report: CycleSummaryReport) {
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "\uD83D\uDCCA  Report Overview",
+                text = stringResource(R.string.reports_overview),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Generated ${report.generatedAt.format(dateFormat)}",
+                text = stringResource(R.string.reports_generated, dateStr),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
             )
@@ -208,22 +212,22 @@ private fun OverviewCard(report: CycleSummaryReport) {
             ) {
                 OverviewStat(
                     value = "${report.totalDaysTracked}",
-                    label = "Days\nTracked",
+                    label = stringResource(R.string.reports_days_tracked),
                     color = MaterialTheme.colorScheme.primary
                 )
                 OverviewStat(
                     value = "${report.totalPeriodsDetected}",
-                    label = "Periods\nDetected",
+                    label = stringResource(R.string.reports_periods_detected),
                     color = PeriodRed
                 )
                 OverviewStat(
                     value = report.averageCycleLength?.let { String.format("%.0f", it) } ?: "—",
-                    label = "Avg Cycle\n(days)",
+                    label = stringResource(R.string.reports_avg_cycle_days),
                     color = PredictedPurple
                 )
                 OverviewStat(
                     value = report.averagePeriodLength?.let { String.format("%.0f", it) } ?: "—",
-                    label = "Avg Period\n(days)",
+                    label = stringResource(R.string.reports_avg_period_days),
                     color = FertileGreen
                 )
             }
@@ -237,7 +241,7 @@ private fun OverviewCard(report: CycleSummaryReport) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Tracking period: $firstDate — $lastDate",
+                text = stringResource(R.string.reports_tracking_period, "$firstDate — $lastDate"),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f),
                 modifier = Modifier.fillMaxWidth(),
@@ -280,14 +284,17 @@ private fun CycleHistoryCard(history: List<CycleHistoryEntry>) {
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "\uD83D\uDCC5  Cycle History",
+                text = stringResource(R.string.reports_cycle_history),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "${history.size} period${if (history.size != 1) "s" else ""} detected from your flow data",
+                text = if (history.size != 1)
+                    stringResource(R.string.reports_periods_detected_plural, history.size)
+                else
+                    stringResource(R.string.reports_period_detected_singular, history.size),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -353,18 +360,18 @@ private fun CycleHistoryRow(
             )
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(
-                    text = "${entry.periodLength}d period",
+                    text = stringResource(R.string.reports_period_duration, entry.periodLength),
                     style = MaterialTheme.typography.labelSmall,
                     color = PeriodRed
                 )
                 entry.cycleLength?.let { len ->
                     Text(
-                        text = "${len}d cycle",
+                        text = stringResource(R.string.reports_cycle_duration, len),
                         style = MaterialTheme.typography.labelSmall,
                         color = PredictedPurple
                     )
                 } ?: Text(
-                    text = "current cycle",
+                    text = stringResource(R.string.reports_current_cycle),
                     style = MaterialTheme.typography.labelSmall,
                     color = FertileGreen,
                     fontWeight = FontWeight.SemiBold
@@ -379,7 +386,7 @@ private fun CycleHistoryRow(
                     .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
                 Text(
-                    text = "Latest",
+                    text = stringResource(R.string.reports_latest),
                     style = MaterialTheme.typography.labelSmall,
                     color = PeriodRed,
                     fontWeight = FontWeight.Bold
@@ -402,7 +409,7 @@ private fun StatisticsSummaryCard(report: CycleSummaryReport) {
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "\uD83D\uDCC8  Cycle Statistics",
+                text = stringResource(R.string.reports_cycle_statistics),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -415,21 +422,21 @@ private fun StatisticsSummaryCard(report: CycleSummaryReport) {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 MiniStat(
-                    label = "Shortest",
+                    label = stringResource(R.string.reports_shortest),
                     value = "${report.shortestCycle ?: "—"}",
-                    unit = "days",
+                    unit = stringResource(R.string.days),
                     color = FertileGreen
                 )
                 MiniStat(
-                    label = "Average",
+                    label = stringResource(R.string.reports_average),
                     value = report.averageCycleLength?.let { String.format("%.1f", it) } ?: "—",
-                    unit = "days",
+                    unit = stringResource(R.string.days),
                     color = PredictedPurple
                 )
                 MiniStat(
-                    label = "Longest",
+                    label = stringResource(R.string.reports_longest),
                     value = "${report.longestCycle ?: "—"}",
-                    unit = "days",
+                    unit = stringResource(R.string.days),
                     color = PeriodRed
                 )
             }
@@ -441,10 +448,10 @@ private fun StatisticsSummaryCard(report: CycleSummaryReport) {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     val regularity = when {
-                        stats.cycleVariation <= 2 -> "Very regular"
-                        stats.cycleVariation <= 5 -> "Fairly regular"
-                        stats.cycleVariation <= 8 -> "Somewhat irregular"
-                        else -> "Irregular"
+                        stats.cycleVariation <= 2 -> stringResource(R.string.reports_very_regular)
+                        stats.cycleVariation <= 5 -> stringResource(R.string.reports_fairly_regular)
+                        stats.cycleVariation <= 8 -> stringResource(R.string.reports_somewhat_irregular)
+                        else -> stringResource(R.string.reports_irregular)
                     }
                     val regularityColor = when {
                         stats.cycleVariation <= 2 -> SuccessGreen
@@ -465,7 +472,7 @@ private fun StatisticsSummaryCard(report: CycleSummaryReport) {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "$regularity (±${stats.cycleVariation} days variation)",
+                            text = "$regularity (±${stringResource(R.string.reports_days_variation, stats.cycleVariation)})",
                             style = MaterialTheme.typography.bodySmall,
                             color = regularityColor,
                             fontWeight = FontWeight.SemiBold
@@ -512,7 +519,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "\uD83E\uDDA0  Health Summary",
+                text = stringResource(R.string.reports_health_summary),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -522,7 +529,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
             if (report.symptomFrequencies.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Most frequent symptoms",
+                    text = stringResource(R.string.reports_frequent_symptoms),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold
@@ -541,7 +548,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = "${freq.count} days (${(freq.percentage * 100).toInt()}%)",
+                            text = stringResource(R.string.reports_days_percent, freq.count, (freq.percentage * 100).toInt()),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -555,7 +562,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
                 HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Most logged moods",
+                    text = stringResource(R.string.reports_frequent_moods),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.SemiBold
@@ -574,7 +581,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = "${mood.count} days (${(mood.percentage * 100).toInt()}%)",
+                            text = stringResource(R.string.reports_days_percent, mood.count, (mood.percentage * 100).toInt()),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -588,7 +595,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
                 HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Flow breakdown",
+                    text = stringResource(R.string.reports_flow_breakdown),
                     style = MaterialTheme.typography.labelMedium,
                     color = PeriodRed,
                     fontWeight = FontWeight.SemiBold
@@ -607,7 +614,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = "${flow.dayCount} days (${(flow.percentage * 100).toInt()}%)",
+                            text = stringResource(R.string.reports_days_percent, flow.dayCount, (flow.percentage * 100).toInt()),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -634,14 +641,14 @@ private fun ExportCard(
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "\uD83D\uDCE4  Export Your Data",
+                text = stringResource(R.string.reports_export_title),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Your data belongs to you. Export it anytime.",
+                text = stringResource(R.string.reports_export_description),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
             )
@@ -651,8 +658,8 @@ private fun ExportCard(
             // CSV Export
             ExportButton(
                 icon = Icons.Filled.TableChart,
-                label = "Export CSV",
-                description = "Spreadsheet-compatible daily log data",
+                label = stringResource(R.string.reports_export_csv),
+                description = stringResource(R.string.reports_export_csv_desc),
                 onClick = onExportCsv,
                 isPrimary = true
             )
@@ -662,8 +669,8 @@ private fun ExportCard(
             // Text Report Export
             ExportButton(
                 icon = Icons.Filled.FileDownload,
-                label = "Export Report",
-                description = "Formatted text summary as .txt file",
+                label = stringResource(R.string.reports_export_report),
+                description = stringResource(R.string.reports_export_report_desc),
                 onClick = onExportTextFile,
                 isPrimary = false
             )
@@ -673,8 +680,8 @@ private fun ExportCard(
             // Quick Share
             ExportButton(
                 icon = Icons.Filled.Share,
-                label = "Quick Share",
-                description = "Share summary text to any app",
+                label = stringResource(R.string.reports_quick_share),
+                description = stringResource(R.string.reports_quick_share_desc),
                 onClick = onShareText,
                 isPrimary = false
             )
@@ -753,7 +760,7 @@ private fun EmptyReportsState(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "No data to report yet",
+            text = stringResource(R.string.reports_empty_title),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -761,7 +768,7 @@ private fun EmptyReportsState(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Start logging your daily symptoms, mood, and flow to generate reports and export your health data.",
+            text = stringResource(R.string.reports_empty_description),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center

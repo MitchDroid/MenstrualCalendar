@@ -28,9 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.model.FlowIntensity
 import com.bloomcycle.app.domain.model.Mood
 import com.bloomcycle.app.domain.model.Symptom
@@ -70,7 +72,7 @@ fun PredictionCard(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Upcoming Predictions",
+                    text = stringResource(R.string.insights_upcoming_predictions),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -82,16 +84,16 @@ fun PredictionCard(
             // Timeline items
             PredictionTimelineItem(
                 color = PeriodRed,
-                label = "Next Period",
+                label = stringResource(R.string.insights_next_period),
                 dateRange = "${prediction.nextPeriodStart.format(dateFormat)} – ${prediction.nextPeriodEnd.format(dateFormat)}",
-                daysAway = "${prediction.daysUntilNextPeriod} days away"
+                daysAway = "${prediction.daysUntilNextPeriod} ${stringResource(R.string.insights_days_away)}"
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
             PredictionTimelineItem(
                 color = FertileGreen,
-                label = "Fertile Window",
+                label = stringResource(R.string.insights_fertile_window),
                 dateRange = "${prediction.fertileWindowStart.format(dateFormat)} – ${prediction.fertileWindowEnd.format(dateFormat)}",
                 daysAway = null
             )
@@ -100,7 +102,7 @@ fun PredictionCard(
 
             PredictionTimelineItem(
                 color = OvulationYellow,
-                label = "Ovulation",
+                label = stringResource(R.string.insights_ovulation),
                 dateRange = prediction.ovulationDate.format(dateFormat),
                 daysAway = null
             )
@@ -165,7 +167,7 @@ fun CycleStatsCard(
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "\uD83D\uDCC8  Cycle Statistics",
+                text = stringResource(R.string.insights_cycle_statistics),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -179,18 +181,18 @@ fun CycleStatsCard(
             ) {
                 StatItem(
                     value = String.format("%.1f", stats.averageCycleLength),
-                    label = "Avg Cycle",
-                    unit = "days"
+                    label = stringResource(R.string.insights_avg_cycle),
+                    unit = stringResource(R.string.days)
                 )
                 StatItem(
                     value = String.format("%.1f", stats.averagePeriodDuration),
-                    label = "Avg Period",
-                    unit = "days"
+                    label = stringResource(R.string.insights_avg_period),
+                    unit = stringResource(R.string.days)
                 )
                 StatItem(
                     value = "${stats.cycleVariation}",
-                    label = "Variation",
-                    unit = "days"
+                    label = stringResource(R.string.insights_variation),
+                    unit = stringResource(R.string.days)
                 )
             }
 
@@ -202,18 +204,18 @@ fun CycleStatsCard(
             ) {
                 StatItem(
                     value = "${stats.shortestCycle}",
-                    label = "Shortest",
-                    unit = "days"
+                    label = stringResource(R.string.insights_shortest),
+                    unit = stringResource(R.string.days)
                 )
                 StatItem(
                     value = "${stats.longestCycle}",
-                    label = "Longest",
-                    unit = "days"
+                    label = stringResource(R.string.insights_longest),
+                    unit = stringResource(R.string.days)
                 )
                 StatItem(
                     value = "${stats.totalDaysLogged}",
-                    label = "Days",
-                    unit = "logged"
+                    label = stringResource(R.string.insights_days_logged),
+                    unit = stringResource(R.string.insights_logged)
                 )
             }
         }
@@ -258,7 +260,7 @@ fun SymptomFrequencyCard(
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "\uD83E\uDE7A  Top Symptoms",
+                text = stringResource(R.string.insights_top_symptoms),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -295,7 +297,7 @@ fun MoodDistributionCard(
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
-                text = "\uD83D\uDE0A  Mood Trends",
+                text = stringResource(R.string.insights_mood_trends),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -340,7 +342,7 @@ fun FlowPatternCard(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Flow Pattern",
+                    text = stringResource(R.string.insights_flow_pattern),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -426,7 +428,7 @@ fun InsightsEmptyState(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Start logging to see insights",
+                text = stringResource(R.string.insights_empty_title),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface,
@@ -434,7 +436,7 @@ fun InsightsEmptyState(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Log your daily symptoms, mood, and flow to unlock personalized analytics and predictions.",
+                text = stringResource(R.string.insights_empty_description),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -451,20 +453,21 @@ fun GoalInsightCard(
     goal: com.bloomcycle.app.domain.model.UserGoal,
     modifier: Modifier = Modifier
 ) {
+    val dateFormat = DateTimeFormatter.ofPattern("MMM d")
     val (title, message) = when (goal) {
         com.bloomcycle.app.domain.model.UserGoal.TRYING_TO_CONCEIVE -> {
-            val dateFormat = DateTimeFormatter.ofPattern("MMM d")
-            "Fertility Focus" to "Your next fertile window is ${prediction.fertileWindowStart.format(dateFormat)} – ${prediction.fertileWindowEnd.format(dateFormat)}. Ovulation is expected on ${prediction.ovulationDate.format(dateFormat)}."
+            val fertileRange = "${prediction.fertileWindowStart.format(dateFormat)} – ${prediction.fertileWindowEnd.format(dateFormat)}"
+            stringResource(R.string.insights_goal_fertility_title) to stringResource(R.string.insights_goal_fertility_msg, fertileRange, prediction.ovulationDate.format(dateFormat))
         }
         com.bloomcycle.app.domain.model.UserGoal.AVOID_PREGNANCY -> {
-            val dateFormat = DateTimeFormatter.ofPattern("MMM d")
-            "Protection Reminder" to "Your fertile window is ${prediction.fertileWindowStart.format(dateFormat)} – ${prediction.fertileWindowEnd.format(dateFormat)}. Use extra precaution during this period."
+            val fertileRange = "${prediction.fertileWindowStart.format(dateFormat)} – ${prediction.fertileWindowEnd.format(dateFormat)}"
+            stringResource(R.string.insights_goal_protection_title) to stringResource(R.string.insights_goal_protection_msg, fertileRange)
         }
         com.bloomcycle.app.domain.model.UserGoal.TRACK_CYCLE -> {
-            "Cycle Tracking" to "You're on day ${prediction.currentCycleDay} of your cycle (${phaseDisplayName(prediction.currentPhase)} phase). Next period in ${prediction.daysUntilNextPeriod} days."
+            stringResource(R.string.insights_goal_tracking_title) to stringResource(R.string.insights_goal_tracking_msg, prediction.currentCycleDay, phaseDisplayName(prediction.currentPhase), prediction.daysUntilNextPeriod)
         }
         com.bloomcycle.app.domain.model.UserGoal.MONITOR_HEALTH -> {
-            "Health Monitor" to "Keep logging daily to build a comprehensive health profile. Consistent tracking reveals patterns your doctor can use."
+            stringResource(R.string.insights_goal_health_title) to stringResource(R.string.insights_goal_health_msg)
         }
     }
 
@@ -500,11 +503,12 @@ fun GoalInsightCard(
     }
 }
 
+@Composable
 private fun phaseDisplayName(phase: com.bloomcycle.app.domain.model.CyclePhase): String = when (phase) {
-    com.bloomcycle.app.domain.model.CyclePhase.MENSTRUAL -> "Menstrual"
-    com.bloomcycle.app.domain.model.CyclePhase.FOLLICULAR -> "Follicular"
-    com.bloomcycle.app.domain.model.CyclePhase.OVULATION -> "Ovulation"
-    com.bloomcycle.app.domain.model.CyclePhase.LUTEAL -> "Luteal"
+    com.bloomcycle.app.domain.model.CyclePhase.MENSTRUAL -> stringResource(R.string.phase_menstrual)
+    com.bloomcycle.app.domain.model.CyclePhase.FOLLICULAR -> stringResource(R.string.phase_follicular)
+    com.bloomcycle.app.domain.model.CyclePhase.OVULATION -> stringResource(R.string.phase_ovulation)
+    com.bloomcycle.app.domain.model.CyclePhase.LUTEAL -> stringResource(R.string.phase_luteal)
 }
 
 // ── Helpers ──────────────────────────────────────────────────
@@ -512,17 +516,18 @@ private fun phaseDisplayName(phase: com.bloomcycle.app.domain.model.CyclePhase):
 private fun formatEnum(name: String): String =
     name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
 
+@Composable
 private fun symptomDisplayName(symptom: Symptom): String = when (symptom) {
-    Symptom.CRAMPS -> "\uD83E\uDD1F Cramps"
-    Symptom.HEADACHE -> "\uD83E\uDD15 Headache"
-    Symptom.BLOATING -> "\uD83C\uDF88 Bloating"
-    Symptom.ACNE -> "\uD83D\uDCA2 Acne"
-    Symptom.MOOD_SWINGS -> "\uD83C\uDFA2 Mood swings"
-    Symptom.FATIGUE -> "\uD83D\uDE34 Fatigue"
-    Symptom.TENDER_BREASTS -> "\uD83E\uDE77 Tender breasts"
-    Symptom.BACK_PAIN -> "\uD83D\uDECB Back pain"
-    Symptom.NAUSEA -> "\uD83E\uDD22 Nausea"
-    Symptom.FOOD_CRAVINGS -> "\uD83C\uDF69 Food cravings"
+    Symptom.CRAMPS -> "\uD83E\uDD1F ${stringResource(R.string.symptom_cramps)}"
+    Symptom.HEADACHE -> "\uD83E\uDD15 ${stringResource(R.string.symptom_headache)}"
+    Symptom.BLOATING -> "\uD83C\uDF88 ${stringResource(R.string.symptom_bloating)}"
+    Symptom.ACNE -> "\uD83D\uDCA2 ${stringResource(R.string.symptom_acne)}"
+    Symptom.MOOD_SWINGS -> "\uD83C\uDFA2 ${stringResource(R.string.symptom_mood_swings)}"
+    Symptom.FATIGUE -> "\uD83D\uDE34 ${stringResource(R.string.symptom_fatigue)}"
+    Symptom.TENDER_BREASTS -> "\uD83E\uDE77 ${stringResource(R.string.symptom_tender_breasts)}"
+    Symptom.BACK_PAIN -> "\uD83D\uDECB ${stringResource(R.string.symptom_back_pain)}"
+    Symptom.NAUSEA -> "\uD83E\uDD22 ${stringResource(R.string.symptom_nausea)}"
+    Symptom.FOOD_CRAVINGS -> "\uD83C\uDF69 ${stringResource(R.string.symptom_food_cravings)}"
 }
 
 private fun moodEmoji(mood: Mood): String = when (mood) {

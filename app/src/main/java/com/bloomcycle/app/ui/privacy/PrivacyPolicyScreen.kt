@@ -23,8 +23,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 import com.bloomcycle.app.ui.theme.FertileGreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +41,7 @@ fun PrivacyPolicyScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Privacy & Data",
+                        text = stringResource(R.string.privacy_title),
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -47,7 +49,7 @@ fun PrivacyPolicyScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -74,14 +76,14 @@ fun PrivacyPolicyScreen(
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Text(
-                        text = "\uD83D\uDD12 Our Privacy Commitment",
+                        text = stringResource(R.string.privacy_commitment_title),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = FertileGreen
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "BloomCycle is designed with privacy as its foundation. Your menstrual health data is deeply personal, and we believe you should have complete control over it.",
+                        text = stringResource(R.string.privacy_commitment_body),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
                     )
@@ -92,63 +94,63 @@ fun PrivacyPolicyScreen(
 
             // ── Policy Sections ──────────────────────────
             PolicySection(
-                title = "100% Local Storage",
+                title = stringResource(R.string.privacy_local_storage_title),
                 emoji = "\uD83D\uDCF1",
-                content = "All your data — daily logs, cycle predictions, symptoms, moods, and preferences — is stored exclusively on your device. Nothing is sent to external servers, cloud services, or third parties. Your phone is the only place your data exists."
+                content = stringResource(R.string.privacy_local_storage_body)
             )
 
             PolicySection(
-                title = "No Account Required",
+                title = stringResource(R.string.privacy_no_account_title),
                 emoji = "\uD83D\uDE4B",
-                content = "BloomCycle works without any account registration, email, or personal identity information. You don't need to sign in, create a profile, or share identifying information to use any feature."
+                content = stringResource(R.string.privacy_no_account_body)
             )
 
             PolicySection(
-                title = "No Analytics or Tracking",
+                title = stringResource(R.string.privacy_no_analytics_title),
                 emoji = "\uD83D\uDEAB",
-                content = "We do not collect usage analytics, behavioral data, crash reports, or any form of telemetry. There are no tracking pixels, advertising identifiers, or third-party SDKs that monitor your activity."
+                content = stringResource(R.string.privacy_no_analytics_body)
             )
 
             PolicySection(
-                title = "No Internet Access",
+                title = stringResource(R.string.privacy_no_internet_title),
                 emoji = "\uD83C\uDF10",
-                content = "BloomCycle does not require an internet connection to function. The app works entirely offline. No data is ever transmitted over the network. If you check your device's network permissions, you'll see BloomCycle requests none."
+                content = stringResource(R.string.privacy_no_internet_body)
             )
 
             PolicySection(
-                title = "Your Data, Your Control",
+                title = stringResource(R.string.privacy_your_data_title),
                 emoji = "\u2705",
-                content = "You can export all your data at any time in CSV or text format via the Reports & Export screen. You can also permanently delete all data from Settings. When you delete data, it is immediately and irreversibly removed from your device."
+                content = stringResource(R.string.privacy_your_data_body)
             )
 
             PolicySection(
-                title = "Biometric Protection",
+                title = stringResource(R.string.privacy_biometric_title),
                 emoji = "\uD83D\uDD10",
-                content = "Enable biometric lock (fingerprint or face) to prevent unauthorized access to your health data. When enabled, you must authenticate each time you open the app. Biometric data is handled entirely by your device's secure hardware — BloomCycle never accesses or stores your biometric information."
+                content = stringResource(R.string.privacy_biometric_body)
             )
 
             PolicySection(
-                title = "Screenshot Protection",
+                title = stringResource(R.string.privacy_screenshot_title),
                 emoji = "\uD83D\uDCF7",
-                content = "Enable screen security in Settings to prevent screenshots and screen recordings of the app. This adds FLAG_SECURE to the app window, ensuring your health data cannot be captured by other apps or screen recording tools."
+                content = stringResource(R.string.privacy_screenshot_body)
             )
 
             PolicySection(
-                title = "Data Encryption",
+                title = stringResource(R.string.privacy_encryption_title),
                 emoji = "\uD83D\uDD10",
-                content = "Your data is stored in Android's Room database and DataStore, both of which reside in the app's private storage directory. This directory is protected by Android's sandboxing security model, meaning no other app can access it without root permissions."
+                content = stringResource(R.string.privacy_encryption_body)
             )
 
             PolicySection(
-                title = "Open Source Philosophy",
+                title = stringResource(R.string.privacy_open_source_title),
                 emoji = "\uD83D\uDCBB",
-                content = "BloomCycle's privacy claims are verifiable. The app requests minimal permissions (only notifications and alarms), contains no hidden network calls, and stores all data locally. You are in complete control."
+                content = stringResource(R.string.privacy_open_source_body)
             )
 
             PolicySection(
-                title = "Uninstall = Complete Deletion",
+                title = stringResource(R.string.privacy_uninstall_title),
                 emoji = "\uD83D\uDDD1\uFE0F",
-                content = "If you uninstall BloomCycle, all data is permanently deleted from your device. There is no residual data, no backups on external servers, and no way to recover your information after uninstallation unless you've exported it beforehand."
+                content = stringResource(R.string.privacy_uninstall_body)
             )
 
             // ── Contact ──────────────────────────────────
@@ -162,14 +164,14 @@ fun PrivacyPolicyScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "Questions about your privacy?",
+                        text = stringResource(R.string.privacy_questions_title),
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "BloomCycle is a personal project built with care. If you have any concerns about data handling, the entire codebase can be audited. Your trust matters.",
+                        text = stringResource(R.string.privacy_questions_body),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                     )

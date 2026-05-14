@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import com.bloomcycle.app.R
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -27,16 +29,16 @@ import androidx.navigation.compose.currentBackStackEntryAsState
  */
 private data class BottomNavItem(
     val route: String,
-    val title: String,
+    val titleResId: Int,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector
 )
 
 private val bottomNavItems = listOf(
-    BottomNavItem("home", "Home", Icons.Filled.Home, Icons.Outlined.Home),
-    BottomNavItem("calendar", "Calendar", Icons.Filled.CalendarMonth, Icons.Outlined.CalendarMonth),
-    BottomNavItem("insights", "Insights", Icons.Filled.Insights, Icons.Outlined.Insights),
-    BottomNavItem("settings", "Settings", Icons.Filled.Settings, Icons.Outlined.Settings)
+    BottomNavItem("home", R.string.nav_home, Icons.Filled.Home, Icons.Outlined.Home),
+    BottomNavItem("calendar", R.string.nav_calendar, Icons.Filled.CalendarMonth, Icons.Outlined.CalendarMonth),
+    BottomNavItem("insights", R.string.nav_insights, Icons.Filled.Insights, Icons.Outlined.Insights),
+    BottomNavItem("settings", R.string.nav_settings, Icons.Filled.Settings, Icons.Outlined.Settings)
 )
 
 @Composable
@@ -65,10 +67,10 @@ fun BloomCycleBottomBar(
                 icon = {
                     Icon(
                         imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
-                        contentDescription = item.title
+                        contentDescription = stringResource(item.titleResId)
                     )
                 },
-                label = { Text(text = item.title) },
+                label = { Text(text = stringResource(item.titleResId)) },
                 alwaysShowLabel = true
             )
         }
