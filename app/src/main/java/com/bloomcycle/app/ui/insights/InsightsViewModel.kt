@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.bloomcycle.app.data.preferences.UserPreferencesManager
 import com.bloomcycle.app.domain.model.UserGoal
 import com.bloomcycle.app.domain.repository.DailyLogRepository
+import com.bloomcycle.app.domain.usecase.CycleHistoryEntry
 import com.bloomcycle.app.domain.usecase.CyclePrediction
 import com.bloomcycle.app.domain.usecase.CyclePredictionEngine
 import com.bloomcycle.app.domain.usecase.CycleStats
@@ -21,6 +22,7 @@ import javax.inject.Inject
 data class InsightsUiState(
     val prediction: CyclePrediction? = null,
     val cycleStats: CycleStats? = null,
+    val cycleHistory: List<CycleHistoryEntry> = emptyList(),
     val symptomFrequencies: List<SymptomFrequency> = emptyList(),
     val moodDistribution: List<MoodDistribution> = emptyList(),
     val flowPatterns: List<FlowPattern> = emptyList(),
@@ -49,6 +51,7 @@ class InsightsViewModel @Inject constructor(
         }
 
         val stats = predictionEngine.computeCycleStats(logs, cycleLen, periodDur)
+        val history = predictionEngine.computeCycleHistory(logs)
         val symptoms = predictionEngine.computeSymptomFrequency(logs)
         val moods = predictionEngine.computeMoodDistribution(logs)
         val flows = predictionEngine.computeFlowPattern(logs)
@@ -56,6 +59,7 @@ class InsightsViewModel @Inject constructor(
         InsightsUiState(
             prediction = prediction,
             cycleStats = stats,
+            cycleHistory = history,
             symptomFrequencies = symptoms,
             moodDistribution = moods,
             flowPatterns = flows,

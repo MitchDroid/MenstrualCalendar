@@ -183,6 +183,20 @@
     <string name="insights_health_tips">Consejos de salud</string>
     <string name="insights_health_tips_desc">Consejos de bienestar según la fase: nutrición, ejercicio y más</string>
 
+    <!-- Gráficas de tendencia del ciclo -->
+    <string name="insights_cycle_trends">📈  Tendencias del ciclo</string>
+    <string name="insights_cycle_length_trend">Duración del ciclo</string>
+    <string name="insights_period_duration_trend">Duración del periodo</string>
+    <string name="insights_avg_line">prom</string>
+    <string name="insights_days_unit">días</string>
+    <string name="insights_cycle_number">C%d</string>
+    <string name="insights_trend_stable">Estable</string>
+    <string name="insights_trend_shortening">Acortándose</string>
+    <string name="insights_trend_lengthening">Alargándose</string>
+    <string name="insights_trend_variable">Variable</string>
+    <string name="insights_normal_range">Rango normal: %1$d–%2$d días</string>
+    <string name="insights_need_more_cycles">Registra al menos 2 ciclos completos para ver tendencias</string>
+
     <!-- Tarjetas de estadísticas -->
     <string name="insights_upcoming_predictions">Próximas predicciones</string>
     <string name="insights_next_period">Próximo periodo</string>
