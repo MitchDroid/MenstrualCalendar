@@ -55,6 +55,7 @@ import androidx.compose.ui.res.stringResource
 import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.usecase.CycleHistoryEntry
 import com.bloomcycle.app.domain.usecase.CycleSummaryReport
+import com.bloomcycle.app.ui.util.displayNameRes
 import com.bloomcycle.app.ui.theme.FertileGreen
 import com.bloomcycle.app.ui.theme.InfoBlue
 import com.bloomcycle.app.ui.theme.PeriodRed
@@ -543,7 +544,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = formatSymptomName(freq.symptom.name),
+                            text = "${symptomEmoji(freq.symptom.name)} ${stringResource(freq.symptom.displayNameRes())}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface
                         )
@@ -576,7 +577,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "${moodEmoji(mood.mood.name)} ${formatEnumName(mood.mood.name)}",
+                            text = "${moodEmoji(mood.mood.name)} ${stringResource(mood.mood.displayNameRes())}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface
                         )
@@ -609,7 +610,7 @@ private fun HealthSummaryCard(report: CycleSummaryReport) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = formatEnumName(flow.intensity.name),
+                            text = stringResource(flow.intensity.displayNameRes()),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface
                         )
@@ -778,24 +779,18 @@ private fun EmptyReportsState(modifier: Modifier = Modifier) {
 
 // ── Helpers ─────────────────────────────────────────────────────
 
-private fun formatEnumName(name: String): String =
-    name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
-
-private fun formatSymptomName(name: String): String {
-    val emoji = when (name) {
-        "CRAMPS" -> "\uD83E\uDD1F"
-        "HEADACHE" -> "\uD83E\uDD15"
-        "BLOATING" -> "\uD83C\uDF88"
-        "ACNE" -> "\uD83D\uDCA2"
-        "MOOD_SWINGS" -> "\uD83C\uDFA2"
-        "FATIGUE" -> "\uD83D\uDE34"
-        "TENDER_BREASTS" -> "\uD83E\uDE77"
-        "BACK_PAIN" -> "\uD83D\uDECB"
-        "NAUSEA" -> "\uD83E\uDD22"
-        "FOOD_CRAVINGS" -> "\uD83C\uDF69"
-        else -> ""
-    }
-    return "$emoji ${formatEnumName(name)}"
+private fun symptomEmoji(name: String): String = when (name) {
+    "CRAMPS" -> "\uD83E\uDD1F"
+    "HEADACHE" -> "\uD83E\uDD15"
+    "BLOATING" -> "\uD83C\uDF88"
+    "ACNE" -> "\uD83D\uDCA2"
+    "MOOD_SWINGS" -> "\uD83C\uDFA2"
+    "FATIGUE" -> "\uD83D\uDE34"
+    "TENDER_BREASTS" -> "\uD83E\uDE77"
+    "BACK_PAIN" -> "\uD83D\uDECB"
+    "NAUSEA" -> "\uD83E\uDD22"
+    "FOOD_CRAVINGS" -> "\uD83C\uDF69"
+    else -> ""
 }
 
 private fun moodEmoji(name: String): String = when (name) {

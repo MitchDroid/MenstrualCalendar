@@ -23,6 +23,21 @@
     <string name="fertility_high">Alta</string>
     <string name="fertility_peak">Máxima</string>
 
+    <!-- Etiquetas de intensidad de flujo -->
+    <string name="flow_none">Sin flujo</string>
+    <string name="flow_spotting">Manchado</string>
+    <string name="flow_light">Ligero</string>
+    <string name="flow_medium">Medio</string>
+    <string name="flow_heavy">Abundante</string>
+
+    <!-- Etiquetas de estado de ánimo -->
+    <string name="mood_happy">Feliz</string>
+    <string name="mood_sad">Triste</string>
+    <string name="mood_anxious">Ansiosa</string>
+    <string name="mood_irritable">Irritable</string>
+    <string name="mood_calm">Tranquila</string>
+    <string name="mood_energetic">Energética</string>
+
     <!-- Etiquetas de síntomas -->
     <string name="symptom_cramps">Cólicos</string>
     <string name="symptom_headache">Dolor de cabeza</string>
@@ -34,6 +49,25 @@
     <string name="symptom_back_pain">Dolor de espalda</string>
     <string name="symptom_nausea">Náuseas</string>
     <string name="symptom_food_cravings">Antojos</string>
+
+    <!-- Etiquetas de moco cervical -->
+    <string name="cervical_dry">Seco</string>
+    <string name="cervical_sticky">Pegajoso</string>
+    <string name="cervical_creamy">Cremoso</string>
+    <string name="cervical_watery">Acuoso</string>
+    <string name="cervical_egg_white">Clara de huevo</string>
+
+    <!-- Etiquetas de actividad sexual -->
+    <string name="sexual_protected">Protegida</string>
+    <string name="sexual_unprotected">Sin protección</string>
+    <string name="sexual_solo">Solo</string>
+
+    <!-- Pantalla de dedicatoria -->
+    <string name="dedication_for_name">Para Karen Villarreal</string>
+    <string name="dedication_message_1">Esta app fue creada con amor,\ninspirada por ti y para ti.</string>
+    <string name="dedication_message_2">Cada línea de código lleva\nun pedazo de mi corazón.</string>
+    <string name="dedication_with_love">— Con todo mi amor —</string>
+    <string name="dedication_signature">Tu esposo Miller</string>
 
     <!-- ── Onboarding ─────────────────────────────────── -->
     <string name="onboarding_step_indicator">Paso %1$d de %2$d</string>

@@ -52,6 +52,7 @@ import com.bloomcycle.app.domain.model.FlowIntensity
 import com.bloomcycle.app.domain.model.Mood
 import com.bloomcycle.app.domain.model.SexualActivity
 import com.bloomcycle.app.domain.model.Symptom
+import com.bloomcycle.app.ui.util.displayNameRes
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -139,7 +140,7 @@ fun DailyTrackingScreen(
                         FilterChip(
                             selected = uiState.flowIntensity == intensity,
                             onClick = { viewModel.setFlowIntensity(intensity) },
-                            label = { Text(formatEnum(intensity.name)) },
+                            label = { Text(stringResource(intensity.displayNameRes())) },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
                                 selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -160,7 +161,7 @@ fun DailyTrackingScreen(
                         FilterChip(
                             selected = uiState.mood == mood,
                             onClick = { viewModel.setMood(mood) },
-                            label = { Text("${moodEmoji(mood)} ${formatEnum(mood.name)}") },
+                            label = { Text("${moodEmoji(mood)} ${stringResource(mood.displayNameRes())}") },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                                 selectedLabelColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -181,7 +182,7 @@ fun DailyTrackingScreen(
                         FilterChip(
                             selected = symptom in uiState.symptoms,
                             onClick = { viewModel.toggleSymptom(symptom) },
-                            label = { Text(formatEnum(symptom.name)) },
+                            label = { Text(stringResource(symptom.displayNameRes())) },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
                                 selectedLabelColor = MaterialTheme.colorScheme.onTertiaryContainer
@@ -202,7 +203,7 @@ fun DailyTrackingScreen(
                         FilterChip(
                             selected = uiState.cervicalMucus == mucus,
                             onClick = { viewModel.setCervicalMucus(mucus) },
-                            label = { Text(formatEnum(mucus.name)) },
+                            label = { Text(stringResource(mucus.displayNameRes())) },
                             border = if (uiState.cervicalMucus == mucus) null
                             else BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                         )
@@ -221,7 +222,7 @@ fun DailyTrackingScreen(
                         FilterChip(
                             selected = uiState.sexualActivity == activity,
                             onClick = { viewModel.setSexualActivity(activity) },
-                            label = { Text(formatEnum(activity.name)) },
+                            label = { Text(stringResource(activity.displayNameRes())) },
                             border = if (uiState.sexualActivity == activity) null
                             else BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                         )
@@ -323,12 +324,6 @@ private fun TrackingDivider() {
     Spacer(modifier = Modifier.height(12.dp))
     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
     Spacer(modifier = Modifier.height(4.dp))
-}
-
-private fun formatEnum(name: String): String {
-    return name.replace("_", " ")
-        .lowercase()
-        .replaceFirstChar { it.uppercase() }
 }
 
 private fun moodEmoji(mood: Mood): String = when (mood) {

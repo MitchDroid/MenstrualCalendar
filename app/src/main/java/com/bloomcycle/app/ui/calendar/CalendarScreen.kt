@@ -32,6 +32,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -42,6 +43,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.bloomcycle.app.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.domain.model.CyclePhase
+import com.bloomcycle.app.ui.util.displayNameRes
 import com.bloomcycle.app.ui.theme.FertileGreen
 import com.bloomcycle.app.ui.theme.OvulationYellow
 import com.bloomcycle.app.ui.theme.PeriodRed
@@ -270,9 +272,10 @@ private fun SelectedDayCard(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(4.dp))
+                        val context = LocalContext.current
                         val logSummary = buildList {
-                            log.flowIntensity?.let { add("\uD83E\uDE78 ${formatEnum(it.name)}") }
-                            log.mood?.let { add("${moodEmoji(it)} ${formatEnum(it.name)}") }
+                            log.flowIntensity?.let { add("\uD83E\uDE78 ${context.getString(it.displayNameRes())}") }
+                            log.mood?.let { add("${moodEmoji(it)} ${context.getString(it.displayNameRes())}") }
                             if (log.symptoms.isNotEmpty()) {
                                 add("\uD83E\uDE7A ${log.symptoms.size} symptom(s)")
                             }
@@ -345,9 +348,6 @@ private fun markerDisplayName(type: DayMarkerType): String = when (type) {
     DayMarkerType.LOGGED -> stringResource(R.string.calendar_marker_logged)
     DayMarkerType.NONE -> stringResource(R.string.calendar_marker_regular)
 }
-
-private fun formatEnum(name: String): String =
-    name.replace("_", " ").lowercase().replaceFirstChar { it.uppercase() }
 
 private fun moodEmoji(mood: com.bloomcycle.app.domain.model.Mood): String = when (mood) {
     com.bloomcycle.app.domain.model.Mood.HAPPY -> "\uD83D\uDE0A"

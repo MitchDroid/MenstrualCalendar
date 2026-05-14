@@ -79,17 +79,17 @@ class CyclePredictionEngine @Inject constructor() {
         val fertileStart = ovulationDate.minusDays(5)
         val fertileEnd = ovulationDate.plusDays(1)
 
-        val phase = when {
-            cycleDay in 1..periodDuration -> CyclePhase.MENSTRUAL
-            cycleDay in (periodDuration + 1) until ovulationDay -> CyclePhase.FOLLICULAR
-            cycleDay in ovulationDay..(ovulationDay + 1) -> CyclePhase.OVULATION
+        val phase = when (cycleDay) {
+            in 1..periodDuration -> CyclePhase.MENSTRUAL
+            in (periodDuration + 1) until ovulationDay -> CyclePhase.FOLLICULAR
+            in ovulationDay..(ovulationDay + 1) -> CyclePhase.OVULATION
             else -> CyclePhase.LUTEAL
         }
 
-        val fertility = when {
-            cycleDay == ovulationDay -> FertilityStatus.PEAK
-            cycleDay in (ovulationDay - 5)..ovulationDay -> FertilityStatus.HIGH
-            cycleDay in (ovulationDay - 7)..(ovulationDay + 2) -> FertilityStatus.MEDIUM
+        val fertility = when (cycleDay) {
+            ovulationDay -> FertilityStatus.PEAK
+            in (ovulationDay - 5)..ovulationDay -> FertilityStatus.HIGH
+            in (ovulationDay - 7)..(ovulationDay + 2) -> FertilityStatus.MEDIUM
             else -> FertilityStatus.LOW
         }
 

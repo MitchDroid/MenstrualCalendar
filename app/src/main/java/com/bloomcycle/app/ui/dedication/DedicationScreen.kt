@@ -46,9 +46,11 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bloomcycle.app.R
 import kotlinx.coroutines.delay
 import kotlin.math.cos
 import kotlin.math.sin
@@ -137,7 +139,7 @@ fun DedicationScreen(
                 enter = fadeIn(tween(1200))
             ) {
                 Text(
-                    text = "Para Karen Villarreal",
+                    text = stringResource(R.string.dedication_for_name),
                     style = MaterialTheme.typography.headlineLarge.copy(
                         fontFamily = FontFamily.Serif,
                         fontWeight = FontWeight.Light,
@@ -158,7 +160,7 @@ fun DedicationScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "This app was built with love,\ninspired by you and for you.",
+                        text = stringResource(R.string.dedication_message_1),
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontFamily = FontFamily.Serif,
                             lineHeight = 28.sp
@@ -170,7 +172,7 @@ fun DedicationScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Text(
-                        text = "Every line of code carries\na piece of my heart.",
+                        text = stringResource(R.string.dedication_message_2),
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontFamily = FontFamily.Serif,
                             fontStyle = FontStyle.Italic,
@@ -191,7 +193,7 @@ fun DedicationScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "— With all my love —",
+                        text = stringResource(R.string.dedication_with_love),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontFamily = FontFamily.Serif,
                             fontStyle = FontStyle.Italic
@@ -200,7 +202,7 @@ fun DedicationScreen(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Your husband Miller",
+                        text = stringResource(R.string.dedication_signature),
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontFamily = FontFamily.Serif,
                             fontWeight = FontWeight.SemiBold
