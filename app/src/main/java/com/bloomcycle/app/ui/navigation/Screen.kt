@@ -70,6 +70,11 @@ sealed class Screen(
         fun createRoute(phase: String = "none") = "health_tips/$phase"
     }
 
+    data object Reports : Screen(
+        route = "reports",
+        title = "Reports & Export"
+    )
+
     data object Settings : Screen(
         route = "settings",
         title = "Settings",

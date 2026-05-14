@@ -96,7 +96,8 @@ private fun BloomCycleApp(
                     !currentRoute.startsWith("daily_tracking") &&
                     currentRoute != Screen.CyclePhaseGuide.route &&
                     currentRoute != Screen.SymptomGuide.route &&
-                    !currentRoute.startsWith("health_tips")
+                    !currentRoute.startsWith("health_tips") &&
+                    currentRoute != Screen.Reports.route
 
             val startDestination = when (startState) {
                 MainViewModel.StartState.Onboarding -> Screen.Onboarding.route

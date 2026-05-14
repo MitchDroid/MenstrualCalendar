@@ -15,6 +15,7 @@ import com.bloomcycle.app.ui.education.SymptomGuideScreen
 import com.bloomcycle.app.ui.home.HomeScreen
 import com.bloomcycle.app.ui.insights.InsightsScreen
 import com.bloomcycle.app.ui.onboarding.OnboardingScreen
+import com.bloomcycle.app.ui.reports.ReportsScreen
 import com.bloomcycle.app.ui.settings.SettingsScreen
 import com.bloomcycle.app.ui.tracking.DailyTrackingScreen
 import java.time.LocalDate
@@ -109,8 +110,17 @@ fun BloomCycleNavHost(
                 onNavigateBack = { navController.popBackStack() }
             )
         }
+        composable(Screen.Reports.route) {
+            ReportsScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
         composable(Screen.Settings.route) {
-            SettingsScreen()
+            SettingsScreen(
+                onNavigateToReports = {
+                    navController.navigate(Screen.Reports.route)
+                }
+            )
         }
     }
 }
