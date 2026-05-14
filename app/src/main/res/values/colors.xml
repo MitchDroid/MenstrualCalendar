@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pink_primary">#FFD81B60</color>
+    <color name="pink_primary_container">#FFFCE4EC</color>
+    <color name="lavender_secondary">#FF8E24AA</color>
+    <color name="coral_tertiary">#FFE53935</color>
+    <color name="cream_neutral">#FFFFF8E1</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>
