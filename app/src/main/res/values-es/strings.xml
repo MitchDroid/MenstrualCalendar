@@ -736,25 +736,25 @@
     <string name="edu_tip_sleep_sanctuary_title">Santuario del sueño</string>
     <string name="edu_tip_sleep_sanctuary_content">Las molestias del periodo pueden alterar el sueño. Prueba una almohadilla térmica en el abdomen, magnesio antes de dormir y mantén tu habitación fresca (18–20 °C).</string>
 
-    <string name="edu_tip_emotional_checkin_title">Chequeo emocional</string>
-    <string name="edu_tip_emotional_checkin_content">Las hormonas bajas pueden traer un ánimo bajo. Escribe en un diario tus sentimientos, practica la gratitud, o simplemente reconoce que esta fase es temporal y que está bien.</string>
+    <string name="edu_tip_emotional_check_in_title">Chequeo emocional</string>
+    <string name="edu_tip_emotional_check_in_content">Las hormonas bajas pueden traer un ánimo bajo. Escribe en un diario tus sentimientos, practica la gratitud, o simplemente reconoce que esta fase es temporal y que está bien.</string>
 
     <!-- ── Consejos de la Fase Folicular ─────────────────────── -->
-    <string name="edu_tip_fresh_fermented_title">Alimentos frescos y fermentados</string>
-    <string name="edu_tip_fresh_fermented_content">¡Tu digestión está en su mejor momento! Disfruta de ensaladas frescas, alimentos fermentados (kimchi, yogur, chucrut) y proteínas ligeras para acompañar tu energía creciente.</string>
+    <string name="edu_tip_fresh_fermented_foods_title">Alimentos frescos y fermentados</string>
+    <string name="edu_tip_fresh_fermented_foods_content">¡Tu digestión está en su mejor momento! Disfruta de ensaladas frescas, alimentos fermentados (kimchi, yogur, chucrut) y proteínas ligeras para acompañar tu energía creciente.</string>
 
     <string name="edu_tip_challenge_yourself_title">Desafíate a ti misma</string>
     <string name="edu_tip_challenge_yourself_content">El aumento de estrógeno significa recuperación más rápida y mayor motivación. Prueba HIIT, correr o una nueva clase de fitness. Tu cuerpo está preparado para el máximo rendimiento.</string>
 
-    <string name="edu_tip_creative_energy_title">Impulso de energía creativa</string>
-    <string name="edu_tip_creative_energy_content">El estrógeno mejora la fluidez verbal y la creatividad. Canaliza esta energía en lluvias de ideas, escritura, arte o resolver problemas complejos en el trabajo.</string>
+    <string name="edu_tip_creative_energy_boost_title">Impulso de energía creativa</string>
+    <string name="edu_tip_creative_energy_boost_content">El estrógeno mejora la fluidez verbal y la creatividad. Canaliza esta energía en lluvias de ideas, escritura, arte o resolver problemas complejos en el trabajo.</string>
 
     <string name="edu_tip_optimize_schedule_title">Optimiza tu agenda</string>
     <string name="edu_tip_optimize_schedule_content">Con la energía en aumento, este es el mejor momento para entrevistas de trabajo, presentaciones y reuniones sociales. Planifica eventos importantes durante esta fase.</string>
 
     <!-- ── Consejos de la Fase de Ovulación ──────────────────── -->
-    <string name="edu_tip_peak_fuel_title">Combustible para el rendimiento máximo</string>
-    <string name="edu_tip_peak_fuel_content">Apoya tu pico de energía con alimentos antiinflamatorios. Semillas de calabaza ricas en zinc, pescado con omega-3 y vegetales coloridos te mantienen en tu mejor momento.</string>
+    <string name="edu_tip_peak_performance_fuel_title">Combustible para el rendimiento máximo</string>
+    <string name="edu_tip_peak_performance_fuel_content">Apoya tu pico de energía con alimentos antiinflamatorios. Semillas de calabaza ricas en zinc, pescado con omega-3 y vegetales coloridos te mantienen en tu mejor momento.</string>
 
     <string name="edu_tip_go_for_goals_title">Ve por tus metas</string>
     <string name="edu_tip_go_for_goals_content">Estás en tu pico de fuerza y resistencia. Intenta récords personales, compite o prueba entrenamientos intensos. Tu cuerpo se recupera más rápido ahora.</string>
@@ -763,14 +763,14 @@
     <string name="edu_tip_social_connection_content">Los picos de estrógeno te hacen naturalmente más sociable y segura. Planifica citas, reuniones y actividades en equipo. Tus habilidades de comunicación están en su mejor momento.</string>
 
     <!-- ── Consejos de la Fase Lútea ─────────────────────────── -->
-    <string name="edu_tip_complex_carb_title">Confort de carbohidratos complejos</string>
-    <string name="edu_tip_complex_carb_content">¿Antojos de carbohidratos? Elige los complejos: camote, arroz integral, avena. Aumentan la serotonina naturalmente y proporcionan energía sostenida sin bajones de azúcar.</string>
+    <string name="edu_tip_complex_carb_comfort_title">Confort de carbohidratos complejos</string>
+    <string name="edu_tip_complex_carb_comfort_content">¿Antojos de carbohidratos? Elige los complejos: camote, arroz integral, avena. Aumentan la serotonina naturalmente y proporcionan energía sostenida sin bajones de azúcar.</string>
 
-    <string name="edu_tip_gentle_powerful_title">Lo suave es poderoso</string>
-    <string name="edu_tip_gentle_powerful_content">Cambia a entrenamientos moderados: Pilates, yoga, natación o caminatas rápidas. Tu cuerpo necesita más recuperación que intensidad en esta fase.</string>
+    <string name="edu_tip_gentle_is_powerful_title">Lo suave es poderoso</string>
+    <string name="edu_tip_gentle_is_powerful_content">Cambia a entrenamientos moderados: Pilates, yoga, natación o caminatas rápidas. Tu cuerpo necesita más recuperación que intensidad en esta fase.</string>
 
-    <string name="edu_tip_pms_self_care_title">Kit de autocuidado para el SPM</string>
-    <string name="edu_tip_pms_self_care_content">Prepara tu kit para el SPM: almohadilla térmica, té de hierbas, chocolate oscuro, una playlist acogedora y un diario. Tener artículos de confort listos reduce el estrés.</string>
+    <string name="edu_tip_pms_self_care_kit_title">Kit de autocuidado para el SPM</string>
+    <string name="edu_tip_pms_self_care_kit_content">Prepara tu kit para el SPM: almohadilla térmica, té de hierbas, chocolate oscuro, una playlist acogedora y un diario. Tener artículos de confort listos reduce el estrés.</string>
 
     <string name="edu_tip_wind_down_routine_title">Rutina de relajación</string>
     <string name="edu_tip_wind_down_routine_content">El efecto sedante de la progesterona puede causar somnolencia diurna pero inquietud nocturna. Establece una hora fija para dormir, evita las pantallas y prueba aceite esencial de lavanda.</string>
@@ -779,8 +779,8 @@
     <string name="edu_tip_mood_management_content">Los cambios de ánimo del SPM son reales y válidos. Practica la respiración de caja (4-4-4-4), limita los factores de estrés cuando sea posible, y recuerda que esto es temporal — tus hormonas son la causa, no tú.</string>
 
     <!-- ── Consejos Universales ──────────────────────────────── -->
-    <string name="edu_tip_hydration_title">La hidratación siempre importa</string>
-    <string name="edu_tip_hydration_content">Apunta a 8–10 vasos de agua al día durante todo tu ciclo. La hidratación adecuada reduce la hinchazón, los dolores de cabeza, la fatiga y los cólicos.</string>
+    <string name="edu_tip_hydration_matters_title">La hidratación siempre importa</string>
+    <string name="edu_tip_hydration_matters_content">Apunta a 8–10 vasos de agua al día durante todo tu ciclo. La hidratación adecuada reduce la hinchazón, los dolores de cabeza, la fatiga y los cólicos.</string>
 
     <string name="edu_tip_track_to_learn_title">Registra para aprender</string>
     <string name="edu_tip_track_to_learn_content">Cuanto más consistentemente registres tus síntomas, estados de ánimo y flujo, mejor entenderás tus patrones únicos. El conocimiento es empoderamiento.</string>
