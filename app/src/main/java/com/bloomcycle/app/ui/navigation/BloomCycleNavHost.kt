@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.bloomcycle.app.domain.model.CyclePhase
 import com.bloomcycle.app.ui.calendar.CalendarScreen
+import com.bloomcycle.app.ui.dedication.DedicationScreen
 import com.bloomcycle.app.ui.education.CyclePhaseGuideScreen
 import com.bloomcycle.app.ui.education.HealthTipsScreen
 import com.bloomcycle.app.ui.education.SymptomGuideScreen
@@ -128,7 +129,15 @@ fun BloomCycleNavHost(
                 },
                 onNavigateToPrivacyPolicy = {
                     navController.navigate(Screen.PrivacyPolicy.route)
+                },
+                onNavigateToDedication = {
+                    navController.navigate(Screen.Dedication.route)
                 }
+            )
+        }
+        composable(Screen.Dedication.route) {
+            DedicationScreen(
+                onNavigateBack = { navController.popBackStack() }
             )
         }
     }

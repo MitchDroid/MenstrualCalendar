@@ -37,6 +37,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Switch
@@ -46,11 +47,16 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -59,17 +65,34 @@ import androidx.compose.ui.res.stringResource
 import com.bloomcycle.app.R
 import com.bloomcycle.app.ui.theme.InfoBlue
 import com.bloomcycle.app.ui.theme.PeriodRed
+import java.security.MessageDigest
 import kotlin.math.roundToInt
+
+// SHA-256 hash of the secret password — change the password in verifyPassword()
+// Password: "****" — change the hash below if you want a different password
+private const val PASSWORD_HASH = "904294d8c54b1c63e40832fa1d95bcde534b310df6d42882ce4baf28f3e0184a"
+private const val TAPS_REQUIRED = 7
+
+private fun sha256(input: String): String {
+    val bytes = MessageDigest.getInstance("SHA-256").digest(input.lowercase().trim().toByteArray())
+    return bytes.joinToString("") { "%02x".format(it) }
+}
 
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = hiltViewModel(),
     onNavigateToReports: () -> Unit = {},
-    onNavigateToPrivacyPolicy: () -> Unit = {}
+    onNavigateToPrivacyPolicy: () -> Unit = {},
+    onNavigateToDedication: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
+    // Easter egg state
+    var versionTapCount by remember { mutableIntStateOf(0) }
+    var showPasswordDialog by remember { mutableStateOf(false) }
+    var passwordError by remember { mutableStateOf(false) }
 
     // Permission launcher for Android 13+
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -92,6 +115,28 @@ fun SettingsScreen(
         DeleteConfirmationDialog(
             onConfirm = { viewModel.confirmDeleteAllData() },
             onDismiss = { viewModel.cancelDeleteAllData() }
+        )
+    }
+
+    // Easter egg password dialog
+    if (showPasswordDialog) {
+        EasterEggPasswordDialog(
+            hasError = passwordError,
+            onSubmit = { password ->
+                if (sha256(password) == PASSWORD_HASH) {
+                    showPasswordDialog = false
+                    passwordError = false
+                    versionTapCount = 0
+                    onNavigateToDedication()
+                } else {
+                    passwordError = true
+                }
+            },
+            onDismiss = {
+                showPasswordDialog = false
+                passwordError = false
+                versionTapCount = 0
+            }
         )
     }
 
@@ -384,19 +429,29 @@ fun SettingsScreen(
             )
         ) {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = "\uD83C\uDF38 ${stringResource(R.string.app_name)}",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center
                 )
                 Text(
                     text = stringResource(R.string.settings_version),
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.clickable {
+                        versionTapCount++
+                        if (versionTapCount >= TAPS_REQUIRED) {
+                            showPasswordDialog = true
+                        }
+                    }
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -449,6 +504,59 @@ private fun DeleteConfirmationDialog(
                 )
             ) {
                 Text(stringResource(R.string.settings_delete_everything))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.cancel))
+            }
+        }
+    )
+}
+
+// ── Easter Egg Password Dialog ──────────────────────────────────
+
+@Composable
+private fun EasterEggPasswordDialog(
+    hasError: Boolean,
+    onSubmit: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var password by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                text = "\uD83C\uDF38",
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        text = {
+            Column {
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("\u2022 \u2022 \u2022 \u2022 \u2022") },
+                    visualTransformation = PasswordVisualTransformation(),
+                    singleLine = true,
+                    isError = hasError,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                if (hasError) {
+                    Text(
+                        text = "\u2022 \u2022 \u2022",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = { onSubmit(password) }) {
+                Text("\uD83C\uDF3A")
             }
         },
         dismissButton = {

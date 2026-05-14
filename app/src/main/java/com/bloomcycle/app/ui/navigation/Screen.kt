@@ -87,6 +87,11 @@ sealed class Screen(
         unselectedIcon = Icons.Outlined.Settings
     )
 
+    data object Dedication : Screen(
+        route = "dedication",
+        title = "Dedication"
+    )
+
     companion object {
         /** Screens shown in the bottom navigation bar. */
         val bottomNavItems = listOf(Home, Calendar, Insights, Settings)
