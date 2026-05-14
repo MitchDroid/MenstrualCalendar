@@ -40,6 +40,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -59,10 +60,11 @@ fun HealthTipsScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     var selectedPhase by remember { mutableStateOf(currentPhase) }
     var selectedCategory by remember { mutableStateOf<TipCategory?>(null) }
 
-    val allTips = remember { EducationContentProvider.healthTips }
+    val allTips = remember { EducationContentProvider.getHealthTips(context) }
     val filteredTips = remember(selectedPhase, selectedCategory) {
         allTips.filter { tip ->
             (selectedPhase == null || selectedPhase in tip.applicablePhases) &&
@@ -202,8 +204,9 @@ fun HealthTipsScreen(
 
 @Composable
 private fun CurrentPhaseHeader(phase: CyclePhase) {
+    val context = LocalContext.current
     val color = phaseAccentColor(phase)
-    val guide = EducationContentProvider.getPhaseGuide(phase)
+    val guide = EducationContentProvider.getPhaseGuide(context, phase)
 
     Card(
         modifier = Modifier.fillMaxWidth(),

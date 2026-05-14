@@ -374,4 +374,428 @@
     <!-- Biometric prompt -->
     <string name="biometric_prompt_title">BloomCycle Locked</string>
     <string name="biometric_prompt_subtitle">Authenticate to access your data</string>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ── Education Content: Phase Guides ───────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <!-- Phase Guide: Menstrual -->
+    <string name="edu_phase_menstrual_title">Menstrual Phase</string>
+    <string name="edu_phase_menstrual_duration">Days 1–5 (typically 3–7 days)</string>
+    <string name="edu_phase_menstrual_description">The menstrual phase marks the beginning of your cycle. The uterine lining sheds, resulting in your period. Hormone levels (estrogen and progesterone) are at their lowest.</string>
+    <string-array name="edu_phase_menstrual_what_happens">
+        <item>The uterine lining (endometrium) sheds through the cervix and vagina</item>
+        <item>Estrogen and progesterone levels drop to their lowest point</item>
+        <item>The pituitary gland begins releasing FSH to stimulate new follicle growth</item>
+        <item>Your body temperature is typically at its lowest</item>
+    </string-array>
+    <string-array name="edu_phase_menstrual_symptoms">
+        <item>Menstrual cramps (due to uterine contractions)</item>
+        <item>Lower back pain</item>
+        <item>Fatigue and low energy</item>
+        <item>Bloating and water retention</item>
+        <item>Headaches or migraines</item>
+        <item>Mood changes</item>
+    </string-array>
+    <string-array name="edu_phase_menstrual_self_care">
+        <item>Rest and prioritize sleep — your body is working hard</item>
+        <item>Use a heating pad on your lower abdomen for cramp relief</item>
+        <item>Stay hydrated — aim for 8+ glasses of water daily</item>
+        <item>Practice gentle stretching or yoga</item>
+        <item>Take warm baths to soothe muscle tension</item>
+        <item>Be kind to yourself — it\'s okay to slow down</item>
+    </string-array>
+    <string-array name="edu_phase_menstrual_nutrition">
+        <item>Iron-rich foods (spinach, lentils, red meat) to replenish lost iron</item>
+        <item>Omega-3 fatty acids (salmon, walnuts) to reduce inflammation</item>
+        <item>Dark chocolate (in moderation) for magnesium and mood boost</item>
+        <item>Ginger tea to help with nausea and cramps</item>
+        <item>Avoid excessive caffeine and salt, which can worsen bloating</item>
+    </string-array>
+    <string-array name="edu_phase_menstrual_exercise">
+        <item>Light walking or gentle yoga</item>
+        <item>Stretching exercises for the lower back and hips</item>
+        <item>Swimming (if comfortable)</item>
+        <item>Avoid high-intensity workouts if fatigued</item>
+        <item>Listen to your body — movement should feel good, not forced</item>
+    </string-array>
+
+    <!-- Phase Guide: Follicular -->
+    <string name="edu_phase_follicular_title">Follicular Phase</string>
+    <string name="edu_phase_follicular_duration">Days 1–13 (overlaps with menstruation)</string>
+    <string name="edu_phase_follicular_description">The follicular phase begins on day 1 and lasts until ovulation. After menstruation ends, rising estrogen levels stimulate the uterine lining to thicken and prepare for a potential pregnancy. Energy and mood typically improve during this time.</string>
+    <string-array name="edu_phase_follicular_what_happens">
+        <item>FSH stimulates ovarian follicles to develop</item>
+        <item>One dominant follicle emerges and begins producing estrogen</item>
+        <item>Rising estrogen thickens the uterine lining</item>
+        <item>Energy levels, mood, and creativity often increase</item>
+        <item>Cervical mucus changes from dry to sticky to creamy</item>
+    </string-array>
+    <string-array name="edu_phase_follicular_symptoms">
+        <item>Increasing energy and motivation</item>
+        <item>Improved mood and sociability</item>
+        <item>Higher pain tolerance</item>
+        <item>Clearer skin as estrogen rises</item>
+        <item>Increased cervical mucus</item>
+    </string-array>
+    <string-array name="edu_phase_follicular_self_care">
+        <item>Channel your rising energy into projects and social activities</item>
+        <item>This is a great time to try new things and set goals</item>
+        <item>Start or intensify exercise routines</item>
+        <item>Focus on creative projects — estrogen boosts cognitive function</item>
+        <item>Schedule important meetings or presentations during this phase</item>
+    </string-array>
+    <string-array name="edu_phase_follicular_nutrition">
+        <item>Fresh, vibrant foods — salads, fermented foods, lean proteins</item>
+        <item>Phytoestrogen-rich foods (flaxseed, soy) support estrogen metabolism</item>
+        <item>Probiotics for gut health</item>
+        <item>Light, energizing meals that match your rising energy</item>
+        <item>Vitamin E-rich foods (almonds, sunflower seeds) for follicle health</item>
+    </string-array>
+    <string-array name="edu_phase_follicular_exercise">
+        <item>High-intensity interval training (HIIT)</item>
+        <item>Running, cycling, or dance classes</item>
+        <item>Strength training — your body recovers faster now</item>
+        <item>Try new or challenging workouts</item>
+        <item>Group fitness classes to match your social energy</item>
+    </string-array>
+
+    <!-- Phase Guide: Ovulation -->
+    <string name="edu_phase_ovulation_title">Ovulation Phase</string>
+    <string name="edu_phase_ovulation_duration">Around day 14 (lasts 24–48 hours)</string>
+    <string name="edu_phase_ovulation_description">Ovulation is when a mature egg is released from the ovary. This is the peak of your fertility window. Estrogen peaks, triggering a surge of LH (luteinizing hormone), and you may feel your most energetic, social, and confident.</string>
+    <string-array name="edu_phase_ovulation_what_happens">
+        <item>A surge in LH triggers the release of a mature egg from the ovary</item>
+        <item>The egg travels down the fallopian tube</item>
+        <item>Estrogen reaches its peak level</item>
+        <item>Basal body temperature rises slightly (0.5–1°F)</item>
+        <item>This is the most fertile time — the egg survives 12–24 hours</item>
+    </string-array>
+    <string-array name="edu_phase_ovulation_symptoms">
+        <item>Peak energy and libido</item>
+        <item>Egg-white cervical mucus (stretchy, clear)</item>
+        <item>Mild pelvic pain or twinge (mittelschmerz)</item>
+        <item>Slight temperature rise</item>
+        <item>Heightened senses</item>
+        <item>Increased confidence and sociability</item>
+    </string-array>
+    <string-array name="edu_phase_ovulation_self_care">
+        <item>If trying to conceive, this is your most fertile window</item>
+        <item>If avoiding pregnancy, use reliable contraception</item>
+        <item>Take advantage of peak energy for important tasks</item>
+        <item>Track cervical mucus changes for cycle awareness</item>
+        <item>Note your basal body temperature for pattern recognition</item>
+    </string-array>
+    <string-array name="edu_phase_ovulation_nutrition">
+        <item>Anti-inflammatory foods to support the ovulation process</item>
+        <item>Zinc-rich foods (pumpkin seeds, oysters) for egg quality</item>
+        <item>B-vitamins (leafy greens, eggs) for energy metabolism</item>
+        <item>Fiber-rich foods to help metabolize the estrogen surge</item>
+        <item>Stay well-hydrated</item>
+    </string-array>
+    <string-array name="edu_phase_ovulation_exercise">
+        <item>Peak performance time — go for personal records</item>
+        <item>High-intensity training and competitive sports</item>
+        <item>Strength training with heavier weights</item>
+        <item>Power yoga or Pilates</item>
+        <item>Take advantage of natural energy and endurance peaks</item>
+    </string-array>
+
+    <!-- Phase Guide: Luteal -->
+    <string name="edu_phase_luteal_title">Luteal Phase</string>
+    <string name="edu_phase_luteal_duration">Days 15–28 (typically 12–14 days)</string>
+    <string name="edu_phase_luteal_description">After ovulation, the empty follicle transforms into the corpus luteum, producing progesterone to maintain the uterine lining. If no pregnancy occurs, hormone levels drop, triggering menstruation. PMS symptoms are most common in the late luteal phase.</string>
+    <string-array name="edu_phase_luteal_what_happens">
+        <item>The corpus luteum produces progesterone and some estrogen</item>
+        <item>The uterine lining becomes rich with blood and nutrients</item>
+        <item>Body temperature remains slightly elevated</item>
+        <item>If the egg isn\'t fertilized, the corpus luteum breaks down</item>
+        <item>Dropping hormones trigger PMS symptoms in the late luteal phase</item>
+    </string-array>
+    <string-array name="edu_phase_luteal_symptoms">
+        <item>PMS symptoms: bloating, breast tenderness, mood swings</item>
+        <item>Food cravings (especially carbs and sweets)</item>
+        <item>Fatigue and lower energy</item>
+        <item>Acne breakouts</item>
+        <item>Anxiety or irritability</item>
+        <item>Difficulty concentrating</item>
+    </string-array>
+    <string-array name="edu_phase_luteal_self_care">
+        <item>Prioritize sleep — aim for 8+ hours</item>
+        <item>Practice stress-reducing activities (meditation, journaling)</item>
+        <item>Be patient with yourself — PMS is real and valid</item>
+        <item>Use magnesium supplements (consult your doctor first)</item>
+        <item>Warm baths and comfort activities in the late luteal phase</item>
+        <item>Reduce commitments if possible during the last few days</item>
+    </string-array>
+    <string-array name="edu_phase_luteal_nutrition">
+        <item>Complex carbohydrates (sweet potatoes, brown rice) for serotonin</item>
+        <item>Magnesium-rich foods (dark chocolate, nuts) for mood and cramps</item>
+        <item>Calcium-rich foods (dairy, fortified plant milk) ease PMS</item>
+        <item>Reduce salt intake to minimize bloating</item>
+        <item>Avoid excessive sugar, caffeine, and alcohol</item>
+        <item>Vitamin B6 (bananas, chickpeas) supports progesterone</item>
+    </string-array>
+    <string-array name="edu_phase_luteal_exercise">
+        <item>Moderate exercise: walking, yoga, swimming</item>
+        <item>Reduce intensity as energy drops in late luteal phase</item>
+        <item>Stretching and flexibility work</item>
+        <item>Pilates or barre classes</item>
+        <item>Listen to your body — skip high-intensity if fatigued</item>
+    </string-array>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ── Education Content: Symptom Guides ─────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <!-- Symptom Guide: Cramps -->
+    <string name="edu_symptom_cramps_name">Cramps</string>
+    <string name="edu_symptom_cramps_desc">Menstrual cramps (dysmenorrhea) are throbbing or cramping pains in the lower abdomen. They\'re one of the most common menstrual symptoms, affecting up to 80% of people who menstruate.</string>
+    <string name="edu_symptom_cramps_why">During menstruation, the uterus contracts to help shed its lining. Prostaglandins — hormone-like substances involved in pain and inflammation — trigger these contractions. Higher prostaglandin levels are associated with more severe cramps.</string>
+    <string name="edu_symptom_cramps_doctor">See a doctor if cramps are severe enough to interfere with daily activities, aren\'t relieved by over-the-counter medication, or are accompanied by heavy bleeding, fever, or unusual discharge.</string>
+    <string-array name="edu_symptom_cramps_tips">
+        <item>Apply heat (heating pad or warm water bottle) to the lower abdomen</item>
+        <item>Over-the-counter pain relief (ibuprofen works best when taken early)</item>
+        <item>Gentle exercise increases blood flow and releases endorphins</item>
+        <item>Try anti-inflammatory foods: turmeric, ginger, omega-3 rich fish</item>
+        <item>Magnesium supplements may reduce cramp severity</item>
+        <item>Practice deep breathing and progressive muscle relaxation</item>
+    </string-array>
+
+    <!-- Symptom Guide: Headache -->
+    <string name="edu_symptom_headache_name">Headache</string>
+    <string name="edu_symptom_headache_desc">Menstrual headaches and migraines are triggered by hormonal fluctuations, particularly the drop in estrogen that occurs just before and during menstruation.</string>
+    <string name="edu_symptom_headache_why">The sudden drop in estrogen levels before your period can trigger headaches and migraines. Estrogen influences serotonin and other brain chemicals that affect pain perception. Some people are more sensitive to these hormonal shifts than others.</string>
+    <string name="edu_symptom_headache_doctor">Seek medical attention if headaches are sudden and severe (\"worst headache of your life\"), accompanied by vision changes, weakness, or confusion, or if they significantly worsen from your usual pattern.</string>
+    <string-array name="edu_symptom_headache_tips">
+        <item>Stay hydrated — dehydration worsens headaches</item>
+        <item>Maintain consistent sleep schedules</item>
+        <item>Manage stress with relaxation techniques</item>
+        <item>Consider magnesium supplementation (400mg daily)</item>
+        <item>Apply cold compresses to the forehead or neck</item>
+        <item>Limit triggers: caffeine withdrawal, alcohol, processed foods</item>
+    </string-array>
+
+    <!-- Symptom Guide: Bloating -->
+    <string name="edu_symptom_bloating_name">Bloating</string>
+    <string name="edu_symptom_bloating_desc">Menstrual bloating is a feeling of fullness or swelling in the abdomen, commonly experienced before and during menstruation. It\'s caused by hormonal changes affecting water retention and digestion.</string>
+    <string name="edu_symptom_bloating_why">Rising progesterone in the luteal phase slows digestion and causes water retention. Estrogen fluctuations also affect fluid balance. Additionally, prostaglandins can affect the digestive tract, leading to gas and bloating.</string>
+    <string name="edu_symptom_bloating_doctor">Consult a doctor if bloating is severe, persistent beyond your period, accompanied by significant pain, or if you notice unusual changes in your digestion patterns.</string>
+    <string-array name="edu_symptom_bloating_tips">
+        <item>Reduce sodium intake to minimize water retention</item>
+        <item>Drink plenty of water (counterintuitively, this helps reduce bloating)</item>
+        <item>Eat smaller, more frequent meals</item>
+        <item>Avoid carbonated drinks and gas-producing foods (beans, cruciferous veggies)</item>
+        <item>Light exercise like walking can help move gas through the digestive tract</item>
+        <item>Potassium-rich foods (bananas, avocado) help balance sodium</item>
+    </string-array>
+
+    <!-- Symptom Guide: Acne -->
+    <string name="edu_symptom_acne_name">Acne</string>
+    <string name="edu_symptom_acne_desc">Hormonal acne typically flares up in the week before your period. It tends to appear on the lower face — jawline, chin, and cheeks — and consists of deep, tender bumps rather than surface-level pimples.</string>
+    <string name="edu_symptom_acne_why">Before your period, estrogen and progesterone drop while androgens (like testosterone) remain relatively stable. This shift stimulates the sebaceous glands to produce more sebum (oil), which can clog pores and lead to breakouts.</string>
+    <string name="edu_symptom_acne_doctor">See a dermatologist if acne is severe, painful, leaves scars, or doesn\'t respond to over-the-counter treatments. Hormonal treatments may be appropriate.</string>
+    <string-array name="edu_symptom_acne_tips">
+        <item>Maintain a consistent skincare routine (gentle cleanser, moisturizer)</item>
+        <item>Use products with salicylic acid or benzoyl peroxide for breakouts</item>
+        <item>Avoid touching your face and change pillowcases frequently</item>
+        <item>Reduce sugar and dairy intake, which may worsen hormonal acne</item>
+        <item>Zinc supplements may help reduce inflammatory acne</item>
+        <item>Don\'t pick or squeeze — this causes scarring and spreading</item>
+    </string-array>
+
+    <!-- Symptom Guide: Mood Swings -->
+    <string name="edu_symptom_mood_swings_name">Mood Swings</string>
+    <string name="edu_symptom_mood_swings_desc">Mood swings during your menstrual cycle involve rapid shifts between emotions — feeling happy one moment and tearful or irritable the next. They\'re most common in the late luteal phase (PMS).</string>
+    <string name="edu_symptom_mood_swings_why">Fluctuating estrogen and progesterone levels directly affect neurotransmitters like serotonin (the \"feel-good\" chemical) and GABA. The drop in estrogen before your period decreases serotonin production, contributing to mood instability, anxiety, and irritability.</string>
+    <string name="edu_symptom_mood_swings_doctor">Seek help if mood swings are severe enough to affect relationships or work, if you experience thoughts of self-harm, or if symptoms align with PMDD (premenstrual dysphoric disorder), which is a more severe form of PMS.</string>
+    <string-array name="edu_symptom_mood_swings_tips">
+        <item>Regular aerobic exercise boosts serotonin and endorphins</item>
+        <item>Practice mindfulness meditation or deep breathing</item>
+        <item>Maintain stable blood sugar with regular, balanced meals</item>
+        <item>Prioritize 7–9 hours of quality sleep</item>
+        <item>Limit caffeine and alcohol, especially in the luteal phase</item>
+        <item>Journal your feelings to identify patterns and triggers</item>
+        <item>Connect with supportive friends or a therapist</item>
+    </string-array>
+
+    <!-- Symptom Guide: Fatigue -->
+    <string name="edu_symptom_fatigue_name">Fatigue</string>
+    <string name="edu_symptom_fatigue_desc">Cycle-related fatigue is an overwhelming feeling of tiredness that goes beyond normal sleepiness. It\'s especially common during menstruation and the late luteal phase.</string>
+    <string name="edu_symptom_fatigue_why">Progesterone has a natural sedating effect and is at its highest during the luteal phase. Iron loss during menstruation can contribute to fatigue. Poor sleep quality (due to hormone-related temperature changes and discomfort) and the energy expenditure of hormonal processes all play a role.</string>
+    <string name="edu_symptom_fatigue_doctor">See a doctor if fatigue is severe, persistent throughout your entire cycle, or interferes with daily activities. This could indicate anemia, thyroid issues, or other conditions.</string>
+    <string-array name="edu_symptom_fatigue_tips">
+        <item>Prioritize consistent sleep schedules (even on weekends)</item>
+        <item>Eat iron-rich foods during and after your period</item>
+        <item>Take short power naps (15–20 minutes) if needed</item>
+        <item>Stay physically active — movement actually increases energy</item>
+        <item>Reduce sugar spikes that cause energy crashes</item>
+        <item>Consider vitamin B12 and iron levels with your doctor</item>
+    </string-array>
+
+    <!-- Symptom Guide: Tender Breasts -->
+    <string name="edu_symptom_tender_breasts_name">Tender Breasts</string>
+    <string name="edu_symptom_tender_breasts_desc">Breast tenderness (mastalgia) is a common premenstrual symptom involving swelling, sensitivity, and aching in the breast tissue. It typically occurs in the luteal phase and resolves once menstruation begins.</string>
+    <string name="edu_symptom_tender_breasts_why">Rising progesterone after ovulation causes the breast ducts to enlarge and milk glands to swell. Estrogen causes breast ducts to expand. Together, these hormonal changes lead to fluid retention in the breast tissue, creating tenderness and sensitivity.</string>
+    <string name="edu_symptom_tender_breasts_doctor">See a doctor if you find a new lump, notice nipple discharge, experience pain in one specific area, or if tenderness is severe and doesn\'t follow your menstrual cycle pattern.</string>
+    <string-array name="edu_symptom_tender_breasts_tips">
+        <item>Wear a well-fitting, supportive bra (especially during exercise)</item>
+        <item>Apply cold compresses to reduce swelling</item>
+        <item>Reduce caffeine intake, which may worsen breast pain</item>
+        <item>Evening primrose oil may help (consult your doctor)</item>
+        <item>Gentle massage can improve circulation</item>
+        <item>Reduce salt intake to minimize fluid retention</item>
+    </string-array>
+
+    <!-- Symptom Guide: Back Pain -->
+    <string name="edu_symptom_back_pain_name">Back Pain</string>
+    <string name="edu_symptom_back_pain_desc">Lower back pain during menstruation is caused by the same uterine contractions that cause cramps. Pain radiates from the abdomen to the lower back and thighs.</string>
+    <string name="edu_symptom_back_pain_why">Prostaglandins released during menstruation cause uterine contractions that can radiate pain to the lower back. The uterus sits close to the spine, and inflammation can affect surrounding nerves and muscles. Relaxin hormone can also make ligaments more lax.</string>
+    <string name="edu_symptom_back_pain_doctor">See a doctor if back pain is severe, radiates down your legs, is accompanied by numbness or tingling, or persists throughout your entire cycle.</string>
+    <string-array name="edu_symptom_back_pain_tips">
+        <item>Apply heat to the lower back (heating pad, warm bath)</item>
+        <item>Gentle stretches: cat-cow, child\'s pose, knee-to-chest</item>
+        <item>Anti-inflammatory medications (ibuprofen, naproxen)</item>
+        <item>Gentle walking to improve blood flow</item>
+        <item>Sleep with a pillow between your knees for alignment</item>
+        <item>Practice good posture throughout the day</item>
+    </string-array>
+
+    <!-- Symptom Guide: Nausea -->
+    <string name="edu_symptom_nausea_name">Nausea</string>
+    <string name="edu_symptom_nausea_desc">Some people experience nausea during their period, often alongside cramps. It can range from mild queasiness to significant discomfort that affects eating.</string>
+    <string name="edu_symptom_nausea_why">Prostaglandins not only cause uterine contractions but can also affect the stomach and intestines, leading to nausea, diarrhea, or vomiting. Hormonal fluctuations can also slow gastric emptying, contributing to the queasy feeling.</string>
+    <string name="edu_symptom_nausea_doctor">See a doctor if nausea is severe, causes frequent vomiting, leads to dehydration, or prevents you from keeping food or medication down.</string>
+    <string-array name="edu_symptom_nausea_tips">
+        <item>Eat small, frequent meals to keep blood sugar stable</item>
+        <item>Ginger (tea, supplements, or ginger ale) is a natural anti-nausea remedy</item>
+        <item>Peppermint tea can soothe the stomach</item>
+        <item>Avoid fatty, spicy, or heavily processed foods</item>
+        <item>Take anti-inflammatory medications with food</item>
+        <item>Acupressure on the inner wrist (P6 point) may help</item>
+    </string-array>
+
+    <!-- Symptom Guide: Food Cravings -->
+    <string name="edu_symptom_food_cravings_name">Food Cravings</string>
+    <string name="edu_symptom_food_cravings_desc">Intense food cravings — especially for carbs, chocolate, and salty foods — are a hallmark of PMS. They typically peak in the late luteal phase (the week before your period).</string>
+    <string name="edu_symptom_food_cravings_why">Dropping serotonin levels in the late luteal phase drive cravings for carbohydrates and sugar, which temporarily boost serotonin. Magnesium levels also dip (which may explain chocolate cravings). Additionally, your metabolic rate slightly increases, requiring more calories.</string>
+    <string name="edu_symptom_food_cravings_doctor">See a doctor if cravings are compulsive, lead to binge eating, cause distress, or are accompanied by significant weight changes.</string>
+    <string-array name="edu_symptom_food_cravings_tips">
+        <item>Satisfy cravings mindfully — a small portion of what you want is okay</item>
+        <item>Choose complex carbs over refined sugars for lasting satisfaction</item>
+        <item>Dark chocolate satisfies cravings while providing magnesium</item>
+        <item>Eat balanced meals with protein, fiber, and healthy fats</item>
+        <item>Stay hydrated — thirst is sometimes mistaken for hunger</item>
+        <item>Plan satisfying snacks in advance for the luteal phase</item>
+    </string-array>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ── Education Content: Health Tips ─────────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <!-- Health Tip: Iron-Rich Recovery Meals (Menstrual / Nutrition) -->
+    <string name="edu_tip_iron_recovery_title">Iron-Rich Recovery Meals</string>
+    <string name="edu_tip_iron_recovery_content">During your period, replenish lost iron with spinach salads, lentil soup, or lean red meat. Pair with vitamin C foods (citrus, bell peppers) to boost absorption.</string>
+
+    <!-- Health Tip: Cozy Movement (Menstrual / Exercise) -->
+    <string name="edu_tip_cozy_movement_title">Cozy Movement</string>
+    <string name="edu_tip_cozy_movement_content">Gentle yoga poses like child\'s pose, reclined butterfly, and cat-cow can ease cramps and boost mood without depleting your energy.</string>
+
+    <!-- Health Tip: Rest Without Guilt (Menstrual / Self-Care) -->
+    <string name="edu_tip_rest_without_guilt_title">Rest Without Guilt</string>
+    <string name="edu_tip_rest_without_guilt_content">Your body is doing important work. Allow yourself extra rest — an early bedtime, a warm bath, or a slow morning can make a big difference.</string>
+
+    <!-- Health Tip: Sleep Sanctuary (Menstrual / Sleep) -->
+    <string name="edu_tip_sleep_sanctuary_title">Sleep Sanctuary</string>
+    <string name="edu_tip_sleep_sanctuary_content">Period discomfort can disrupt sleep. Try a heating pad on your abdomen, magnesium before bed, and keep your room cool (65–68°F / 18–20°C).</string>
+
+    <!-- Health Tip: Emotional Check-In (Menstrual / Mental Health) -->
+    <string name="edu_tip_emotional_check_in_title">Emotional Check-In</string>
+    <string name="edu_tip_emotional_check_in_content">Low hormones can bring low moods. Journal your feelings, practice gratitude, or simply acknowledge that this phase is temporary and that\'s okay.</string>
+
+    <!-- Health Tip: Fresh & Fermented Foods (Follicular / Nutrition) -->
+    <string name="edu_tip_fresh_fermented_foods_title">Fresh &amp; Fermented Foods</string>
+    <string name="edu_tip_fresh_fermented_foods_content">Your digestion is at its best! Enjoy fresh salads, fermented foods (kimchi, yogurt, sauerkraut), and light proteins to match your rising energy.</string>
+
+    <!-- Health Tip: Challenge Yourself (Follicular / Exercise) -->
+    <string name="edu_tip_challenge_yourself_title">Challenge Yourself</string>
+    <string name="edu_tip_challenge_yourself_content">Rising estrogen means faster recovery and higher motivation. Try HIIT, running, or a new fitness class. Your body is primed for peak performance.</string>
+
+    <!-- Health Tip: Creative Energy Boost (Follicular / Self-Care) -->
+    <string name="edu_tip_creative_energy_boost_title">Creative Energy Boost</string>
+    <string name="edu_tip_creative_energy_boost_content">Estrogen enhances verbal fluency and creativity. Channel this energy into brainstorming, writing, art, or tackling complex problems at work.</string>
+
+    <!-- Health Tip: Optimize Your Schedule (Follicular / Mental Health) -->
+    <string name="edu_tip_optimize_schedule_title">Optimize Your Schedule</string>
+    <string name="edu_tip_optimize_schedule_content">With increasing energy, this is the best time for job interviews, presentations, and social gatherings. Plan important events during this phase.</string>
+
+    <!-- Health Tip: Peak Performance Fuel (Ovulation / Nutrition) -->
+    <string name="edu_tip_peak_performance_fuel_title">Peak Performance Fuel</string>
+    <string name="edu_tip_peak_performance_fuel_content">Support your energy peak with anti-inflammatory foods. Zinc-rich pumpkin seeds, omega-3 fish, and colorful vegetables keep you at your best.</string>
+
+    <!-- Health Tip: Go For Your Goals (Ovulation / Exercise) -->
+    <string name="edu_tip_go_for_goals_title">Go For Your Goals</string>
+    <string name="edu_tip_go_for_goals_content">You\'re at peak strength and endurance. Attempt personal records, compete, or try intense workouts. Your body recovers fastest right now.</string>
+
+    <!-- Health Tip: Social Connection (Ovulation / Mental Health) -->
+    <string name="edu_tip_social_connection_title">Social Connection</string>
+    <string name="edu_tip_social_connection_content">Estrogen peaks make you naturally more social and confident. Plan dates, meetups, and team activities. Your communication skills are at their best.</string>
+
+    <!-- Health Tip: Complex Carb Comfort (Luteal / Nutrition) -->
+    <string name="edu_tip_complex_carb_comfort_title">Complex Carb Comfort</string>
+    <string name="edu_tip_complex_carb_comfort_content">Craving carbs? Choose complex ones: sweet potatoes, brown rice, oats. They boost serotonin naturally and provide sustained energy without sugar crashes.</string>
+
+    <!-- Health Tip: Gentle Is Powerful (Luteal / Exercise) -->
+    <string name="edu_tip_gentle_is_powerful_title">Gentle Is Powerful</string>
+    <string name="edu_tip_gentle_is_powerful_content">Switch to moderate workouts: Pilates, yoga, swimming, or brisk walks. Your body needs recovery more than intensity in this phase.</string>
+
+    <!-- Health Tip: PMS Self-Care Kit (Luteal / Self-Care) -->
+    <string name="edu_tip_pms_self_care_kit_title">PMS Self-Care Kit</string>
+    <string name="edu_tip_pms_self_care_kit_content">Prepare your PMS toolkit: heating pad, herbal tea, dark chocolate, a cozy playlist, and a journal. Having comfort items ready reduces stress.</string>
+
+    <!-- Health Tip: Wind-Down Routine (Luteal / Sleep) -->
+    <string name="edu_tip_wind_down_routine_title">Wind-Down Routine</string>
+    <string name="edu_tip_wind_down_routine_content">Progesterone\'s sedating effect can cause daytime drowsiness but nighttime restlessness. Set a consistent bedtime, avoid screens, and try lavender essential oil.</string>
+
+    <!-- Health Tip: Mood Management (Luteal / Mental Health) -->
+    <string name="edu_tip_mood_management_title">Mood Management</string>
+    <string name="edu_tip_mood_management_content">PMS mood shifts are real and valid. Practice box breathing (4-4-4-4), limit stressors where possible, and remind yourself this is temporary — your hormones are the cause, not you.</string>
+
+    <!-- Health Tip: Hydration Matters Always (Universal / Nutrition) -->
+    <string name="edu_tip_hydration_matters_title">Hydration Matters Always</string>
+    <string name="edu_tip_hydration_matters_content">Aim for 8–10 glasses of water daily throughout your cycle. Proper hydration reduces bloating, headaches, fatigue, and cramps.</string>
+
+    <!-- Health Tip: Track to Learn (Universal / Self-Care) -->
+    <string name="edu_tip_track_to_learn_title">Track to Learn</string>
+    <string name="edu_tip_track_to_learn_content">The more consistently you track your symptoms, moods, and flow, the better you\'ll understand your unique patterns. Knowledge is empowerment.</string>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ── Report Generator ──────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <string name="report_header">BloomCycle Health Report</string>
+    <string name="report_generated">Generated: %s</string>
+    <string name="report_overview_section">── Overview ──</string>
+    <string name="report_total_days_tracked">Total days tracked: %d</string>
+    <string name="report_first_log">First log: %s</string>
+    <string name="report_last_log">Last log: %s</string>
+    <string name="report_periods_detected">Periods detected: %d</string>
+    <string name="report_cycle_stats_section">── Cycle Statistics ──</string>
+    <string name="report_avg_cycle">Average cycle length: %s days</string>
+    <string name="report_avg_period">Average period length: %s days</string>
+    <string name="report_shortest_cycle">Shortest cycle: %d days</string>
+    <string name="report_longest_cycle">Longest cycle: %d days</string>
+    <string name="report_cycle_history_section">── Cycle History ──</string>
+    <string name="report_cycle_entry">%1$d. %2$s – %3$s (%4$dd period, %5$s)</string>
+    <string name="report_cycle_ongoing">ongoing</string>
+    <string name="report_cycle_len">%dd cycle</string>
+    <string name="report_top_symptoms_section">── Top Symptoms ──</string>
+    <string name="report_symptom_entry">• %1$s: %2$d days (%3$d%%)</string>
+    <string name="report_mood_section">── Mood Summary ──</string>
+    <string name="report_mood_entry">• %1$s: %2$d days (%3$d%%)</string>
+    <string name="report_flow_section">── Flow Pattern ──</string>
+    <string name="report_flow_entry">• %1$s: %2$d days (%3$d%%)</string>
+    <string name="report_footer_app">Generated by BloomCycle</string>
+    <string name="report_footer_tagline">Privacy-first period tracking</string>
+    <string name="report_csv_header">Date,Flow Intensity,Mood,Symptoms,Sexual Activity,Cervical Mucus,Temperature,Weight,Notes</string>
 </resources>

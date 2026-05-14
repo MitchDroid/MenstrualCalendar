@@ -1,7 +1,10 @@
 package com.bloomcycle.app.domain.usecase
 
+import android.content.Context
+import com.bloomcycle.app.R
 import com.bloomcycle.app.domain.model.DailyLog
 import com.bloomcycle.app.domain.model.FlowIntensity
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -36,10 +39,11 @@ data class CycleSummaryReport(
 
 /**
  * Generates structured reports and exportable data from daily logs.
- * Pure domain logic — no Android dependencies.
+ * Uses Android context for localized string resources.
  */
 @Singleton
 class ReportGenerator @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val predictionEngine: CyclePredictionEngine
 ) {
 
@@ -81,8 +85,8 @@ class ReportGenerator @Inject constructor(
     fun generateCsvExport(logs: List<DailyLog>): String {
         val sb = StringBuilder()
 
-        // Header
-        sb.appendLine("Date,Flow Intensity,Mood,Symptoms,Sexual Activity,Cervical Mucus,Temperature,Weight,Notes")
+        // Localized header
+        sb.appendLine(context.getString(R.string.report_csv_header))
 
         // Rows sorted by date
         logs.sortedBy { it.date }.forEach { log ->
@@ -113,41 +117,56 @@ class ReportGenerator @Inject constructor(
         val sb = StringBuilder()
 
         sb.appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-        sb.appendLine("    BloomCycle Health Report")
+        sb.appendLine("    ${context.getString(R.string.report_header)}")
         sb.appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
         sb.appendLine()
-        sb.appendLine("Generated: ${report.generatedAt.format(dateFormat)}")
+        sb.appendLine(context.getString(R.string.report_generated, report.generatedAt.format(dateFormat)))
         sb.appendLine()
 
         // ── Overview ────────────────────────────────
-        sb.appendLine("── Overview ──")
-        sb.appendLine("Total days tracked: ${report.totalDaysTracked}")
-        report.firstLogDate?.let { sb.appendLine("First log: ${it.format(dateFormat)}") }
-        report.lastLogDate?.let { sb.appendLine("Last log: ${it.format(dateFormat)}") }
-        sb.appendLine("Periods detected: ${report.totalPeriodsDetected}")
+        sb.appendLine(context.getString(R.string.report_overview_section))
+        sb.appendLine(context.getString(R.string.report_total_days_tracked, report.totalDaysTracked))
+        report.firstLogDate?.let {
+            sb.appendLine(context.getString(R.string.report_first_log, it.format(dateFormat)))
+        }
+        report.lastLogDate?.let {
+            sb.appendLine(context.getString(R.string.report_last_log, it.format(dateFormat)))
+        }
+        sb.appendLine(context.getString(R.string.report_periods_detected, report.totalPeriodsDetected))
         sb.appendLine()
 
         // ── Cycle Statistics ────────────────────────
-        sb.appendLine("── Cycle Statistics ──")
+        sb.appendLine(context.getString(R.string.report_cycle_stats_section))
         report.averageCycleLength?.let {
-            sb.appendLine("Average cycle length: ${String.format("%.1f", it)} days")
+            sb.appendLine(context.getString(R.string.report_avg_cycle, String.format("%.1f", it)))
         }
         report.averagePeriodLength?.let {
-            sb.appendLine("Average period length: ${String.format("%.1f", it)} days")
+            sb.appendLine(context.getString(R.string.report_avg_period, String.format("%.1f", it)))
         }
-        report.shortestCycle?.let { sb.appendLine("Shortest cycle: $it days") }
-        report.longestCycle?.let { sb.appendLine("Longest cycle: $it days") }
+        report.shortestCycle?.let {
+            sb.appendLine(context.getString(R.string.report_shortest_cycle, it))
+        }
+        report.longestCycle?.let {
+            sb.appendLine(context.getString(R.string.report_longest_cycle, it))
+        }
         sb.appendLine()
 
         // ── Cycle History ───────────────────────────
         if (report.cycleHistory.isNotEmpty()) {
-            sb.appendLine("── Cycle History ──")
+            sb.appendLine(context.getString(R.string.report_cycle_history_section))
             report.cycleHistory.forEachIndexed { index, entry ->
-                val cycleLenStr = entry.cycleLength?.let { "${it}d cycle" } ?: "ongoing"
+                val cycleLenStr = entry.cycleLength?.let {
+                    context.getString(R.string.report_cycle_len, it)
+                } ?: context.getString(R.string.report_cycle_ongoing)
                 sb.appendLine(
-                    "${index + 1}. ${entry.periodStart.format(dateFormat)} – " +
-                            "${entry.periodEnd.format(dateFormat)} " +
-                            "(${entry.periodLength}d period, $cycleLenStr)"
+                    context.getString(
+                        R.string.report_cycle_entry,
+                        index + 1,
+                        entry.periodStart.format(dateFormat),
+                        entry.periodEnd.format(dateFormat),
+                        entry.periodLength,
+                        cycleLenStr
+                    )
                 )
             }
             sb.appendLine()
@@ -155,11 +174,15 @@ class ReportGenerator @Inject constructor(
 
         // ── Top Symptoms ────────────────────────────
         if (report.symptomFrequencies.isNotEmpty()) {
-            sb.appendLine("── Top Symptoms ──")
+            sb.appendLine(context.getString(R.string.report_top_symptoms_section))
             report.symptomFrequencies.take(5).forEach { freq ->
                 sb.appendLine(
-                    "• ${formatEnum(freq.symptom.name)}: ${freq.count} days " +
-                            "(${(freq.percentage * 100).toInt()}%)"
+                    context.getString(
+                        R.string.report_symptom_entry,
+                        formatEnum(freq.symptom.name),
+                        freq.count,
+                        (freq.percentage * 100).toInt()
+                    )
                 )
             }
             sb.appendLine()
@@ -167,11 +190,15 @@ class ReportGenerator @Inject constructor(
 
         // ── Mood Summary ────────────────────────────
         if (report.moodDistribution.isNotEmpty()) {
-            sb.appendLine("── Mood Summary ──")
+            sb.appendLine(context.getString(R.string.report_mood_section))
             report.moodDistribution.forEach { mood ->
                 sb.appendLine(
-                    "• ${formatEnum(mood.mood.name)}: ${mood.count} days " +
-                            "(${(mood.percentage * 100).toInt()}%)"
+                    context.getString(
+                        R.string.report_mood_entry,
+                        formatEnum(mood.mood.name),
+                        mood.count,
+                        (mood.percentage * 100).toInt()
+                    )
                 )
             }
             sb.appendLine()
@@ -179,19 +206,23 @@ class ReportGenerator @Inject constructor(
 
         // ── Flow Pattern ────────────────────────────
         if (report.flowPatterns.isNotEmpty()) {
-            sb.appendLine("── Flow Pattern ──")
+            sb.appendLine(context.getString(R.string.report_flow_section))
             report.flowPatterns.forEach { flow ->
                 sb.appendLine(
-                    "• ${formatEnum(flow.intensity.name)}: ${flow.dayCount} days " +
-                            "(${(flow.percentage * 100).toInt()}%)"
+                    context.getString(
+                        R.string.report_flow_entry,
+                        formatEnum(flow.intensity.name),
+                        flow.dayCount,
+                        (flow.percentage * 100).toInt()
+                    )
                 )
             }
             sb.appendLine()
         }
 
         sb.appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-        sb.appendLine("  Generated by BloomCycle")
-        sb.appendLine("  Privacy-first period tracking")
+        sb.appendLine("  ${context.getString(R.string.report_footer_app)}")
+        sb.appendLine("  ${context.getString(R.string.report_footer_tagline)}")
         sb.appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
         return sb.toString()
