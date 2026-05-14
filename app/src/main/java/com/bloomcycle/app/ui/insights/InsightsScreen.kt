@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Psychology
@@ -157,7 +158,7 @@ fun InsightsScreen(
         Spacer(modifier = Modifier.height(10.dp))
 
         EducationNavigationCard(
-            icon = Icons.Filled.MenuBook,
+            icon = Icons.AutoMirrored.Filled.MenuBook,
             title = stringResource(R.string.insights_symptom_guide),
             subtitle = stringResource(R.string.insights_symptom_guide_desc),
             accentColor = MaterialTheme.colorScheme.tertiary,
