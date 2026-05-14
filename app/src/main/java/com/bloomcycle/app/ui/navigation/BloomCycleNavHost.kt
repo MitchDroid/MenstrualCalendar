@@ -1,5 +1,12 @@
 package com.bloomcycle.app.ui.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -22,6 +29,26 @@ import com.bloomcycle.app.ui.settings.SettingsScreen
 import com.bloomcycle.app.ui.tracking.DailyTrackingScreen
 import java.time.LocalDate
 
+// ── Shared transition specs ────────────────────────────────────
+private const val NAV_ANIM_DURATION = 300
+
+// Tabs (Home, Calendar, Insights, Settings) — subtle crossfade
+private fun tabEnter(): EnterTransition = fadeIn(tween(NAV_ANIM_DURATION))
+private fun tabExit(): ExitTransition = fadeOut(tween(NAV_ANIM_DURATION))
+
+// Detail screens (push in from right, pop out to right)
+private fun detailEnter(): EnterTransition =
+    slideInHorizontally(tween(NAV_ANIM_DURATION)) { it / 3 } + fadeIn(tween(NAV_ANIM_DURATION))
+
+private fun detailExit(): ExitTransition =
+    fadeOut(tween(150))
+
+private fun detailPopEnter(): EnterTransition =
+    fadeIn(tween(NAV_ANIM_DURATION))
+
+private fun detailPopExit(): ExitTransition =
+    slideOutHorizontally(tween(NAV_ANIM_DURATION)) { it / 3 } + fadeOut(tween(NAV_ANIM_DURATION))
+
 @Composable
 fun BloomCycleNavHost(
     navController: NavHostController,
@@ -31,9 +58,18 @@ fun BloomCycleNavHost(
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier
+        modifier = modifier,
+        enterTransition = { detailEnter() },
+        exitTransition = { detailExit() },
+        popEnterTransition = { detailPopEnter() },
+        popExitTransition = { detailPopExit() }
     ) {
-        composable(Screen.Onboarding.route) {
+        // ── Tab destinations (crossfade) ────────────
+        composable(
+            Screen.Onboarding.route,
+            enterTransition = { fadeIn(tween(400)) },
+            exitTransition = { fadeOut(tween(400)) }
+        ) {
             OnboardingScreen(
                 onOnboardingComplete = {
                     navController.navigate(Screen.Home.route) {
@@ -42,14 +78,22 @@ fun BloomCycleNavHost(
                 }
             )
         }
-        composable(Screen.Home.route) {
+        composable(
+            Screen.Home.route,
+            enterTransition = { tabEnter() },
+            exitTransition = { tabExit() }
+        ) {
             HomeScreen(
                 onNavigateToTracking = { date ->
                     navController.navigate(Screen.DailyTracking.createRoute(date))
                 }
             )
         }
-        composable(Screen.Calendar.route) {
+        composable(
+            Screen.Calendar.route,
+            enterTransition = { tabEnter() },
+            exitTransition = { tabExit() }
+        ) {
             CalendarScreen(
                 onNavigateToTracking = { date ->
                     navController.navigate(Screen.DailyTracking.createRoute(date))
@@ -69,7 +113,11 @@ fun BloomCycleNavHost(
                 onNavigateBack = { navController.popBackStack() }
             )
         }
-        composable(Screen.Insights.route) {
+        composable(
+            Screen.Insights.route,
+            enterTransition = { tabEnter() },
+            exitTransition = { tabExit() }
+        ) {
             InsightsScreen(
                 onNavigateToCycleGuide = {
                     navController.navigate(Screen.CyclePhaseGuide.route)
@@ -122,7 +170,12 @@ fun BloomCycleNavHost(
                 onNavigateBack = { navController.popBackStack() }
             )
         }
-        composable(Screen.Settings.route) {
+        // ── Tab: Settings ────────────────────────────
+        composable(
+            Screen.Settings.route,
+            enterTransition = { tabEnter() },
+            exitTransition = { tabExit() }
+        ) {
             SettingsScreen(
                 onNavigateToReports = {
                     navController.navigate(Screen.Reports.route)

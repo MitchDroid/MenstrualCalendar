@@ -1,5 +1,13 @@
 package com.bloomcycle.app.ui.calendar
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +39,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
@@ -60,6 +71,9 @@ fun CalendarScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    // Track month navigation direction for slide animation
+    var navDirection by remember { mutableIntStateOf(0) } // -1 = back, +1 = forward
+
     Scaffold(
         floatingActionButton = {
             ExtendedFloatingActionButton(
@@ -84,9 +98,10 @@ fun CalendarScreen(
             // ── Month Navigation Header ──────────────────
             MonthHeader(
                 monthYear = "${uiState.currentMonth.month.getDisplayName(TextStyle.FULL, Locale.getDefault())} ${uiState.currentMonth.year}",
-                onPreviousMonth = { viewModel.navigateMonth(-1) },
-                onNextMonth = { viewModel.navigateMonth(1) },
-                onToday = { viewModel.goToToday() }
+                onPreviousMonth = { navDirection = -1; viewModel.navigateMonth(-1) },
+                onNextMonth = { navDirection = 1; viewModel.navigateMonth(1) },
+                onToday = { navDirection = 0; viewModel.goToToday() },
+                direction = navDirection
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -114,11 +129,20 @@ fun CalendarScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // ── Selected Day Info ─────────────────────────
-            SelectedDayCard(
-                uiState = uiState,
-                onLogDay = { onNavigateToTracking(uiState.selectedDate.toString()) }
-            )
+            // ── Selected Day Info (animated on date change) ─
+            AnimatedContent(
+                targetState = uiState.selectedDate,
+                transitionSpec = {
+                    (fadeIn(tween(200)) + slideInVertically(tween(250)) { it / 6 })
+                        .togetherWith(fadeOut(tween(150)))
+                },
+                label = "selectedDay"
+            ) { _ ->
+                SelectedDayCard(
+                    uiState = uiState,
+                    onLogDay = { onNavigateToTracking(uiState.selectedDate.toString()) }
+                )
+            }
 
             Spacer(modifier = Modifier.height(80.dp)) // FAB clearance
         }
@@ -130,7 +154,8 @@ private fun MonthHeader(
     monthYear: String,
     onPreviousMonth: () -> Unit,
     onNextMonth: () -> Unit,
-    onToday: () -> Unit
+    onToday: () -> Unit,
+    direction: Int = 0
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -145,9 +170,18 @@ private fun MonthHeader(
             )
         }
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        // Animated month/year text — slides in from the navigation direction
+        AnimatedContent(
+            targetState = monthYear,
+            transitionSpec = {
+                val slideDir = if (direction >= 0) 1 else -1
+                (slideInHorizontally(tween(250)) { slideDir * it / 3 } + fadeIn(tween(250)))
+                    .togetherWith(slideOutHorizontally(tween(200)) { -slideDir * it / 3 } + fadeOut(tween(200)))
+            },
+            label = "monthYear"
+        ) { text ->
             Text(
-                text = monthYear,
+                text = text,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface

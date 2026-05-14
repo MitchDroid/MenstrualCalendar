@@ -1,5 +1,10 @@
 package com.bloomcycle.app.ui.calendar
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,9 +22,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -98,7 +105,7 @@ private fun DayCell(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val backgroundColor = when {
+    val targetBackgroundColor = when {
         isSelected -> MaterialTheme.colorScheme.primary
         day.markerType == DayMarkerType.PERIOD -> PeriodRed.copy(alpha = 0.2f)
         day.markerType == DayMarkerType.PREDICTED_PERIOD -> PredictedPurple.copy(alpha = 0.15f)
@@ -107,12 +114,35 @@ private fun DayCell(
         else -> Color.Transparent
     }
 
-    val textColor = when {
+    // Animated background color on selection change
+    val backgroundColor by animateColorAsState(
+        targetValue = targetBackgroundColor,
+        animationSpec = tween(250),
+        label = "dayBg"
+    )
+
+    val targetTextColor = when {
         isSelected -> MaterialTheme.colorScheme.onPrimary
         !day.isCurrentMonth -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f)
         day.isToday -> MaterialTheme.colorScheme.primary
         else -> MaterialTheme.colorScheme.onSurface
     }
+
+    val textColor by animateColorAsState(
+        targetValue = targetTextColor,
+        animationSpec = tween(250),
+        label = "dayText"
+    )
+
+    // Scale bounce on selection
+    val scale by animateFloatAsState(
+        targetValue = if (isSelected) 1.12f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMedium
+        ),
+        label = "dayScale"
+    )
 
     val borderModifier = if (day.isToday && !isSelected) {
         Modifier.border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
@@ -124,6 +154,7 @@ private fun DayCell(
         modifier = modifier
             .aspectRatio(1f)
             .padding(2.dp)
+            .scale(scale)
             .clip(CircleShape)
             .then(borderModifier)
             .background(backgroundColor, CircleShape)
