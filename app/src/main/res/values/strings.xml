@@ -183,6 +183,20 @@
     <string name="insights_health_tips">Health Tips</string>
     <string name="insights_health_tips_desc">Phase-aware wellness tips for nutrition, exercise &amp; more</string>
 
+    <!-- Cycle trend charts -->
+    <string name="insights_cycle_trends">📈  Cycle Trends</string>
+    <string name="insights_cycle_length_trend">Cycle Length</string>
+    <string name="insights_period_duration_trend">Period Duration</string>
+    <string name="insights_avg_line">avg</string>
+    <string name="insights_days_unit">days</string>
+    <string name="insights_cycle_number">C%d</string>
+    <string name="insights_trend_stable">Stable</string>
+    <string name="insights_trend_shortening">Shortening</string>
+    <string name="insights_trend_lengthening">Lengthening</string>
+    <string name="insights_trend_variable">Variable</string>
+    <string name="insights_normal_range">Normal range: %1$d–%2$d days</string>
+    <string name="insights_need_more_cycles">Log at least 2 complete cycles to see trends</string>
+
     <!-- Insights cards -->
     <string name="insights_upcoming_predictions">Upcoming Predictions</string>
     <string name="insights_next_period">Next Period</string>

@@ -194,6 +194,57 @@ class CyclePredictionEngine @Inject constructor() {
             }.filter { it.dayCount > 0 }
     }
 
+    // ── Cycle History ─────────────────────────────────────────
+
+    /**
+     * Detects period spans from flow data and builds a history of cycles
+     * with period start/end dates and cycle lengths.
+     */
+    fun computeCycleHistory(logs: List<DailyLog>): List<CycleHistoryEntry> {
+        val periodDays = logs
+            .filter { it.flowIntensity != null && it.flowIntensity != FlowIntensity.NONE }
+            .map { it.date }
+            .sorted()
+
+        if (periodDays.isEmpty()) return emptyList()
+
+        // Group consecutive (±3 day gap) period days into period spans
+        val periods = mutableListOf<MutableList<LocalDate>>()
+        var currentPeriod = mutableListOf(periodDays.first())
+
+        for (i in 1 until periodDays.size) {
+            val gap = ChronoUnit.DAYS.between(periodDays[i - 1], periodDays[i])
+            if (gap > 3) {
+                periods.add(currentPeriod)
+                currentPeriod = mutableListOf(periodDays[i])
+            } else {
+                currentPeriod.add(periodDays[i])
+            }
+        }
+        periods.add(currentPeriod)
+
+        // Build cycle history entries
+        return periods.mapIndexed { index, periodSpan ->
+            val start = periodSpan.first()
+            val end = periodSpan.last()
+            val periodLength = ChronoUnit.DAYS.between(start, end).toInt() + 1
+
+            val cycleLength = if (index + 1 < periods.size) {
+                val nextStart = periods[index + 1].first()
+                ChronoUnit.DAYS.between(start, nextStart).toInt()
+            } else {
+                null // Most recent period — cycle not yet complete
+            }
+
+            CycleHistoryEntry(
+                periodStart = start,
+                periodEnd = end,
+                periodLength = periodLength,
+                cycleLength = cycleLength
+            )
+        }
+    }
+
     // ── Helpers ──────────────────────────────────────────────
 
     private fun detectPeriodStarts(logs: List<DailyLog>): List<LocalDate> {

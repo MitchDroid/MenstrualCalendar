@@ -98,6 +98,12 @@ fun InsightsScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
+        // ── Cycle Trend Charts ──────────────────────────
+        if (uiState.cycleHistory.isNotEmpty()) {
+            CycleTrendCard(cycleHistory = uiState.cycleHistory)
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
         // ── Analytics sections (require logged data) ─────
         if (!uiState.hasData) {
             InsightsEmptyState()
