@@ -1,3 +1,801 @@
 <resources>
     <string name="app_name">BloomCycle</string>
+
+    <!-- ── Common / Shared ────────────────────────────── -->
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="days">days</string>
+    <string name="day_singular">day</string>
+    <string name="go">Go</string>
+    <string name="view">View</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
+
+    <!-- Cycle phases -->
+    <string name="phase_menstrual">Menstrual</string>
+    <string name="phase_follicular">Follicular</string>
+    <string name="phase_ovulation">Ovulation</string>
+    <string name="phase_luteal">Luteal</string>
+
+    <!-- Fertility status -->
+    <string name="fertility_low">Low</string>
+    <string name="fertility_medium">Medium</string>
+    <string name="fertility_high">High</string>
+    <string name="fertility_peak">Peak</string>
+
+    <!-- Symptom labels -->
+    <string name="symptom_cramps">Cramps</string>
+    <string name="symptom_headache">Headache</string>
+    <string name="symptom_bloating">Bloating</string>
+    <string name="symptom_acne">Acne</string>
+    <string name="symptom_mood_swings">Mood swings</string>
+    <string name="symptom_fatigue">Fatigue</string>
+    <string name="symptom_tender_breasts">Tender breasts</string>
+    <string name="symptom_back_pain">Back pain</string>
+    <string name="symptom_nausea">Nausea</string>
+    <string name="symptom_food_cravings">Food cravings</string>
+
+    <!-- ── Onboarding ─────────────────────────────────── -->
+    <string name="onboarding_step_indicator">Step %1$d of %2$d</string>
+    <string name="onboarding_get_started">Get Started</string>
+    <string name="onboarding_complete_setup">Complete Setup</string>
+    <string name="onboarding_continue">Continue</string>
+
+    <!-- Welcome step -->
+    <string name="welcome_title">Welcome to\nBloomCycle</string>
+    <string name="welcome_description">Your personal menstrual health companion.\nPrivate, beautiful, and designed with care.</string>
+    <string name="welcome_feature_track">Track your cycle with ease</string>
+    <string name="welcome_feature_privacy">Your data stays on your device</string>
+    <string name="welcome_feature_insights">Get personalized insights</string>
+
+    <!-- Last period step -->
+    <string name="last_period_title">When did your last\nperiod start?</string>
+    <string name="last_period_description">This helps us predict your next cycle.\nAn approximate date is fine!</string>
+    <string name="last_period_placeholder">Tap to select date</string>
+    <string name="last_period_confirm">Confirm</string>
+    <string name="last_period_today">Today</string>
+    <string name="last_period_yesterday">Yesterday</string>
+    <string name="last_period_days_ago">%d days ago</string>
+
+    <!-- Cycle length step -->
+    <string name="cycle_length_title">How long is\nyour cycle?</string>
+    <string name="cycle_length_description">The average cycle is 28 days.\nCount from the first day of one period\nto the first day of the next.</string>
+    <string name="cycle_length_decrease">Decrease</string>
+    <string name="cycle_length_increase">Increase</string>
+    <string name="cycle_length_min">18 days</string>
+    <string name="cycle_length_max">45 days</string>
+    <string name="cycle_length_info">Most cycles are 24–35 days. Don\'t worry if yours is different!</string>
+
+    <!-- Period duration step -->
+    <string name="period_duration_title">How long does\nyour period last?</string>
+    <string name="period_duration_description">The average period lasts 3–7 days.\nThis helps us track your flow accurately.</string>
+    <string name="period_duration_min">1 day</string>
+    <string name="period_duration_max">14 days</string>
+
+    <!-- User goal step -->
+    <string name="user_goal_title">What\'s your\nmain goal?</string>
+    <string name="user_goal_description">This helps us personalize your experience.\nYou can change this anytime in settings.</string>
+    <string name="goal_track_cycle">Track My Cycle</string>
+    <string name="goal_track_cycle_desc">Keep track of periods and understand patterns</string>
+    <string name="goal_conceive">Trying to Conceive</string>
+    <string name="goal_conceive_desc">Track fertile days and ovulation window</string>
+    <string name="goal_avoid_pregnancy">Avoid Pregnancy</string>
+    <string name="goal_avoid_pregnancy_desc">Know your fertile window for planning</string>
+    <string name="goal_monitor_health">Monitor Health</string>
+    <string name="goal_monitor_health_desc">Track symptoms and overall wellness</string>
+
+    <!-- ── Home Screen ────────────────────────────────── -->
+    <string name="home_subtitle">Your cycle, your way</string>
+    <string name="home_cycle_day">Day %d</string>
+    <string name="home_next_period">Next Period</string>
+    <string name="home_cycle_length">Cycle Length</string>
+    <string name="home_fertility">Fertility</string>
+    <string name="home_phase">Phase</string>
+    <string name="home_edit_today_log">Edit Today\'s Log</string>
+    <string name="home_log_today">Log Today</string>
+    <string name="home_todays_tip">Today\'s Tip</string>
+    <string name="home_tip_menstrual">Stay hydrated and get plenty of rest. Gentle exercise like yoga can help ease cramps.</string>
+    <string name="home_tip_follicular">Your energy is rising! Great time for starting new projects and intense workouts.</string>
+    <string name="home_tip_ovulation">You\'re at peak energy and sociability. Perfect time for important conversations and events.</string>
+    <string name="home_tip_luteal">Your body is winding down. Focus on self-care, warm foods, and stress management.</string>
+
+    <!-- ── Calendar Screen ────────────────────────────── -->
+    <string name="calendar_log_day">Log Day</string>
+    <string name="calendar_previous_month">Previous month</string>
+    <string name="calendar_go_to_today">Go to today</string>
+    <string name="calendar_next_month">Next month</string>
+    <string name="calendar_legend_period">Period</string>
+    <string name="calendar_legend_predicted">Predicted</string>
+    <string name="calendar_legend_fertile">Fertile</string>
+    <string name="calendar_legend_ovulation">Ovulation</string>
+    <string name="calendar_cycle_day">Cycle Day</string>
+    <string name="calendar_phase">Phase</string>
+    <string name="calendar_status">Status</string>
+    <string name="calendar_todays_log">Today\'s Log</string>
+    <string name="calendar_edit_log">Edit Log</string>
+    <string name="calendar_add_log">Add log for this day</string>
+    <string name="calendar_marker_period">Period</string>
+    <string name="calendar_marker_predicted">Predicted</string>
+    <string name="calendar_marker_fertile">Fertile</string>
+    <string name="calendar_marker_ovulation">Ovulation</string>
+    <string name="calendar_marker_logged">Logged</string>
+    <string name="calendar_marker_regular">Regular</string>
+
+    <!-- ── Daily Tracking Screen ──────────────────────── -->
+    <string name="tracking_title">Daily Log</string>
+    <string name="tracking_delete_log">Delete log</string>
+    <string name="tracking_section_flow">Flow</string>
+    <string name="tracking_section_mood">Mood</string>
+    <string name="tracking_section_symptoms">Symptoms</string>
+    <string name="tracking_section_cervical_mucus">Cervical Mucus</string>
+    <string name="tracking_section_intimacy">Intimacy</string>
+    <string name="tracking_section_vitals">Vitals</string>
+    <string name="tracking_temp_label">Temp (°F)</string>
+    <string name="tracking_weight_label">Weight (lb)</string>
+    <string name="tracking_section_notes">Notes</string>
+    <string name="tracking_notes_placeholder">How are you feeling today?</string>
+    <string name="tracking_update_log">Update Log</string>
+    <string name="tracking_save_log">Save Log</string>
+
+    <!-- ── Insights Screen ────────────────────────────── -->
+    <string name="insights_title">Insights</string>
+    <string name="insights_subtitle">Your cycle analytics &amp; predictions</string>
+    <string name="insights_learn_section">📚  Learn &amp; Understand</string>
+    <string name="insights_learn_subtitle">Deepen your understanding of your body</string>
+    <string name="insights_cycle_phase_guide">Cycle Phase Guide</string>
+    <string name="insights_cycle_phase_guide_desc">Learn what happens in each phase of your cycle</string>
+    <string name="insights_symptom_guide">Symptom Guide</string>
+    <string name="insights_symptom_guide_desc">Understand and manage your symptoms</string>
+    <string name="insights_health_tips">Health Tips</string>
+    <string name="insights_health_tips_desc">Phase-aware wellness tips for nutrition, exercise &amp; more</string>
+
+    <!-- Insights cards -->
+    <string name="insights_upcoming_predictions">Upcoming Predictions</string>
+    <string name="insights_next_period">Next Period</string>
+    <string name="insights_days_away">days away</string>
+    <string name="insights_fertile_window">Fertile Window</string>
+    <string name="insights_ovulation">Ovulation</string>
+    <string name="insights_cycle_statistics">📊  Cycle Statistics</string>
+    <string name="insights_avg_cycle">Avg Cycle</string>
+    <string name="insights_avg_period">Avg Period</string>
+    <string name="insights_variation">Variation</string>
+    <string name="insights_shortest">Shortest</string>
+    <string name="insights_longest">Longest</string>
+    <string name="insights_days_logged">Days</string>
+    <string name="insights_logged">logged</string>
+    <string name="insights_top_symptoms">🤧  Top Symptoms</string>
+    <string name="insights_mood_trends">😊  Mood Trends</string>
+    <string name="insights_flow_pattern">Flow Pattern</string>
+    <string name="insights_empty_title">Start logging to see insights</string>
+    <string name="insights_empty_description">Log your daily symptoms, mood, and flow to unlock personalized analytics and predictions.</string>
+
+    <!-- Goal insight cards -->
+    <string name="insights_goal_fertility_title">Fertility Focus</string>
+    <string name="insights_goal_fertility_msg">Your next fertile window is %1$s. Ovulation is expected on %2$s.</string>
+    <string name="insights_goal_protection_title">Protection Reminder</string>
+    <string name="insights_goal_protection_msg">Your fertile window is %1$s. Use extra precaution during this period.</string>
+    <string name="insights_goal_tracking_title">Cycle Tracking</string>
+    <string name="insights_goal_tracking_msg">You\'re on day %1$d of your cycle (%2$s phase). Next period in %3$d days.</string>
+    <string name="insights_goal_health_title">Health Monitor</string>
+    <string name="insights_goal_health_msg">Keep logging daily to build a comprehensive health profile. Consistent tracking reveals patterns your doctor can use.</string>
+
+    <!-- ── Education — Cycle Phase Guide ──────────────── -->
+    <string name="phase_guide_title">Cycle Phase Guide</string>
+    <string name="phase_guide_intro_title">Understanding your cycle</string>
+    <string name="phase_guide_intro_desc">Your menstrual cycle has four distinct phases, each with unique hormonal changes that affect how you feel physically and emotionally.</string>
+    <string name="phase_guide_at_a_glance">Your Cycle at a Glance</string>
+    <string name="phase_guide_what_happens">What Happens</string>
+    <string name="phase_guide_common_symptoms">Common Symptoms</string>
+    <string name="phase_guide_self_care">Self-Care Tips</string>
+    <string name="phase_guide_nutrition">Nutrition</string>
+    <string name="phase_guide_exercise">Exercise</string>
+
+    <!-- ── Education — Symptom Guide ──────────────────── -->
+    <string name="symptom_guide_title">Symptom Guide</string>
+    <string name="symptom_guide_intro_title">Understanding your symptoms</string>
+    <string name="symptom_guide_intro_desc">Learn why common menstrual symptoms happen and how to manage them effectively. Tap any symptom to expand details.</string>
+    <string name="symptom_guide_why">Why It Happens</string>
+    <string name="symptom_guide_management">Management Tips</string>
+    <string name="symptom_guide_doctor">When to See a Doctor</string>
+    <string name="symptom_guide_disclaimer_title">ℹ️ Disclaimer</string>
+    <string name="symptom_guide_disclaimer_text">This information is for educational purposes only and does not replace professional medical advice. Always consult a qualified healthcare provider for diagnosis and treatment of any health condition.</string>
+
+    <!-- ── Education — Health Tips ─────────────────────── -->
+    <string name="health_tips_title">Health Tips</string>
+    <string name="health_tips_filter_phase">Filter by phase</string>
+    <string name="health_tips_all_phases">All Phases</string>
+    <string name="health_tips_filter_category">Filter by category</string>
+    <string name="health_tips_all">All</string>
+    <string name="health_tips_count">%d tips</string>
+    <string name="health_tips_current_phase">You\'re in the</string>
+    <string name="health_tips_phase_suffix">Phase</string>
+    <string name="health_tips_current_phase_subtitle">Tips marked below are especially relevant for you right now</string>
+    <string name="health_tips_empty_title">No tips match your filters</string>
+    <string name="health_tips_empty_subtitle">Try adjusting your phase or category filters</string>
+    <string name="category_nutrition">Nutrition</string>
+    <string name="category_exercise">Exercise</string>
+    <string name="category_self_care">Self-Care</string>
+    <string name="category_sleep">Sleep</string>
+    <string name="category_mental_health">Mental Health</string>
+
+    <!-- ── Settings Screen ────────────────────────────── -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_subtitle">Notifications, privacy &amp; preferences</string>
+
+    <!-- Notification permission banner -->
+    <string name="settings_notif_disabled_title">Notifications Disabled</string>
+    <string name="settings_notif_disabled_body">BloomCycle needs notification permission to send period reminders and alerts.</string>
+    <string name="settings_grant_permission">Grant Permission</string>
+    <string name="settings_open_settings">Open Settings</string>
+
+    <!-- Notifications section -->
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_period_reminders">Period Reminders</string>
+    <string name="settings_period_reminders_desc">Get notified before your next period starts</string>
+    <string name="settings_daily_log_reminders">Daily Log Reminders</string>
+    <string name="settings_daily_log_reminders_desc">Reminder to log your symptoms and mood each day</string>
+    <string name="settings_fertile_window_alerts">Fertile Window Alerts</string>
+    <string name="settings_fertile_window_alerts_desc">Get notified when your fertile window begins</string>
+    <string name="settings_remind_me">Remind me</string>
+    <string name="settings_day_before">%d day before</string>
+    <string name="settings_days_before">%d days before</string>
+
+    <!-- Privacy & Security section -->
+    <string name="settings_privacy_security">Privacy &amp; Security</string>
+    <string name="settings_biometric_lock">Biometric Lock</string>
+    <string name="settings_biometric_available_desc">Require fingerprint or face to open the app</string>
+    <string name="settings_biometric_unavailable_desc">Not available on this device</string>
+    <string name="settings_screen_security">Screen Security</string>
+    <string name="settings_screen_security_desc">Block screenshots and screen recordings</string>
+    <string name="settings_privacy_policy">Privacy &amp; Data Policy</string>
+    <string name="settings_privacy_policy_desc">How your data is stored and protected</string>
+
+    <!-- Cycle settings section -->
+    <string name="settings_cycle_settings">Cycle Settings</string>
+    <string name="settings_avg_cycle_length">Average Cycle Length</string>
+    <string name="settings_avg_period_duration">Average Period Duration</string>
+
+    <!-- Reports & Export -->
+    <string name="settings_reports_export">Reports &amp; Export</string>
+    <string name="settings_reports_export_desc">View cycle history, stats, and export your data</string>
+
+    <!-- Danger zone -->
+    <string name="settings_danger_zone">Danger Zone</string>
+    <string name="settings_delete_warning">Permanently delete all your data including logs, preferences, and cycle history. This cannot be undone.</string>
+    <string name="settings_delete_all_data">Delete All Data</string>
+    <string name="settings_delete_dialog_title">Delete All Data?</string>
+    <string name="settings_delete_dialog_body">This will permanently delete all your daily logs, cycle data, preferences, and notification settings. This action cannot be undone.\n\nConsider exporting your data first from Reports &amp; Export.</string>
+    <string name="settings_delete_everything">Delete Everything</string>
+
+    <!-- About section -->
+    <string name="settings_version">Version 1.0</string>
+    <string name="settings_about_description">Privacy-first menstrual health tracking.\nAll data stays on your device.</string>
+
+    <!-- ── Reports Screen ─────────────────────────────── -->
+    <string name="reports_title">Reports &amp; Export</string>
+    <string name="reports_overview">📊 Report Overview</string>
+    <string name="reports_generated">Generated %s</string>
+    <string name="reports_days_tracked">Days\nTracked</string>
+    <string name="reports_periods_detected">Periods\nDetected</string>
+    <string name="reports_avg_cycle_days">Avg Cycle\n(days)</string>
+    <string name="reports_avg_period_days">Avg Period\n(days)</string>
+    <string name="reports_tracking_period">Tracking period: %s</string>
+    <string name="reports_cycle_history">📅 Cycle History</string>
+    <string name="reports_period_detected_singular">%d period detected from your flow data</string>
+    <string name="reports_periods_detected_plural">%d periods detected from your flow data</string>
+    <string name="reports_period_duration">%dd period</string>
+    <string name="reports_cycle_duration">%dd cycle</string>
+    <string name="reports_current_cycle">current cycle</string>
+    <string name="reports_latest">Latest</string>
+    <string name="reports_cycle_statistics">📊 Cycle Statistics</string>
+    <string name="reports_shortest">Shortest</string>
+    <string name="reports_average">Average</string>
+    <string name="reports_longest">Longest</string>
+    <string name="reports_very_regular">Very regular</string>
+    <string name="reports_fairly_regular">Fairly regular</string>
+    <string name="reports_somewhat_irregular">Somewhat irregular</string>
+    <string name="reports_irregular">Irregular</string>
+    <string name="reports_days_variation">%d days variation</string>
+    <string name="reports_health_summary">❤️ Health Summary</string>
+    <string name="reports_frequent_symptoms">Most frequent symptoms</string>
+    <string name="reports_frequent_moods">Most logged moods</string>
+    <string name="reports_flow_breakdown">Flow breakdown</string>
+    <string name="reports_days_percent">%1$d days (%2$d%%)</string>
+    <string name="reports_export_title">📤 Export Your Data</string>
+    <string name="reports_export_description">Your data belongs to you. Export it anytime.</string>
+    <string name="reports_export_csv">Export CSV</string>
+    <string name="reports_export_csv_desc">Spreadsheet-compatible daily log data</string>
+    <string name="reports_export_report">Export Report</string>
+    <string name="reports_export_report_desc">Formatted text summary as .txt file</string>
+    <string name="reports_quick_share">Quick Share</string>
+    <string name="reports_quick_share_desc">Share summary text to any app</string>
+    <string name="reports_empty_title">No data to report yet</string>
+    <string name="reports_empty_description">Start logging your daily symptoms, mood, and flow to generate reports and export your health data.</string>
+
+    <!-- ── Privacy Policy Screen ──────────────────────── -->
+    <string name="privacy_title">Privacy &amp; Data</string>
+    <string name="privacy_commitment_title">🔒 Our Privacy Commitment</string>
+    <string name="privacy_commitment_body">BloomCycle is designed with privacy as its foundation. Your menstrual health data is deeply personal, and we believe you should have complete control over it.</string>
+    <string name="privacy_local_storage_title">100% Local Storage</string>
+    <string name="privacy_local_storage_body">All your data — daily logs, cycle predictions, symptoms, moods, and preferences — is stored exclusively on your device. Nothing is sent to external servers, cloud services, or third parties. Your phone is the only place your data exists.</string>
+    <string name="privacy_no_account_title">No Account Required</string>
+    <string name="privacy_no_account_body">BloomCycle works without any account registration, email, or personal identity information. You don\'t need to sign in, create a profile, or share identifying information to use any feature.</string>
+    <string name="privacy_no_analytics_title">No Analytics or Tracking</string>
+    <string name="privacy_no_analytics_body">We do not collect usage analytics, behavioral data, crash reports, or any form of telemetry. There are no tracking pixels, advertising identifiers, or third-party SDKs that monitor your activity.</string>
+    <string name="privacy_no_internet_title">No Internet Access</string>
+    <string name="privacy_no_internet_body">BloomCycle does not require an internet connection to function. The app works entirely offline. No data is ever transmitted over the network. If you check your device\'s network permissions, you\'ll see BloomCycle requests none.</string>
+    <string name="privacy_your_data_title">Your Data, Your Control</string>
+    <string name="privacy_your_data_body">You can export all your data at any time in CSV or text format via the Reports &amp; Export screen. You can also permanently delete all data from Settings. When you delete data, it is immediately and irreversibly removed from your device.</string>
+    <string name="privacy_biometric_title">Biometric Protection</string>
+    <string name="privacy_biometric_body">Enable biometric lock (fingerprint or face) to prevent unauthorized access to your health data. When enabled, you must authenticate each time you open the app. Biometric data is handled entirely by your device\'s secure hardware — BloomCycle never accesses or stores your biometric information.</string>
+    <string name="privacy_screenshot_title">Screenshot Protection</string>
+    <string name="privacy_screenshot_body">Enable screen security in Settings to prevent screenshots and screen recordings of the app. This adds FLAG_SECURE to the app window, ensuring your health data cannot be captured by other apps or screen recording tools.</string>
+    <string name="privacy_encryption_title">Data Encryption</string>
+    <string name="privacy_encryption_body">Your data is stored in Android\'s Room database and DataStore, both of which reside in the app\'s private storage directory. This directory is protected by Android\'s sandboxing security model, meaning no other app can access it without root permissions.</string>
+    <string name="privacy_open_source_title">Open Source Philosophy</string>
+    <string name="privacy_open_source_body">BloomCycle\'s privacy claims are verifiable. The app requests minimal permissions (only notifications and alarms), contains no hidden network calls, and stores all data locally. You are in complete control.</string>
+    <string name="privacy_uninstall_title">Uninstall = Complete Deletion</string>
+    <string name="privacy_uninstall_body">If you uninstall BloomCycle, all data is permanently deleted from your device. There is no residual data, no backups on external servers, and no way to recover your information after uninstallation unless you\'ve exported it beforehand.</string>
+    <string name="privacy_questions_title">Questions about your privacy?</string>
+    <string name="privacy_questions_body">BloomCycle is a personal project built with care. If you have any concerns about data handling, the entire codebase can be audited. Your trust matters.</string>
+
+    <!-- ── App Lock Screen ────────────────────────────── -->
+    <string name="lock_title">🌸 BloomCycle</string>
+    <string name="lock_protected">Your health data is protected</string>
+    <string name="lock_authenticate">Authenticate to access BloomCycle</string>
+    <string name="lock_unlock">Unlock</string>
+
+    <!-- ── Bottom Navigation ──────────────────────────── -->
+    <string name="nav_home">Home</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_insights">Insights</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- ── Notifications ──────────────────────────────── -->
+    <string name="notif_channel_period">Period Reminders</string>
+    <string name="notif_channel_period_desc">Reminders before your next predicted period</string>
+    <string name="notif_channel_daily">Daily Log Reminders</string>
+    <string name="notif_channel_daily_desc">Daily reminders to log your symptoms and mood</string>
+    <string name="notif_channel_fertile">Fertile Window Alerts</string>
+    <string name="notif_channel_fertile_desc">Notifications when your fertile window begins</string>
+    <string name="notif_period_today_title">🌸 Period starting today</string>
+    <string name="notif_period_tomorrow_title">🌸 Period expected tomorrow</string>
+    <string name="notif_period_days_title">🌸 Period in %d days</string>
+    <string name="notif_period_today_body">Your period is predicted to start today. Be prepared and take care of yourself!</string>
+    <string name="notif_period_tomorrow_body">Your period is likely starting tomorrow. Stock up on supplies and plan for comfort.</string>
+    <string name="notif_period_days_body">Your next period is predicted in %d days. Time to prepare!</string>
+    <string name="notif_daily_title">📝 Time to log your day</string>
+    <string name="notif_daily_body">Take a moment to record your symptoms, mood, and flow. Consistent tracking unlocks better insights!</string>
+    <string name="notif_fertile_starting_title">✨ Fertile window starting</string>
+    <string name="notif_fertile_active_title">✨ You\'re in your fertile window</string>
+    <string name="notif_fertile_starting_body">Your fertile window is beginning. Check the Insights tab for details.</string>
+    <string name="notif_fertile_active_body">You\'re currently in your fertile window. Open BloomCycle for more information.</string>
+
+    <!-- Biometric prompt -->
+    <string name="biometric_prompt_title">BloomCycle Locked</string>
+    <string name="biometric_prompt_subtitle">Authenticate to access your data</string>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ── Education Content: Phase Guides ───────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <!-- Phase Guide: Menstrual -->
+    <string name="edu_phase_menstrual_title">Menstrual Phase</string>
+    <string name="edu_phase_menstrual_duration">Days 1–5 (typically 3–7 days)</string>
+    <string name="edu_phase_menstrual_description">The menstrual phase marks the beginning of your cycle. The uterine lining sheds, resulting in your period. Hormone levels (estrogen and progesterone) are at their lowest.</string>
+    <string-array name="edu_phase_menstrual_what_happens">
+        <item>The uterine lining (endometrium) sheds through the cervix and vagina</item>
+        <item>Estrogen and progesterone levels drop to their lowest point</item>
+        <item>The pituitary gland begins releasing FSH to stimulate new follicle growth</item>
+        <item>Your body temperature is typically at its lowest</item>
+    </string-array>
+    <string-array name="edu_phase_menstrual_symptoms">
+        <item>Menstrual cramps (due to uterine contractions)</item>
+        <item>Lower back pain</item>
+        <item>Fatigue and low energy</item>
+        <item>Bloating and water retention</item>
+        <item>Headaches or migraines</item>
+        <item>Mood changes</item>
+    </string-array>
+    <string-array name="edu_phase_menstrual_self_care">
+        <item>Rest and prioritize sleep — your body is working hard</item>
+        <item>Use a heating pad on your lower abdomen for cramp relief</item>
+        <item>Stay hydrated — aim for 8+ glasses of water daily</item>
+        <item>Practice gentle stretching or yoga</item>
+        <item>Take warm baths to soothe muscle tension</item>
+        <item>Be kind to yourself — it\'s okay to slow down</item>
+    </string-array>
+    <string-array name="edu_phase_menstrual_nutrition">
+        <item>Iron-rich foods (spinach, lentils, red meat) to replenish lost iron</item>
+        <item>Omega-3 fatty acids (salmon, walnuts) to reduce inflammation</item>
+        <item>Dark chocolate (in moderation) for magnesium and mood boost</item>
+        <item>Ginger tea to help with nausea and cramps</item>
+        <item>Avoid excessive caffeine and salt, which can worsen bloating</item>
+    </string-array>
+    <string-array name="edu_phase_menstrual_exercise">
+        <item>Light walking or gentle yoga</item>
+        <item>Stretching exercises for the lower back and hips</item>
+        <item>Swimming (if comfortable)</item>
+        <item>Avoid high-intensity workouts if fatigued</item>
+        <item>Listen to your body — movement should feel good, not forced</item>
+    </string-array>
+
+    <!-- Phase Guide: Follicular -->
+    <string name="edu_phase_follicular_title">Follicular Phase</string>
+    <string name="edu_phase_follicular_duration">Days 1–13 (overlaps with menstruation)</string>
+    <string name="edu_phase_follicular_description">The follicular phase begins on day 1 and lasts until ovulation. After menstruation ends, rising estrogen levels stimulate the uterine lining to thicken and prepare for a potential pregnancy. Energy and mood typically improve during this time.</string>
+    <string-array name="edu_phase_follicular_what_happens">
+        <item>FSH stimulates ovarian follicles to develop</item>
+        <item>One dominant follicle emerges and begins producing estrogen</item>
+        <item>Rising estrogen thickens the uterine lining</item>
+        <item>Energy levels, mood, and creativity often increase</item>
+        <item>Cervical mucus changes from dry to sticky to creamy</item>
+    </string-array>
+    <string-array name="edu_phase_follicular_symptoms">
+        <item>Increasing energy and motivation</item>
+        <item>Improved mood and sociability</item>
+        <item>Higher pain tolerance</item>
+        <item>Clearer skin as estrogen rises</item>
+        <item>Increased cervical mucus</item>
+    </string-array>
+    <string-array name="edu_phase_follicular_self_care">
+        <item>Channel your rising energy into projects and social activities</item>
+        <item>This is a great time to try new things and set goals</item>
+        <item>Start or intensify exercise routines</item>
+        <item>Focus on creative projects — estrogen boosts cognitive function</item>
+        <item>Schedule important meetings or presentations during this phase</item>
+    </string-array>
+    <string-array name="edu_phase_follicular_nutrition">
+        <item>Fresh, vibrant foods — salads, fermented foods, lean proteins</item>
+        <item>Phytoestrogen-rich foods (flaxseed, soy) support estrogen metabolism</item>
+        <item>Probiotics for gut health</item>
+        <item>Light, energizing meals that match your rising energy</item>
+        <item>Vitamin E-rich foods (almonds, sunflower seeds) for follicle health</item>
+    </string-array>
+    <string-array name="edu_phase_follicular_exercise">
+        <item>High-intensity interval training (HIIT)</item>
+        <item>Running, cycling, or dance classes</item>
+        <item>Strength training — your body recovers faster now</item>
+        <item>Try new or challenging workouts</item>
+        <item>Group fitness classes to match your social energy</item>
+    </string-array>
+
+    <!-- Phase Guide: Ovulation -->
+    <string name="edu_phase_ovulation_title">Ovulation Phase</string>
+    <string name="edu_phase_ovulation_duration">Around day 14 (lasts 24–48 hours)</string>
+    <string name="edu_phase_ovulation_description">Ovulation is when a mature egg is released from the ovary. This is the peak of your fertility window. Estrogen peaks, triggering a surge of LH (luteinizing hormone), and you may feel your most energetic, social, and confident.</string>
+    <string-array name="edu_phase_ovulation_what_happens">
+        <item>A surge in LH triggers the release of a mature egg from the ovary</item>
+        <item>The egg travels down the fallopian tube</item>
+        <item>Estrogen reaches its peak level</item>
+        <item>Basal body temperature rises slightly (0.5–1°F)</item>
+        <item>This is the most fertile time — the egg survives 12–24 hours</item>
+    </string-array>
+    <string-array name="edu_phase_ovulation_symptoms">
+        <item>Peak energy and libido</item>
+        <item>Egg-white cervical mucus (stretchy, clear)</item>
+        <item>Mild pelvic pain or twinge (mittelschmerz)</item>
+        <item>Slight temperature rise</item>
+        <item>Heightened senses</item>
+        <item>Increased confidence and sociability</item>
+    </string-array>
+    <string-array name="edu_phase_ovulation_self_care">
+        <item>If trying to conceive, this is your most fertile window</item>
+        <item>If avoiding pregnancy, use reliable contraception</item>
+        <item>Take advantage of peak energy for important tasks</item>
+        <item>Track cervical mucus changes for cycle awareness</item>
+        <item>Note your basal body temperature for pattern recognition</item>
+    </string-array>
+    <string-array name="edu_phase_ovulation_nutrition">
+        <item>Anti-inflammatory foods to support the ovulation process</item>
+        <item>Zinc-rich foods (pumpkin seeds, oysters) for egg quality</item>
+        <item>B-vitamins (leafy greens, eggs) for energy metabolism</item>
+        <item>Fiber-rich foods to help metabolize the estrogen surge</item>
+        <item>Stay well-hydrated</item>
+    </string-array>
+    <string-array name="edu_phase_ovulation_exercise">
+        <item>Peak performance time — go for personal records</item>
+        <item>High-intensity training and competitive sports</item>
+        <item>Strength training with heavier weights</item>
+        <item>Power yoga or Pilates</item>
+        <item>Take advantage of natural energy and endurance peaks</item>
+    </string-array>
+
+    <!-- Phase Guide: Luteal -->
+    <string name="edu_phase_luteal_title">Luteal Phase</string>
+    <string name="edu_phase_luteal_duration">Days 15–28 (typically 12–14 days)</string>
+    <string name="edu_phase_luteal_description">After ovulation, the empty follicle transforms into the corpus luteum, producing progesterone to maintain the uterine lining. If no pregnancy occurs, hormone levels drop, triggering menstruation. PMS symptoms are most common in the late luteal phase.</string>
+    <string-array name="edu_phase_luteal_what_happens">
+        <item>The corpus luteum produces progesterone and some estrogen</item>
+        <item>The uterine lining becomes rich with blood and nutrients</item>
+        <item>Body temperature remains slightly elevated</item>
+        <item>If the egg isn\'t fertilized, the corpus luteum breaks down</item>
+        <item>Dropping hormones trigger PMS symptoms in the late luteal phase</item>
+    </string-array>
+    <string-array name="edu_phase_luteal_symptoms">
+        <item>PMS symptoms: bloating, breast tenderness, mood swings</item>
+        <item>Food cravings (especially carbs and sweets)</item>
+        <item>Fatigue and lower energy</item>
+        <item>Acne breakouts</item>
+        <item>Anxiety or irritability</item>
+        <item>Difficulty concentrating</item>
+    </string-array>
+    <string-array name="edu_phase_luteal_self_care">
+        <item>Prioritize sleep — aim for 8+ hours</item>
+        <item>Practice stress-reducing activities (meditation, journaling)</item>
+        <item>Be patient with yourself — PMS is real and valid</item>
+        <item>Use magnesium supplements (consult your doctor first)</item>
+        <item>Warm baths and comfort activities in the late luteal phase</item>
+        <item>Reduce commitments if possible during the last few days</item>
+    </string-array>
+    <string-array name="edu_phase_luteal_nutrition">
+        <item>Complex carbohydrates (sweet potatoes, brown rice) for serotonin</item>
+        <item>Magnesium-rich foods (dark chocolate, nuts) for mood and cramps</item>
+        <item>Calcium-rich foods (dairy, fortified plant milk) ease PMS</item>
+        <item>Reduce salt intake to minimize bloating</item>
+        <item>Avoid excessive sugar, caffeine, and alcohol</item>
+        <item>Vitamin B6 (bananas, chickpeas) supports progesterone</item>
+    </string-array>
+    <string-array name="edu_phase_luteal_exercise">
+        <item>Moderate exercise: walking, yoga, swimming</item>
+        <item>Reduce intensity as energy drops in late luteal phase</item>
+        <item>Stretching and flexibility work</item>
+        <item>Pilates or barre classes</item>
+        <item>Listen to your body — skip high-intensity if fatigued</item>
+    </string-array>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ── Education Content: Symptom Guides ─────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <!-- Symptom Guide: Cramps -->
+    <string name="edu_symptom_cramps_name">Cramps</string>
+    <string name="edu_symptom_cramps_desc">Menstrual cramps (dysmenorrhea) are throbbing or cramping pains in the lower abdomen. They\'re one of the most common menstrual symptoms, affecting up to 80% of people who menstruate.</string>
+    <string name="edu_symptom_cramps_why">During menstruation, the uterus contracts to help shed its lining. Prostaglandins — hormone-like substances involved in pain and inflammation — trigger these contractions. Higher prostaglandin levels are associated with more severe cramps.</string>
+    <string name="edu_symptom_cramps_doctor">See a doctor if cramps are severe enough to interfere with daily activities, aren\'t relieved by over-the-counter medication, or are accompanied by heavy bleeding, fever, or unusual discharge.</string>
+    <string-array name="edu_symptom_cramps_tips">
+        <item>Apply heat (heating pad or warm water bottle) to the lower abdomen</item>
+        <item>Over-the-counter pain relief (ibuprofen works best when taken early)</item>
+        <item>Gentle exercise increases blood flow and releases endorphins</item>
+        <item>Try anti-inflammatory foods: turmeric, ginger, omega-3 rich fish</item>
+        <item>Magnesium supplements may reduce cramp severity</item>
+        <item>Practice deep breathing and progressive muscle relaxation</item>
+    </string-array>
+
+    <!-- Symptom Guide: Headache -->
+    <string name="edu_symptom_headache_name">Headache</string>
+    <string name="edu_symptom_headache_desc">Menstrual headaches and migraines are triggered by hormonal fluctuations, particularly the drop in estrogen that occurs just before and during menstruation.</string>
+    <string name="edu_symptom_headache_why">The sudden drop in estrogen levels before your period can trigger headaches and migraines. Estrogen influences serotonin and other brain chemicals that affect pain perception. Some people are more sensitive to these hormonal shifts than others.</string>
+    <string name="edu_symptom_headache_doctor">Seek medical attention if headaches are sudden and severe (\"worst headache of your life\"), accompanied by vision changes, weakness, or confusion, or if they significantly worsen from your usual pattern.</string>
+    <string-array name="edu_symptom_headache_tips">
+        <item>Stay hydrated — dehydration worsens headaches</item>
+        <item>Maintain consistent sleep schedules</item>
+        <item>Manage stress with relaxation techniques</item>
+        <item>Consider magnesium supplementation (400mg daily)</item>
+        <item>Apply cold compresses to the forehead or neck</item>
+        <item>Limit triggers: caffeine withdrawal, alcohol, processed foods</item>
+    </string-array>
+
+    <!-- Symptom Guide: Bloating -->
+    <string name="edu_symptom_bloating_name">Bloating</string>
+    <string name="edu_symptom_bloating_desc">Menstrual bloating is a feeling of fullness or swelling in the abdomen, commonly experienced before and during menstruation. It\'s caused by hormonal changes affecting water retention and digestion.</string>
+    <string name="edu_symptom_bloating_why">Rising progesterone in the luteal phase slows digestion and causes water retention. Estrogen fluctuations also affect fluid balance. Additionally, prostaglandins can affect the digestive tract, leading to gas and bloating.</string>
+    <string name="edu_symptom_bloating_doctor">Consult a doctor if bloating is severe, persistent beyond your period, accompanied by significant pain, or if you notice unusual changes in your digestion patterns.</string>
+    <string-array name="edu_symptom_bloating_tips">
+        <item>Reduce sodium intake to minimize water retention</item>
+        <item>Drink plenty of water (counterintuitively, this helps reduce bloating)</item>
+        <item>Eat smaller, more frequent meals</item>
+        <item>Avoid carbonated drinks and gas-producing foods (beans, cruciferous veggies)</item>
+        <item>Light exercise like walking can help move gas through the digestive tract</item>
+        <item>Potassium-rich foods (bananas, avocado) help balance sodium</item>
+    </string-array>
+
+    <!-- Symptom Guide: Acne -->
+    <string name="edu_symptom_acne_name">Acne</string>
+    <string name="edu_symptom_acne_desc">Hormonal acne typically flares up in the week before your period. It tends to appear on the lower face — jawline, chin, and cheeks — and consists of deep, tender bumps rather than surface-level pimples.</string>
+    <string name="edu_symptom_acne_why">Before your period, estrogen and progesterone drop while androgens (like testosterone) remain relatively stable. This shift stimulates the sebaceous glands to produce more sebum (oil), which can clog pores and lead to breakouts.</string>
+    <string name="edu_symptom_acne_doctor">See a dermatologist if acne is severe, painful, leaves scars, or doesn\'t respond to over-the-counter treatments. Hormonal treatments may be appropriate.</string>
+    <string-array name="edu_symptom_acne_tips">
+        <item>Maintain a consistent skincare routine (gentle cleanser, moisturizer)</item>
+        <item>Use products with salicylic acid or benzoyl peroxide for breakouts</item>
+        <item>Avoid touching your face and change pillowcases frequently</item>
+        <item>Reduce sugar and dairy intake, which may worsen hormonal acne</item>
+        <item>Zinc supplements may help reduce inflammatory acne</item>
+        <item>Don\'t pick or squeeze — this causes scarring and spreading</item>
+    </string-array>
+
+    <!-- Symptom Guide: Mood Swings -->
+    <string name="edu_symptom_mood_swings_name">Mood Swings</string>
+    <string name="edu_symptom_mood_swings_desc">Mood swings during your menstrual cycle involve rapid shifts between emotions — feeling happy one moment and tearful or irritable the next. They\'re most common in the late luteal phase (PMS).</string>
+    <string name="edu_symptom_mood_swings_why">Fluctuating estrogen and progesterone levels directly affect neurotransmitters like serotonin (the \"feel-good\" chemical) and GABA. The drop in estrogen before your period decreases serotonin production, contributing to mood instability, anxiety, and irritability.</string>
+    <string name="edu_symptom_mood_swings_doctor">Seek help if mood swings are severe enough to affect relationships or work, if you experience thoughts of self-harm, or if symptoms align with PMDD (premenstrual dysphoric disorder), which is a more severe form of PMS.</string>
+    <string-array name="edu_symptom_mood_swings_tips">
+        <item>Regular aerobic exercise boosts serotonin and endorphins</item>
+        <item>Practice mindfulness meditation or deep breathing</item>
+        <item>Maintain stable blood sugar with regular, balanced meals</item>
+        <item>Prioritize 7–9 hours of quality sleep</item>
+        <item>Limit caffeine and alcohol, especially in the luteal phase</item>
+        <item>Journal your feelings to identify patterns and triggers</item>
+        <item>Connect with supportive friends or a therapist</item>
+    </string-array>
+
+    <!-- Symptom Guide: Fatigue -->
+    <string name="edu_symptom_fatigue_name">Fatigue</string>
+    <string name="edu_symptom_fatigue_desc">Cycle-related fatigue is an overwhelming feeling of tiredness that goes beyond normal sleepiness. It\'s especially common during menstruation and the late luteal phase.</string>
+    <string name="edu_symptom_fatigue_why">Progesterone has a natural sedating effect and is at its highest during the luteal phase. Iron loss during menstruation can contribute to fatigue. Poor sleep quality (due to hormone-related temperature changes and discomfort) and the energy expenditure of hormonal processes all play a role.</string>
+    <string name="edu_symptom_fatigue_doctor">See a doctor if fatigue is severe, persistent throughout your entire cycle, or interferes with daily activities. This could indicate anemia, thyroid issues, or other conditions.</string>
+    <string-array name="edu_symptom_fatigue_tips">
+        <item>Prioritize consistent sleep schedules (even on weekends)</item>
+        <item>Eat iron-rich foods during and after your period</item>
+        <item>Take short power naps (15–20 minutes) if needed</item>
+        <item>Stay physically active — movement actually increases energy</item>
+        <item>Reduce sugar spikes that cause energy crashes</item>
+        <item>Consider vitamin B12 and iron levels with your doctor</item>
+    </string-array>
+
+    <!-- Symptom Guide: Tender Breasts -->
+    <string name="edu_symptom_tender_breasts_name">Tender Breasts</string>
+    <string name="edu_symptom_tender_breasts_desc">Breast tenderness (mastalgia) is a common premenstrual symptom involving swelling, sensitivity, and aching in the breast tissue. It typically occurs in the luteal phase and resolves once menstruation begins.</string>
+    <string name="edu_symptom_tender_breasts_why">Rising progesterone after ovulation causes the breast ducts to enlarge and milk glands to swell. Estrogen causes breast ducts to expand. Together, these hormonal changes lead to fluid retention in the breast tissue, creating tenderness and sensitivity.</string>
+    <string name="edu_symptom_tender_breasts_doctor">See a doctor if you find a new lump, notice nipple discharge, experience pain in one specific area, or if tenderness is severe and doesn\'t follow your menstrual cycle pattern.</string>
+    <string-array name="edu_symptom_tender_breasts_tips">
+        <item>Wear a well-fitting, supportive bra (especially during exercise)</item>
+        <item>Apply cold compresses to reduce swelling</item>
+        <item>Reduce caffeine intake, which may worsen breast pain</item>
+        <item>Evening primrose oil may help (consult your doctor)</item>
+        <item>Gentle massage can improve circulation</item>
+        <item>Reduce salt intake to minimize fluid retention</item>
+    </string-array>
+
+    <!-- Symptom Guide: Back Pain -->
+    <string name="edu_symptom_back_pain_name">Back Pain</string>
+    <string name="edu_symptom_back_pain_desc">Lower back pain during menstruation is caused by the same uterine contractions that cause cramps. Pain radiates from the abdomen to the lower back and thighs.</string>
+    <string name="edu_symptom_back_pain_why">Prostaglandins released during menstruation cause uterine contractions that can radiate pain to the lower back. The uterus sits close to the spine, and inflammation can affect surrounding nerves and muscles. Relaxin hormone can also make ligaments more lax.</string>
+    <string name="edu_symptom_back_pain_doctor">See a doctor if back pain is severe, radiates down your legs, is accompanied by numbness or tingling, or persists throughout your entire cycle.</string>
+    <string-array name="edu_symptom_back_pain_tips">
+        <item>Apply heat to the lower back (heating pad, warm bath)</item>
+        <item>Gentle stretches: cat-cow, child\'s pose, knee-to-chest</item>
+        <item>Anti-inflammatory medications (ibuprofen, naproxen)</item>
+        <item>Gentle walking to improve blood flow</item>
+        <item>Sleep with a pillow between your knees for alignment</item>
+        <item>Practice good posture throughout the day</item>
+    </string-array>
+
+    <!-- Symptom Guide: Nausea -->
+    <string name="edu_symptom_nausea_name">Nausea</string>
+    <string name="edu_symptom_nausea_desc">Some people experience nausea during their period, often alongside cramps. It can range from mild queasiness to significant discomfort that affects eating.</string>
+    <string name="edu_symptom_nausea_why">Prostaglandins not only cause uterine contractions but can also affect the stomach and intestines, leading to nausea, diarrhea, or vomiting. Hormonal fluctuations can also slow gastric emptying, contributing to the queasy feeling.</string>
+    <string name="edu_symptom_nausea_doctor">See a doctor if nausea is severe, causes frequent vomiting, leads to dehydration, or prevents you from keeping food or medication down.</string>
+    <string-array name="edu_symptom_nausea_tips">
+        <item>Eat small, frequent meals to keep blood sugar stable</item>
+        <item>Ginger (tea, supplements, or ginger ale) is a natural anti-nausea remedy</item>
+        <item>Peppermint tea can soothe the stomach</item>
+        <item>Avoid fatty, spicy, or heavily processed foods</item>
+        <item>Take anti-inflammatory medications with food</item>
+        <item>Acupressure on the inner wrist (P6 point) may help</item>
+    </string-array>
+
+    <!-- Symptom Guide: Food Cravings -->
+    <string name="edu_symptom_food_cravings_name">Food Cravings</string>
+    <string name="edu_symptom_food_cravings_desc">Intense food cravings — especially for carbs, chocolate, and salty foods — are a hallmark of PMS. They typically peak in the late luteal phase (the week before your period).</string>
+    <string name="edu_symptom_food_cravings_why">Dropping serotonin levels in the late luteal phase drive cravings for carbohydrates and sugar, which temporarily boost serotonin. Magnesium levels also dip (which may explain chocolate cravings). Additionally, your metabolic rate slightly increases, requiring more calories.</string>
+    <string name="edu_symptom_food_cravings_doctor">See a doctor if cravings are compulsive, lead to binge eating, cause distress, or are accompanied by significant weight changes.</string>
+    <string-array name="edu_symptom_food_cravings_tips">
+        <item>Satisfy cravings mindfully — a small portion of what you want is okay</item>
+        <item>Choose complex carbs over refined sugars for lasting satisfaction</item>
+        <item>Dark chocolate satisfies cravings while providing magnesium</item>
+        <item>Eat balanced meals with protein, fiber, and healthy fats</item>
+        <item>Stay hydrated — thirst is sometimes mistaken for hunger</item>
+        <item>Plan satisfying snacks in advance for the luteal phase</item>
+    </string-array>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ── Education Content: Health Tips ─────────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <!-- Health Tip: Iron-Rich Recovery Meals (Menstrual / Nutrition) -->
+    <string name="edu_tip_iron_recovery_title">Iron-Rich Recovery Meals</string>
+    <string name="edu_tip_iron_recovery_content">During your period, replenish lost iron with spinach salads, lentil soup, or lean red meat. Pair with vitamin C foods (citrus, bell peppers) to boost absorption.</string>
+
+    <!-- Health Tip: Cozy Movement (Menstrual / Exercise) -->
+    <string name="edu_tip_cozy_movement_title">Cozy Movement</string>
+    <string name="edu_tip_cozy_movement_content">Gentle yoga poses like child\'s pose, reclined butterfly, and cat-cow can ease cramps and boost mood without depleting your energy.</string>
+
+    <!-- Health Tip: Rest Without Guilt (Menstrual / Self-Care) -->
+    <string name="edu_tip_rest_without_guilt_title">Rest Without Guilt</string>
+    <string name="edu_tip_rest_without_guilt_content">Your body is doing important work. Allow yourself extra rest — an early bedtime, a warm bath, or a slow morning can make a big difference.</string>
+
+    <!-- Health Tip: Sleep Sanctuary (Menstrual / Sleep) -->
+    <string name="edu_tip_sleep_sanctuary_title">Sleep Sanctuary</string>
+    <string name="edu_tip_sleep_sanctuary_content">Period discomfort can disrupt sleep. Try a heating pad on your abdomen, magnesium before bed, and keep your room cool (65–68°F / 18–20°C).</string>
+
+    <!-- Health Tip: Emotional Check-In (Menstrual / Mental Health) -->
+    <string name="edu_tip_emotional_check_in_title">Emotional Check-In</string>
+    <string name="edu_tip_emotional_check_in_content">Low hormones can bring low moods. Journal your feelings, practice gratitude, or simply acknowledge that this phase is temporary and that\'s okay.</string>
+
+    <!-- Health Tip: Fresh & Fermented Foods (Follicular / Nutrition) -->
+    <string name="edu_tip_fresh_fermented_foods_title">Fresh &amp; Fermented Foods</string>
+    <string name="edu_tip_fresh_fermented_foods_content">Your digestion is at its best! Enjoy fresh salads, fermented foods (kimchi, yogurt, sauerkraut), and light proteins to match your rising energy.</string>
+
+    <!-- Health Tip: Challenge Yourself (Follicular / Exercise) -->
+    <string name="edu_tip_challenge_yourself_title">Challenge Yourself</string>
+    <string name="edu_tip_challenge_yourself_content">Rising estrogen means faster recovery and higher motivation. Try HIIT, running, or a new fitness class. Your body is primed for peak performance.</string>
+
+    <!-- Health Tip: Creative Energy Boost (Follicular / Self-Care) -->
+    <string name="edu_tip_creative_energy_boost_title">Creative Energy Boost</string>
+    <string name="edu_tip_creative_energy_boost_content">Estrogen enhances verbal fluency and creativity. Channel this energy into brainstorming, writing, art, or tackling complex problems at work.</string>
+
+    <!-- Health Tip: Optimize Your Schedule (Follicular / Mental Health) -->
+    <string name="edu_tip_optimize_schedule_title">Optimize Your Schedule</string>
+    <string name="edu_tip_optimize_schedule_content">With increasing energy, this is the best time for job interviews, presentations, and social gatherings. Plan important events during this phase.</string>
+
+    <!-- Health Tip: Peak Performance Fuel (Ovulation / Nutrition) -->
+    <string name="edu_tip_peak_performance_fuel_title">Peak Performance Fuel</string>
+    <string name="edu_tip_peak_performance_fuel_content">Support your energy peak with anti-inflammatory foods. Zinc-rich pumpkin seeds, omega-3 fish, and colorful vegetables keep you at your best.</string>
+
+    <!-- Health Tip: Go For Your Goals (Ovulation / Exercise) -->
+    <string name="edu_tip_go_for_goals_title">Go For Your Goals</string>
+    <string name="edu_tip_go_for_goals_content">You\'re at peak strength and endurance. Attempt personal records, compete, or try intense workouts. Your body recovers fastest right now.</string>
+
+    <!-- Health Tip: Social Connection (Ovulation / Mental Health) -->
+    <string name="edu_tip_social_connection_title">Social Connection</string>
+    <string name="edu_tip_social_connection_content">Estrogen peaks make you naturally more social and confident. Plan dates, meetups, and team activities. Your communication skills are at their best.</string>
+
+    <!-- Health Tip: Complex Carb Comfort (Luteal / Nutrition) -->
+    <string name="edu_tip_complex_carb_comfort_title">Complex Carb Comfort</string>
+    <string name="edu_tip_complex_carb_comfort_content">Craving carbs? Choose complex ones: sweet potatoes, brown rice, oats. They boost serotonin naturally and provide sustained energy without sugar crashes.</string>
+
+    <!-- Health Tip: Gentle Is Powerful (Luteal / Exercise) -->
+    <string name="edu_tip_gentle_is_powerful_title">Gentle Is Powerful</string>
+    <string name="edu_tip_gentle_is_powerful_content">Switch to moderate workouts: Pilates, yoga, swimming, or brisk walks. Your body needs recovery more than intensity in this phase.</string>
+
+    <!-- Health Tip: PMS Self-Care Kit (Luteal / Self-Care) -->
+    <string name="edu_tip_pms_self_care_kit_title">PMS Self-Care Kit</string>
+    <string name="edu_tip_pms_self_care_kit_content">Prepare your PMS toolkit: heating pad, herbal tea, dark chocolate, a cozy playlist, and a journal. Having comfort items ready reduces stress.</string>
+
+    <!-- Health Tip: Wind-Down Routine (Luteal / Sleep) -->
+    <string name="edu_tip_wind_down_routine_title">Wind-Down Routine</string>
+    <string name="edu_tip_wind_down_routine_content">Progesterone\'s sedating effect can cause daytime drowsiness but nighttime restlessness. Set a consistent bedtime, avoid screens, and try lavender essential oil.</string>
+
+    <!-- Health Tip: Mood Management (Luteal / Mental Health) -->
+    <string name="edu_tip_mood_management_title">Mood Management</string>
+    <string name="edu_tip_mood_management_content">PMS mood shifts are real and valid. Practice box breathing (4-4-4-4), limit stressors where possible, and remind yourself this is temporary — your hormones are the cause, not you.</string>
+
+    <!-- Health Tip: Hydration Matters Always (Universal / Nutrition) -->
+    <string name="edu_tip_hydration_matters_title">Hydration Matters Always</string>
+    <string name="edu_tip_hydration_matters_content">Aim for 8–10 glasses of water daily throughout your cycle. Proper hydration reduces bloating, headaches, fatigue, and cramps.</string>
+
+    <!-- Health Tip: Track to Learn (Universal / Self-Care) -->
+    <string name="edu_tip_track_to_learn_title">Track to Learn</string>
+    <string name="edu_tip_track_to_learn_content">The more consistently you track your symptoms, moods, and flow, the better you\'ll understand your unique patterns. Knowledge is empowerment.</string>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ── Report Generator ──────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <string name="report_header">BloomCycle Health Report</string>
+    <string name="report_generated">Generated: %s</string>
+    <string name="report_overview_section">── Overview ──</string>
+    <string name="report_total_days_tracked">Total days tracked: %d</string>
+    <string name="report_first_log">First log: %s</string>
+    <string name="report_last_log">Last log: %s</string>
+    <string name="report_periods_detected">Periods detected: %d</string>
+    <string name="report_cycle_stats_section">── Cycle Statistics ──</string>
+    <string name="report_avg_cycle">Average cycle length: %s days</string>
+    <string name="report_avg_period">Average period length: %s days</string>
+    <string name="report_shortest_cycle">Shortest cycle: %d days</string>
+    <string name="report_longest_cycle">Longest cycle: %d days</string>
+    <string name="report_cycle_history_section">── Cycle History ──</string>
+    <string name="report_cycle_entry">%1$d. %2$s – %3$s (%4$dd period, %5$s)</string>
+    <string name="report_cycle_ongoing">ongoing</string>
+    <string name="report_cycle_len">%dd cycle</string>
+    <string name="report_top_symptoms_section">── Top Symptoms ──</string>
+    <string name="report_symptom_entry">• %1$s: %2$d days (%3$d%%)</string>
+    <string name="report_mood_section">── Mood Summary ──</string>
+    <string name="report_mood_entry">• %1$s: %2$d days (%3$d%%)</string>
+    <string name="report_flow_section">── Flow Pattern ──</string>
+    <string name="report_flow_entry">• %1$s: %2$d days (%3$d%%)</string>
+    <string name="report_footer_app">Generated by BloomCycle</string>
+    <string name="report_footer_tagline">Privacy-first period tracking</string>
+    <string name="report_csv_header">Date,Flow Intensity,Mood,Symptoms,Sexual Activity,Cervical Mucus,Temperature,Weight,Notes</string>
 </resources>

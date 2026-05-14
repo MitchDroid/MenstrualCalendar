@@ -16,6 +16,9 @@ navigationCompose = "2.8.5"      # ✅ Fixed - latest stable
 datastore       = "1.1.1"        # ✅ Fixed - latest stable
 coroutines      = "1.9.0"        # ✅ Fixed - latest stable
 desugarJdkLibs  = "2.1.4"
+biometric       = "1.1.0"
+workRuntime     = "2.10.0"
+hiltWork        = "1.2.0"
 
 [libraries]
 # AndroidX Core
@@ -55,6 +58,14 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 # Coroutines
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
+# Biometric
+androidx-biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
+
+# WorkManager
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntime" }
+androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltWork" }
+androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltWork" }
+
 # Desugaring
 desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 
@@ -62,6 +73,11 @@ desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", ver
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+mockk = { group = "io.mockk", name = "mockk", version = "1.13.13" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+turbine = { group = "app.cash.turbine", name = "turbine", version = "1.2.0" }
+androidx-arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version = "2.2.0" }
+androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application",              version.ref = "agp"    }

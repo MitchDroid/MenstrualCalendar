@@ -25,9 +25,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 
 @Composable
 fun CycleLengthStep(
@@ -43,7 +45,7 @@ fun CycleLengthStep(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "How long is\nyour cycle?",
+            text = stringResource(R.string.cycle_length_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -53,7 +55,7 @@ fun CycleLengthStep(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "The average cycle is 28 days.\nCount from the first day of one period\nto the first day of the next.",
+            text = stringResource(R.string.cycle_length_description),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -82,7 +84,7 @@ fun CycleLengthStep(
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
                 Text(
-                    text = "days",
+                    text = stringResource(R.string.days),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
                 )
@@ -106,7 +108,7 @@ fun CycleLengthStep(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Remove,
-                    contentDescription = "Decrease",
+                    contentDescription = stringResource(R.string.cycle_length_decrease),
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -123,7 +125,7 @@ fun CycleLengthStep(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription = "Increase",
+                    contentDescription = stringResource(R.string.cycle_length_increase),
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -150,12 +152,12 @@ fun CycleLengthStep(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "18 days",
+                text = stringResource(R.string.cycle_length_min),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = "45 days",
+                text = stringResource(R.string.cycle_length_max),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -165,7 +167,7 @@ fun CycleLengthStep(
 
         if (cycleLength !in 24..35) {
             Text(
-                text = "Most cycles are 24-35 days. Don't worry if yours is different!",
+                text = stringResource(R.string.cycle_length_info),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.tertiary,
                 textAlign = TextAlign.Center

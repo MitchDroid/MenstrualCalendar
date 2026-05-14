@@ -28,10 +28,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.bloomcycle.app.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.domain.model.CyclePhase
 import com.bloomcycle.app.domain.model.FertilityStatus
@@ -54,7 +56,7 @@ fun HomeScreen(
     ) {
         // ── Header ────────────────────────────────────────────
         Text(
-            text = "BloomCycle",
+            text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold
@@ -63,7 +65,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = "Your cycle, your way",
+            text = stringResource(R.string.home_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -92,7 +94,7 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Day ${uiState.cycleDay}",
+                    text = stringResource(R.string.home_cycle_day, uiState.cycleDay),
                     style = MaterialTheme.typography.displaySmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -113,13 +115,13 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             QuickStatCard(
-                title = "Next Period",
-                value = "${uiState.daysUntilNextPeriod} days",
+                title = stringResource(R.string.home_next_period),
+                value = "${uiState.daysUntilNextPeriod} ${stringResource(R.string.days)}",
                 modifier = Modifier.weight(1f)
             )
             QuickStatCard(
-                title = "Cycle Length",
-                value = "${uiState.cycleLength} days",
+                title = stringResource(R.string.home_cycle_length),
+                value = "${uiState.cycleLength} ${stringResource(R.string.days)}",
                 modifier = Modifier.weight(1f)
             )
         }
@@ -131,12 +133,12 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             QuickStatCard(
-                title = "Fertility",
+                title = stringResource(R.string.home_fertility),
                 value = fertilityDisplayName(uiState.fertilityStatus),
                 modifier = Modifier.weight(1f)
             )
             QuickStatCard(
-                title = "Phase",
+                title = stringResource(R.string.home_phase),
                 value = phaseDisplayName(uiState.currentPhase),
                 modifier = Modifier.weight(1f)
             )
@@ -161,7 +163,7 @@ fun HomeScreen(
                 Icon(Icons.Filled.Edit, contentDescription = null, modifier = Modifier.size(20.dp))
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Edit Today's Log",
+                    text = stringResource(R.string.home_edit_today_log),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -177,7 +179,7 @@ fun HomeScreen(
                 Icon(Icons.Filled.Add, contentDescription = null, modifier = Modifier.size(20.dp))
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Log Today",
+                    text = stringResource(R.string.home_log_today),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -206,7 +208,7 @@ fun HomeScreen(
                 )
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Today's Tip",
+                        text = stringResource(R.string.home_todays_tip),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -262,27 +264,26 @@ private fun phaseColor(phase: CyclePhase) = when (phase) {
     CyclePhase.LUTEAL -> MaterialTheme.colorScheme.surfaceVariant
 }
 
+@Composable
 private fun phaseDisplayName(phase: CyclePhase): String = when (phase) {
-    CyclePhase.MENSTRUAL -> "Menstrual"
-    CyclePhase.FOLLICULAR -> "Follicular"
-    CyclePhase.OVULATION -> "Ovulation"
-    CyclePhase.LUTEAL -> "Luteal"
+    CyclePhase.MENSTRUAL -> stringResource(R.string.phase_menstrual)
+    CyclePhase.FOLLICULAR -> stringResource(R.string.phase_follicular)
+    CyclePhase.OVULATION -> stringResource(R.string.phase_ovulation)
+    CyclePhase.LUTEAL -> stringResource(R.string.phase_luteal)
 }
 
+@Composable
 private fun fertilityDisplayName(status: FertilityStatus): String = when (status) {
-    FertilityStatus.LOW -> "Low"
-    FertilityStatus.MEDIUM -> "Medium"
-    FertilityStatus.HIGH -> "High"
-    FertilityStatus.PEAK -> "Peak"
+    FertilityStatus.LOW -> stringResource(R.string.fertility_low)
+    FertilityStatus.MEDIUM -> stringResource(R.string.fertility_medium)
+    FertilityStatus.HIGH -> stringResource(R.string.fertility_high)
+    FertilityStatus.PEAK -> stringResource(R.string.fertility_peak)
 }
 
+@Composable
 private fun getTipForPhase(phase: CyclePhase): String = when (phase) {
-    CyclePhase.MENSTRUAL ->
-        "Stay hydrated and get plenty of rest. Gentle exercise like yoga can help ease cramps."
-    CyclePhase.FOLLICULAR ->
-        "Your energy is rising! Great time for starting new projects and intense workouts."
-    CyclePhase.OVULATION ->
-        "You're at peak energy and sociability. Perfect time for important conversations and events."
-    CyclePhase.LUTEAL ->
-        "Your body is winding down. Focus on self-care, warm foods, and stress management."
+    CyclePhase.MENSTRUAL -> stringResource(R.string.home_tip_menstrual)
+    CyclePhase.FOLLICULAR -> stringResource(R.string.home_tip_follicular)
+    CyclePhase.OVULATION -> stringResource(R.string.home_tip_ovulation)
+    CyclePhase.LUTEAL -> stringResource(R.string.home_tip_luteal)
 }

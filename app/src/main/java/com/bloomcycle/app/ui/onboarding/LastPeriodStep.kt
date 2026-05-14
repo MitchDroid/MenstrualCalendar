@@ -20,9 +20,11 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.bloomcycle.app.R
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -47,7 +49,7 @@ fun LastPeriodStep(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "When did your last\nperiod start?",
+            text = stringResource(R.string.last_period_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -57,7 +59,7 @@ fun LastPeriodStep(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "This helps us predict your next cycle.\nAn approximate date is fine!",
+            text = stringResource(R.string.last_period_description),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -72,7 +74,7 @@ fun LastPeriodStep(
             modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             Text(
-                text = selectedDate?.format(dateFormatter) ?: "Tap to select date",
+                text = selectedDate?.format(dateFormatter) ?: stringResource(R.string.last_period_placeholder),
                 style = MaterialTheme.typography.titleMedium,
                 color = if (selectedDate != null) {
                     MaterialTheme.colorScheme.primary
@@ -138,12 +140,12 @@ fun LastPeriodStep(
                         onShowDatePicker(false)
                     }
                 ) {
-                    Text("Confirm")
+                    Text(stringResource(R.string.last_period_confirm))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { onShowDatePicker(false) }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.cancel))
                 }
             },
             colors = DatePickerDefaults.colors(
@@ -155,12 +157,13 @@ fun LastPeriodStep(
     }
 }
 
+@Composable
 private fun getDaysAgoText(date: LocalDate): String {
     val today = LocalDate.now()
     val daysAgo = java.time.temporal.ChronoUnit.DAYS.between(date, today).toInt()
     return when (daysAgo) {
-        0 -> "Today"
-        1 -> "Yesterday"
-        else -> "$daysAgo days ago"
+        0 -> stringResource(R.string.last_period_today)
+        1 -> stringResource(R.string.last_period_yesterday)
+        else -> stringResource(R.string.last_period_days_ago, daysAgo)
     }
 }

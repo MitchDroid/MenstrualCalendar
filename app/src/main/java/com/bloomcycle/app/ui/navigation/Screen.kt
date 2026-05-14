@@ -53,11 +53,43 @@ sealed class Screen(
         fun createRoute(date: String) = "daily_tracking/$date"
     }
 
+    data object CyclePhaseGuide : Screen(
+        route = "cycle_phase_guide",
+        title = "Cycle Phases"
+    )
+
+    data object SymptomGuide : Screen(
+        route = "symptom_guide",
+        title = "Symptom Guide"
+    )
+
+    data object HealthTips : Screen(
+        route = "health_tips/{phase}",
+        title = "Health Tips"
+    ) {
+        fun createRoute(phase: String = "none") = "health_tips/$phase"
+    }
+
+    data object Reports : Screen(
+        route = "reports",
+        title = "Reports & Export"
+    )
+
+    data object PrivacyPolicy : Screen(
+        route = "privacy_policy",
+        title = "Privacy & Data"
+    )
+
     data object Settings : Screen(
         route = "settings",
         title = "Settings",
         selectedIcon = Icons.Filled.Settings,
         unselectedIcon = Icons.Outlined.Settings
+    )
+
+    data object Dedication : Screen(
+        route = "dedication",
+        title = "Dedication"
     )
 
     companion object {

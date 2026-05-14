@@ -34,10 +34,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.bloomcycle.app.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.domain.model.CyclePhase
 import com.bloomcycle.app.ui.theme.FertileGreen
@@ -65,7 +67,7 @@ fun CalendarScreen(
             ) {
                 Icon(Icons.Filled.Add, contentDescription = null, modifier = Modifier.size(20.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Log Day", fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.calendar_log_day), fontWeight = FontWeight.SemiBold)
             }
         },
         modifier = modifier
@@ -136,7 +138,7 @@ private fun MonthHeader(
         IconButton(onClick = onPreviousMonth) {
             Icon(
                 Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                contentDescription = "Previous month",
+                contentDescription = stringResource(R.string.calendar_previous_month),
                 tint = MaterialTheme.colorScheme.onSurface
             )
         }
@@ -154,14 +156,14 @@ private fun MonthHeader(
             IconButton(onClick = onToday) {
                 Icon(
                     Icons.Filled.Today,
-                    contentDescription = "Go to today",
+                    contentDescription = stringResource(R.string.calendar_go_to_today),
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
             IconButton(onClick = onNextMonth) {
                 Icon(
                     Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = "Next month",
+                    contentDescription = stringResource(R.string.calendar_next_month),
                     tint = MaterialTheme.colorScheme.onSurface
                 )
             }
@@ -175,10 +177,10 @@ private fun CalendarLegend() {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        LegendItem(color = PeriodRed, label = "Period")
-        LegendItem(color = PredictedPurple, label = "Predicted")
-        LegendItem(color = FertileGreen, label = "Fertile")
-        LegendItem(color = OvulationYellow, label = "Ovulation")
+        LegendItem(color = PeriodRed, label = stringResource(R.string.calendar_legend_period))
+        LegendItem(color = PredictedPurple, label = stringResource(R.string.calendar_legend_predicted))
+        LegendItem(color = FertileGreen, label = stringResource(R.string.calendar_legend_fertile))
+        LegendItem(color = OvulationYellow, label = stringResource(R.string.calendar_legend_ovulation))
     }
 }
 
@@ -235,16 +237,16 @@ private fun SelectedDayCard(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     selectedDay.cycleDay?.let { day ->
-                        InfoPill(label = "Cycle Day", value = "$day")
+                        InfoPill(label = stringResource(R.string.calendar_cycle_day), value = "$day")
                     }
                     selectedDay.cyclePhase?.let { phase ->
                         InfoPill(
-                            label = "Phase",
+                            label = stringResource(R.string.calendar_phase),
                             value = phaseDisplayName(phase)
                         )
                     }
                     InfoPill(
-                        label = "Status",
+                        label = stringResource(R.string.calendar_status),
                         value = markerDisplayName(selectedDay.markerType)
                     )
                 }
@@ -262,7 +264,7 @@ private fun SelectedDayCard(
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
                         Text(
-                            text = "Today's Log",
+                            text = stringResource(R.string.calendar_todays_log),
                             style = MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.primary
@@ -288,7 +290,7 @@ private fun SelectedDayCard(
                     onClick = onLogDay,
                     modifier = Modifier.align(Alignment.End)
                 ) {
-                    Text("Edit Log")
+                    Text(stringResource(R.string.calendar_edit_log))
                 }
             } else {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -302,7 +304,7 @@ private fun SelectedDayCard(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("Add log for this day")
+                    Text(stringResource(R.string.calendar_add_log))
                 }
             }
         }
@@ -326,20 +328,22 @@ private fun InfoPill(label: String, value: String) {
     }
 }
 
+@Composable
 private fun phaseDisplayName(phase: CyclePhase): String = when (phase) {
-    CyclePhase.MENSTRUAL -> "Menstrual"
-    CyclePhase.FOLLICULAR -> "Follicular"
-    CyclePhase.OVULATION -> "Ovulation"
-    CyclePhase.LUTEAL -> "Luteal"
+    CyclePhase.MENSTRUAL -> stringResource(R.string.phase_menstrual)
+    CyclePhase.FOLLICULAR -> stringResource(R.string.phase_follicular)
+    CyclePhase.OVULATION -> stringResource(R.string.phase_ovulation)
+    CyclePhase.LUTEAL -> stringResource(R.string.phase_luteal)
 }
 
+@Composable
 private fun markerDisplayName(type: DayMarkerType): String = when (type) {
-    DayMarkerType.PERIOD -> "Period"
-    DayMarkerType.PREDICTED_PERIOD -> "Predicted"
-    DayMarkerType.FERTILE -> "Fertile"
-    DayMarkerType.OVULATION -> "Ovulation"
-    DayMarkerType.LOGGED -> "Logged"
-    DayMarkerType.NONE -> "Regular"
+    DayMarkerType.PERIOD -> stringResource(R.string.calendar_marker_period)
+    DayMarkerType.PREDICTED_PERIOD -> stringResource(R.string.calendar_marker_predicted)
+    DayMarkerType.FERTILE -> stringResource(R.string.calendar_marker_fertile)
+    DayMarkerType.OVULATION -> stringResource(R.string.calendar_marker_ovulation)
+    DayMarkerType.LOGGED -> stringResource(R.string.calendar_marker_logged)
+    DayMarkerType.NONE -> stringResource(R.string.calendar_marker_regular)
 }
 
 private fun formatEnum(name: String): String =

@@ -34,9 +34,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.bloomcycle.app.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
@@ -70,7 +72,7 @@ fun OnboardingScreen(
                 IconButton(onClick = { viewModel.previousStep() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
+                        contentDescription = stringResource(R.string.back),
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -85,7 +87,7 @@ fun OnboardingScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Step ${uiState.stepIndex + 1} of ${uiState.totalSteps}",
+                    text = stringResource(R.string.onboarding_step_indicator, uiState.stepIndex + 1, uiState.totalSteps),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -196,9 +198,9 @@ fun OnboardingScreen(
                         }
                         Text(
                             text = when {
-                                uiState.currentStep == OnboardingStep.WELCOME -> "Get Started"
-                                isLastStep -> "Complete Setup"
-                                else -> "Continue"
+                                uiState.currentStep == OnboardingStep.WELCOME -> stringResource(R.string.onboarding_get_started)
+                                isLastStep -> stringResource(R.string.onboarding_complete_setup)
+                                else -> stringResource(R.string.onboarding_continue)
                             },
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.SemiBold

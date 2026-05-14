@@ -40,10 +40,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.bloomcycle.app.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.domain.model.CervicalMucus
 import com.bloomcycle.app.domain.model.FlowIntensity
@@ -70,7 +72,7 @@ fun DailyTrackingScreen(
                 title = {
                     Column {
                         Text(
-                            text = "Daily Log",
+                            text = stringResource(R.string.tracking_title),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
@@ -85,7 +87,7 @@ fun DailyTrackingScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -94,7 +96,7 @@ fun DailyTrackingScreen(
                         IconButton(onClick = { viewModel.deleteLog() }) {
                             Icon(
                                 Icons.Filled.Delete,
-                                contentDescription = "Delete log",
+                                contentDescription = stringResource(R.string.tracking_delete_log),
                                 tint = MaterialTheme.colorScheme.error
                             )
                         }
@@ -128,7 +130,7 @@ fun DailyTrackingScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // ── Flow Intensity ─────────────────────────
-                SectionHeader(title = "Flow", emoji = "\uD83E\uDE78")
+                SectionHeader(title = stringResource(R.string.tracking_section_flow), emoji = "\uD83E\uDE78")
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -149,7 +151,7 @@ fun DailyTrackingScreen(
                 TrackingDivider()
 
                 // ── Mood ───────────────────────────────────
-                SectionHeader(title = "Mood", emoji = "\uD83D\uDE0A")
+                SectionHeader(title = stringResource(R.string.tracking_section_mood), emoji = "\uD83D\uDE0A")
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -170,7 +172,7 @@ fun DailyTrackingScreen(
                 TrackingDivider()
 
                 // ── Symptoms (multi-select) ────────────────
-                SectionHeader(title = "Symptoms", emoji = "\uD83E\uDE7A")
+                SectionHeader(title = stringResource(R.string.tracking_section_symptoms), emoji = "\uD83E\uDE7A")
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -191,7 +193,7 @@ fun DailyTrackingScreen(
                 TrackingDivider()
 
                 // ── Cervical Mucus ─────────────────────────
-                SectionHeader(title = "Cervical Mucus", emoji = "\uD83D\uDCA7")
+                SectionHeader(title = stringResource(R.string.tracking_section_cervical_mucus), emoji = "\uD83D\uDCA7")
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -210,7 +212,7 @@ fun DailyTrackingScreen(
                 TrackingDivider()
 
                 // ── Sexual Activity ────────────────────────
-                SectionHeader(title = "Intimacy", emoji = "\uD83D\uDC95")
+                SectionHeader(title = stringResource(R.string.tracking_section_intimacy), emoji = "\uD83D\uDC95")
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -229,7 +231,7 @@ fun DailyTrackingScreen(
                 TrackingDivider()
 
                 // ── Temperature & Weight ───────────────────
-                SectionHeader(title = "Vitals", emoji = "\uD83C\uDF21\uFE0F")
+                SectionHeader(title = stringResource(R.string.tracking_section_vitals), emoji = "\uD83C\uDF21\uFE0F")
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -237,7 +239,7 @@ fun DailyTrackingScreen(
                     OutlinedTextField(
                         value = uiState.temperature,
                         onValueChange = { viewModel.setTemperature(it) },
-                        label = { Text("Temp (\u00B0F)") },
+                        label = { Text(stringResource(R.string.tracking_temp_label)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         modifier = Modifier.weight(1f),
                         singleLine = true
@@ -245,7 +247,7 @@ fun DailyTrackingScreen(
                     OutlinedTextField(
                         value = uiState.weight,
                         onValueChange = { viewModel.setWeight(it) },
-                        label = { Text("Weight (lb)") },
+                        label = { Text(stringResource(R.string.tracking_weight_label)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         modifier = Modifier.weight(1f),
                         singleLine = true
@@ -255,11 +257,11 @@ fun DailyTrackingScreen(
                 TrackingDivider()
 
                 // ── Notes ──────────────────────────────────
-                SectionHeader(title = "Notes", emoji = "\uD83D\uDCDD")
+                SectionHeader(title = stringResource(R.string.tracking_section_notes), emoji = "\uD83D\uDCDD")
                 OutlinedTextField(
                     value = uiState.notes,
                     onValueChange = { viewModel.setNotes(it) },
-                    placeholder = { Text("How are you feeling today?") },
+                    placeholder = { Text(stringResource(R.string.tracking_notes_placeholder)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp),
@@ -291,7 +293,7 @@ fun DailyTrackingScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = if (uiState.existingLogId != 0L) "Update Log" else "Save Log",
+                            text = if (uiState.existingLogId != 0L) stringResource(R.string.tracking_update_log) else stringResource(R.string.tracking_save_log),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.SemiBold
                         )

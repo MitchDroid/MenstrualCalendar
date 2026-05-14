@@ -27,8 +27,18 @@ class UserPreferencesManager @Inject constructor(
         private val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
         private val BIOMETRIC_ENABLED = booleanPreferencesKey("biometric_enabled")
 
+        // Notification preferences
+        private val PERIOD_REMINDERS_ENABLED = booleanPreferencesKey("period_reminders_enabled")
+        private val DAILY_LOG_REMINDERS_ENABLED = booleanPreferencesKey("daily_log_reminders_enabled")
+        private val FERTILE_WINDOW_ALERTS_ENABLED = booleanPreferencesKey("fertile_window_alerts_enabled")
+        private val PERIOD_REMINDER_DAYS_BEFORE = intPreferencesKey("period_reminder_days_before")
+
+        // Privacy & security preferences
+        private val SCREEN_SECURITY_ENABLED = booleanPreferencesKey("screen_security_enabled")
+
         const val DEFAULT_CYCLE_LENGTH = 28
         const val DEFAULT_PERIOD_DURATION = 5
+        const val DEFAULT_PERIOD_REMINDER_DAYS = 2
     }
 
     // ── Reads ─────────────────────────────────────────────────
@@ -61,6 +71,30 @@ class UserPreferencesManager @Inject constructor(
         prefs[BIOMETRIC_ENABLED] ?: false
     }
 
+    // ── Notification Preferences (Reads) ─────────────────────
+
+    val periodRemindersEnabled: Flow<Boolean> = dataStore.data.map { prefs ->
+        prefs[PERIOD_REMINDERS_ENABLED] ?: true
+    }
+
+    val dailyLogRemindersEnabled: Flow<Boolean> = dataStore.data.map { prefs ->
+        prefs[DAILY_LOG_REMINDERS_ENABLED] ?: false
+    }
+
+    val fertileWindowAlertsEnabled: Flow<Boolean> = dataStore.data.map { prefs ->
+        prefs[FERTILE_WINDOW_ALERTS_ENABLED] ?: false
+    }
+
+    val periodReminderDaysBefore: Flow<Int> = dataStore.data.map { prefs ->
+        prefs[PERIOD_REMINDER_DAYS_BEFORE] ?: DEFAULT_PERIOD_REMINDER_DAYS
+    }
+
+    // ── Privacy & Security Preferences (Reads) ──────────────
+
+    val screenSecurityEnabled: Flow<Boolean> = dataStore.data.map { prefs ->
+        prefs[SCREEN_SECURITY_ENABLED] ?: false
+    }
+
     // ── Writes ────────────────────────────────────────────────
 
     suspend fun setOnboardingCompleted(completed: Boolean) {
@@ -89,6 +123,30 @@ class UserPreferencesManager @Inject constructor(
 
     suspend fun setBiometricEnabled(enabled: Boolean) {
         dataStore.edit { prefs -> prefs[BIOMETRIC_ENABLED] = enabled }
+    }
+
+    // ── Notification Preferences (Writes) ────────────────────
+
+    suspend fun setPeriodRemindersEnabled(enabled: Boolean) {
+        dataStore.edit { prefs -> prefs[PERIOD_REMINDERS_ENABLED] = enabled }
+    }
+
+    suspend fun setDailyLogRemindersEnabled(enabled: Boolean) {
+        dataStore.edit { prefs -> prefs[DAILY_LOG_REMINDERS_ENABLED] = enabled }
+    }
+
+    suspend fun setFertileWindowAlertsEnabled(enabled: Boolean) {
+        dataStore.edit { prefs -> prefs[FERTILE_WINDOW_ALERTS_ENABLED] = enabled }
+    }
+
+    suspend fun setPeriodReminderDaysBefore(days: Int) {
+        dataStore.edit { prefs -> prefs[PERIOD_REMINDER_DAYS_BEFORE] = days }
+    }
+
+    // ── Privacy & Security Preferences (Writes) ─────────────
+
+    suspend fun setScreenSecurityEnabled(enabled: Boolean) {
+        dataStore.edit { prefs -> prefs[SCREEN_SECURITY_ENABLED] = enabled }
     }
 
     /**
