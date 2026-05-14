@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -132,21 +133,39 @@ private fun BloomCycleApp(
     }
 
     // ── Biometric gate on app resume ────────────────────
+    // rememberUpdatedState ensures the observer lambda always reads the
+    // latest values, avoiding stale captures across recompositions.
     val lifecycleOwner = LocalLifecycleOwner.current
+    val currentIsAuthenticated by rememberUpdatedState(isAuthenticated)
+    val currentOnAuthenticated by rememberUpdatedState(onAuthenticated)
+    val currentOnLockRequired by rememberUpdatedState(onLockRequired)
+
     DisposableEffect(lifecycleOwner, biometricEnabled) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_START && biometricEnabled && !isAuthenticated) {
-                val status = viewModel.biometricAuthManager.getStatus()
-                if (status == BiometricStatus.AVAILABLE) {
-                    viewModel.biometricAuthManager.authenticate(
-                        activity = activity,
-                        onSuccess = { onAuthenticated() },
-                        onError = { /* Stay locked — user can tap Unlock button */ }
-                    )
-                } else {
-                    // Biometric not available — unlock automatically
-                    onAuthenticated()
+            when (event) {
+                Lifecycle.Event.ON_STOP -> {
+                    // Reset auth when app goes to background so the user
+                    // must re-authenticate on every return.
+                    if (biometricEnabled && currentIsAuthenticated) {
+                        currentOnLockRequired()
+                    }
                 }
+                Lifecycle.Event.ON_START -> {
+                    if (biometricEnabled && !currentIsAuthenticated) {
+                        val status = viewModel.biometricAuthManager.getStatus()
+                        if (status == BiometricStatus.AVAILABLE) {
+                            viewModel.biometricAuthManager.authenticate(
+                                activity = activity,
+                                onSuccess = { currentOnAuthenticated() },
+                                onError = { /* Stay locked — user can tap Unlock button */ }
+                            )
+                        } else {
+                            // Biometric not available — unlock automatically
+                            currentOnAuthenticated()
+                        }
+                    }
+                }
+                else -> { /* Other lifecycle events — no action needed */ }
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
