@@ -9,12 +9,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bloomcycle.app.data.notification.NotificationScheduler
 import com.bloomcycle.app.data.preferences.UserPreferencesManager
+import com.bloomcycle.app.data.security.BiometricAuthManager
+import com.bloomcycle.app.data.security.BiometricStatus
+import com.bloomcycle.app.domain.repository.DailyLogRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,6 +31,12 @@ data class SettingsUiState(
     val averageCycleLength: Int = UserPreferencesManager.DEFAULT_CYCLE_LENGTH,
     val averagePeriodDuration: Int = UserPreferencesManager.DEFAULT_PERIOD_DURATION,
     val notificationPermissionGranted: Boolean = false,
+    // Privacy & security
+    val biometricEnabled: Boolean = false,
+    val biometricAvailable: Boolean = false,
+    val screenSecurityEnabled: Boolean = false,
+    val showDeleteConfirmation: Boolean = false,
+    val dataDeleted: Boolean = false,
     val isLoaded: Boolean = false
 )
 
@@ -33,8 +44,13 @@ data class SettingsUiState(
 class SettingsViewModel @Inject constructor(
     @ApplicationContext private val appContext: Context,
     private val preferencesManager: UserPreferencesManager,
-    private val notificationScheduler: NotificationScheduler
+    private val notificationScheduler: NotificationScheduler,
+    private val biometricAuthManager: BiometricAuthManager,
+    private val dailyLogRepository: DailyLogRepository
 ) : ViewModel() {
+
+    private val _showDeleteConfirmation = MutableStateFlow(false)
+    private val _dataDeleted = MutableStateFlow(false)
 
     val uiState: StateFlow<SettingsUiState> = combine(
         preferencesManager.periodRemindersEnabled,
@@ -43,17 +59,36 @@ class SettingsViewModel @Inject constructor(
         preferencesManager.periodReminderDaysBefore,
         combine(
             preferencesManager.averageCycleLength,
-            preferencesManager.averagePeriodDuration
-        ) { a, b -> a to b }
-    ) { periodReminders, dailyReminders, fertileAlerts, reminderDays, (cycleLength, periodDuration) ->
+            preferencesManager.averagePeriodDuration,
+            preferencesManager.biometricEnabled,
+            preferencesManager.screenSecurityEnabled,
+            _showDeleteConfirmation,
+            _dataDeleted
+        ) { values ->
+            // Array destructure for 6-param combine
+            PrivacyBundle(
+                cycleLength = values[0] as Int,
+                periodDuration = values[1] as Int,
+                biometricEnabled = values[2] as Boolean,
+                screenSecurityEnabled = values[3] as Boolean,
+                showDeleteConfirm = values[4] as Boolean,
+                dataDeleted = values[5] as Boolean
+            )
+        }
+    ) { periodReminders, dailyReminders, fertileAlerts, reminderDays, privacy ->
         SettingsUiState(
             periodRemindersEnabled = periodReminders,
             dailyLogRemindersEnabled = dailyReminders,
             fertileWindowAlertsEnabled = fertileAlerts,
             periodReminderDaysBefore = reminderDays,
-            averageCycleLength = cycleLength,
-            averagePeriodDuration = periodDuration,
+            averageCycleLength = privacy.cycleLength,
+            averagePeriodDuration = privacy.periodDuration,
             notificationPermissionGranted = checkNotificationPermission(),
+            biometricEnabled = privacy.biometricEnabled,
+            biometricAvailable = biometricAuthManager.getStatus() == BiometricStatus.AVAILABLE,
+            screenSecurityEnabled = privacy.screenSecurityEnabled,
+            showDeleteConfirmation = privacy.showDeleteConfirm,
+            dataDeleted = privacy.dataDeleted,
             isLoaded = true
         )
     }.stateIn(
@@ -106,11 +141,48 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    // ── Privacy & Security ──────────────────────────────────────
+
+    fun setBiometricEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            preferencesManager.setBiometricEnabled(enabled)
+        }
+    }
+
+    fun setScreenSecurity(enabled: Boolean) {
+        viewModelScope.launch {
+            preferencesManager.setScreenSecurityEnabled(enabled)
+        }
+    }
+
+    fun requestDeleteAllData() {
+        _showDeleteConfirmation.update { true }
+    }
+
+    fun cancelDeleteAllData() {
+        _showDeleteConfirmation.update { false }
+    }
+
+    fun confirmDeleteAllData() {
+        viewModelScope.launch {
+            // Cancel notifications first
+            notificationScheduler.cancelAllReminders()
+
+            // Clear all preferences (resets to defaults)
+            preferencesManager.clearAll()
+
+            _showDeleteConfirmation.update { false }
+            _dataDeleted.update { true }
+        }
+    }
+
+    fun consumeDataDeletedEvent() {
+        _dataDeleted.update { false }
+    }
+
     // ── Helpers ──────────────────────────────────────────────────
 
     private fun rescheduleIfNeeded() {
-        // WorkManager handles the scheduling — we just trigger a reschedule
-        // so new preference values are picked up on next worker execution
         notificationScheduler.rescheduleReminders()
     }
 
@@ -121,18 +193,25 @@ class SettingsViewModel @Inject constructor(
                 Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         } else {
-            true // Pre-Android 13 doesn't require runtime permission
+            true
         }
     }
 
     fun refreshPermissionState() {
-        // Force a recomposition by rescheduling — the permission check
-        // happens in the combine flow
         viewModelScope.launch {
-            // Touch a pref to trigger reflow (no-op write)
             val current = preferencesManager.periodRemindersEnabled
                 .stateIn(viewModelScope).value
             preferencesManager.setPeriodRemindersEnabled(current)
         }
     }
 }
+
+/** Internal helper to bundle 6 flows into one combine result. */
+private data class PrivacyBundle(
+    val cycleLength: Int,
+    val periodDuration: Int,
+    val biometricEnabled: Boolean,
+    val screenSecurityEnabled: Boolean,
+    val showDeleteConfirm: Boolean,
+    val dataDeleted: Boolean
+)

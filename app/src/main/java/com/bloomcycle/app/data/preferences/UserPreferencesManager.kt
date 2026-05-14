@@ -33,6 +33,9 @@ class UserPreferencesManager @Inject constructor(
         private val FERTILE_WINDOW_ALERTS_ENABLED = booleanPreferencesKey("fertile_window_alerts_enabled")
         private val PERIOD_REMINDER_DAYS_BEFORE = intPreferencesKey("period_reminder_days_before")
 
+        // Privacy & security preferences
+        private val SCREEN_SECURITY_ENABLED = booleanPreferencesKey("screen_security_enabled")
+
         const val DEFAULT_CYCLE_LENGTH = 28
         const val DEFAULT_PERIOD_DURATION = 5
         const val DEFAULT_PERIOD_REMINDER_DAYS = 2
@@ -86,6 +89,12 @@ class UserPreferencesManager @Inject constructor(
         prefs[PERIOD_REMINDER_DAYS_BEFORE] ?: DEFAULT_PERIOD_REMINDER_DAYS
     }
 
+    // ── Privacy & Security Preferences (Reads) ──────────────
+
+    val screenSecurityEnabled: Flow<Boolean> = dataStore.data.map { prefs ->
+        prefs[SCREEN_SECURITY_ENABLED] ?: false
+    }
+
     // ── Writes ────────────────────────────────────────────────
 
     suspend fun setOnboardingCompleted(completed: Boolean) {
@@ -132,6 +141,12 @@ class UserPreferencesManager @Inject constructor(
 
     suspend fun setPeriodReminderDaysBefore(days: Int) {
         dataStore.edit { prefs -> prefs[PERIOD_REMINDER_DAYS_BEFORE] = days }
+    }
+
+    // ── Privacy & Security Preferences (Writes) ─────────────
+
+    suspend fun setScreenSecurityEnabled(enabled: Boolean) {
+        dataStore.edit { prefs -> prefs[SCREEN_SECURITY_ENABLED] = enabled }
     }
 
     /**

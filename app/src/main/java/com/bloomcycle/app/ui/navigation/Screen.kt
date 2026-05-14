@@ -75,6 +75,11 @@ sealed class Screen(
         title = "Reports & Export"
     )
 
+    data object PrivacyPolicy : Screen(
+        route = "privacy_policy",
+        title = "Privacy & Data"
+    )
+
     data object Settings : Screen(
         route = "settings",
         title = "Settings",

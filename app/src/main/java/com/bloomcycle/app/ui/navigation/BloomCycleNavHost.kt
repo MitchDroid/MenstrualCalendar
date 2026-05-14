@@ -15,6 +15,7 @@ import com.bloomcycle.app.ui.education.SymptomGuideScreen
 import com.bloomcycle.app.ui.home.HomeScreen
 import com.bloomcycle.app.ui.insights.InsightsScreen
 import com.bloomcycle.app.ui.onboarding.OnboardingScreen
+import com.bloomcycle.app.ui.privacy.PrivacyPolicyScreen
 import com.bloomcycle.app.ui.reports.ReportsScreen
 import com.bloomcycle.app.ui.settings.SettingsScreen
 import com.bloomcycle.app.ui.tracking.DailyTrackingScreen
@@ -115,10 +116,18 @@ fun BloomCycleNavHost(
                 onNavigateBack = { navController.popBackStack() }
             )
         }
+        composable(Screen.PrivacyPolicy.route) {
+            PrivacyPolicyScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
         composable(Screen.Settings.route) {
             SettingsScreen(
                 onNavigateToReports = {
                     navController.navigate(Screen.Reports.route)
+                },
+                onNavigateToPrivacyPolicy = {
+                    navController.navigate(Screen.PrivacyPolicy.route)
                 }
             )
         }
