@@ -97,7 +97,14 @@ Built with Jetpack Compose, Material Design 3, and Clean Architecture principles
 
 ## Screenshots
 
-> Coming soon — screenshots of Home, Calendar, Daily Tracking, Insights, Education, Reports, and Settings screens.
+#### Screenshots of the change <!-- (Optional) -->
+<!-- *For changes that affect UI, add screenshots helping reviewers understand the change visually.* -->
+
+| screen | screen | screen | screen |screen |
+| ------------- | ------------- |------------- |------------- | ------------- |
+| <!-- Drop screenshot here --> | <!-- Drop screenshot here --> | <!-- Drop screenshot here --> | <!-- Drop screenshot here --> | <!-- Drop screenshot here --> |
+| <img src="https://github.com/user-attachments/assets/eed88384-744a-4049-9776-e8f3560fb38e" width="300"> | <img src="https://github.com/user-attachments/assets/b40a7133-60d1-44ea-947d-b1bedfc54b56" width="300"> | <img src="https://github.com/user-attachments/assets/ec0fb267-cc45-45e9-9945-d18010c5ef7c" width="300">  | <img src="https://github.com/user-attachments/assets/2ab946ec-e535-4733-8ecc-d3462a726d96" width="300"> | <img src="https://github.com/user-attachments/assets/39208f7a-8ff0-4222-bd88-47ba547fd88a" width="300"> | <img width="300" src="https://github.com/user-attachments/assets/fe92e3f4-fe6f-4460-b2f0-46b2bb533835" />
+
 
 ---
 
