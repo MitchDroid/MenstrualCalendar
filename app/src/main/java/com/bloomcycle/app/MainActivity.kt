@@ -265,7 +265,14 @@ private fun BloomCycleApp(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             if (showBottomBar) {
-                BloomCycleBottomBar(navController = navController)
+                BloomCycleBottomBar(
+                    navController = navController,
+                    onQuickLogClick = {
+                        navController.navigate(
+                            Screen.DailyTracking.createRoute(LocalDate.now().toString())
+                        )
+                    }
+                )
             }
         }
     ) { innerPadding ->
