@@ -40,6 +40,7 @@ class HomeViewModelTest {
         preferencesManager = mockk(relaxed = true)
         dailyLogRepository = mockk(relaxed = true)
 
+        every { preferencesManager.userName } returns flowOf("Karen")
         every { preferencesManager.lastPeriodDate } returns flowOf(LocalDate.of(2026, 5, 1))
         every { preferencesManager.averageCycleLength } returns flowOf(28)
         every { preferencesManager.averagePeriodDuration } returns flowOf(5)

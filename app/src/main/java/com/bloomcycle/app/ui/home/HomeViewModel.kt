@@ -17,6 +17,7 @@ import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 data class HomeUiState(
+    val userName: String = "",
     val cycleDay: Int = 1,
     val daysUntilNextPeriod: Int = 0,
     val cycleLength: Int = UserPreferencesManager.DEFAULT_CYCLE_LENGTH,
@@ -34,13 +35,14 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: StateFlow<HomeUiState> = combine(
+        preferencesManager.userName,
         preferencesManager.lastPeriodDate,
         preferencesManager.averageCycleLength,
         preferencesManager.averagePeriodDuration,
         dailyLogRepository.getLogByDate(LocalDate.now())
-    ) { lastPeriod, cycleLen, periodDur, todayLog ->
+    ) { userName, lastPeriod, cycleLen, periodDur, todayLog ->
         if (lastPeriod == null) {
-            return@combine HomeUiState(isLoaded = true)
+            return@combine HomeUiState(userName = userName, isLoaded = true)
         }
 
         val daysSince = ChronoUnit.DAYS.between(lastPeriod, LocalDate.now()).toInt()
@@ -64,6 +66,7 @@ class HomeViewModel @Inject constructor(
         }
 
         HomeUiState(
+            userName = userName,
             cycleDay = cycleDay,
             daysUntilNextPeriod = daysUntilNext,
             cycleLength = cycleLen,

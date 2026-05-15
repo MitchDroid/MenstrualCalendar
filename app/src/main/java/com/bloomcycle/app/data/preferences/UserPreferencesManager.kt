@@ -24,6 +24,7 @@ class UserPreferencesManager @Inject constructor(
         private val AVERAGE_PERIOD_DURATION = intPreferencesKey("average_period_duration")
         private val BIRTH_YEAR = intPreferencesKey("birth_year")
         private val USER_GOAL = stringPreferencesKey("user_goal")
+        private val USER_NAME = stringPreferencesKey("user_name")
         private val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
         private val BIOMETRIC_ENABLED = booleanPreferencesKey("biometric_enabled")
 
@@ -65,6 +66,10 @@ class UserPreferencesManager @Inject constructor(
 
     val userGoal: Flow<UserGoal?> = dataStore.data.map { prefs ->
         prefs[USER_GOAL]?.let { runCatching { UserGoal.valueOf(it) }.getOrNull() }
+    }
+
+    val userName: Flow<String> = dataStore.data.map { prefs ->
+        prefs[USER_NAME] ?: ""
     }
 
     val biometricEnabled: Flow<Boolean> = dataStore.data.map { prefs ->
@@ -121,6 +126,10 @@ class UserPreferencesManager @Inject constructor(
         dataStore.edit { prefs -> prefs[USER_GOAL] = goal.name }
     }
 
+    suspend fun setUserName(name: String) {
+        dataStore.edit { prefs -> prefs[USER_NAME] = name }
+    }
+
     suspend fun setBiometricEnabled(enabled: Boolean) {
         dataStore.edit { prefs -> prefs[BIOMETRIC_ENABLED] = enabled }
     }
@@ -153,6 +162,7 @@ class UserPreferencesManager @Inject constructor(
      * Saves all onboarding data at once.
      */
     suspend fun saveOnboardingData(
+        userName: String,
         lastPeriodDate: LocalDate,
         averageCycleLength: Int,
         averagePeriodDuration: Int,
@@ -160,6 +170,7 @@ class UserPreferencesManager @Inject constructor(
         userGoal: UserGoal
     ) {
         dataStore.edit { prefs ->
+            if (userName.isNotBlank()) prefs[USER_NAME] = userName.trim()
             prefs[LAST_PERIOD_DATE] = lastPeriodDate.toEpochDay()
             prefs[AVERAGE_CYCLE_LENGTH] = averageCycleLength
             prefs[AVERAGE_PERIOD_DURATION] = averagePeriodDuration

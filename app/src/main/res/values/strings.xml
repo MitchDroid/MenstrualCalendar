@@ -82,6 +82,13 @@
     <string name="welcome_feature_privacy">Your data stays on your device</string>
     <string name="welcome_feature_insights">Get personalized insights</string>
 
+    <!-- Name step -->
+    <string name="onboarding_name_title">What should we\ncall you?</string>
+    <string name="onboarding_name_subtitle">We\'d love to greet you by name.\nThis is completely optional.</string>
+    <string name="onboarding_name_label">Your name</string>
+    <string name="onboarding_name_placeholder">e.g. Karen</string>
+    <string name="onboarding_name_optional">You can skip this — just tap Continue</string>
+
     <!-- Last period step -->
     <string name="last_period_title">When did your last\nperiod start?</string>
     <string name="last_period_description">This helps us predict your next cycle.\nAn approximate date is fine!</string>
@@ -120,6 +127,15 @@
 
     <!-- ── Home Screen ────────────────────────────────── -->
     <string name="home_subtitle">Your cycle, your way</string>
+    <string name="home_greeting_morning">Good morning, %s 🌸</string>
+    <string name="home_greeting_afternoon">Good afternoon, %s 🌸</string>
+    <string name="home_greeting_evening">Good evening, %s 🌸</string>
+    <string name="home_greeting_morning_anon">Good morning 🌸</string>
+    <string name="home_greeting_afternoon_anon">Good afternoon 🌸</string>
+    <string name="home_greeting_evening_anon">Good evening 🌸</string>
+    <string name="home_days_until_period">%d days until\nnext period</string>
+    <string name="home_period_today">Your period\nis here</string>
+    <string name="home_cycle_progress">Cycle Day %1$d of %2$d</string>
     <string name="home_cycle_day">Day %d</string>
     <string name="home_next_period">Next Period</string>
     <string name="home_cycle_length">Cycle Length</string>
