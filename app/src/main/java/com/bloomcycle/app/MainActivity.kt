@@ -4,20 +4,19 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.delay
 import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -30,20 +29,25 @@ import androidx.navigation.compose.rememberNavController
 import com.bloomcycle.app.data.preferences.UserPreferencesManager
 import com.bloomcycle.app.data.security.BiometricAuthManager
 import com.bloomcycle.app.data.security.BiometricStatus
+import com.bloomcycle.app.domain.model.CyclePhase
 import com.bloomcycle.app.ui.components.BloomCycleBottomBar
 import com.bloomcycle.app.ui.navigation.BloomCycleNavHost
 import com.bloomcycle.app.ui.navigation.Screen
 import com.bloomcycle.app.ui.privacy.AppLockScreen
+import com.bloomcycle.app.ui.splash.SplashScreen
 import com.bloomcycle.app.ui.theme.BloomCycleTheme
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 /**
- * ViewModel that exposes onboarding state and security preferences.
+ * ViewModel that exposes onboarding state, security preferences,
+ * and the current cycle phase for the phase-aware theme.
  */
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -64,6 +68,30 @@ class MainViewModel @Inject constructor(
     val biometricEnabled: Flow<Boolean> = preferencesManager.biometricEnabled
 
     val screenSecurityEnabled: Flow<Boolean> = preferencesManager.screenSecurityEnabled
+
+    /**
+     * Current cycle phase derived from preferences.
+     * Used by [BloomCycleTheme] to tint the entire UI.
+     * Null during onboarding or when last-period data is unavailable.
+     */
+    val currentCyclePhase: Flow<CyclePhase?> = combine(
+        preferencesManager.lastPeriodDate,
+        preferencesManager.averageCycleLength,
+        preferencesManager.averagePeriodDuration
+    ) { lastPeriod, cycleLen, periodDur ->
+        if (lastPeriod == null) return@combine null
+
+        val daysSince = ChronoUnit.DAYS.between(lastPeriod, LocalDate.now()).toInt()
+        val cycleDay = (daysSince % cycleLen) + 1
+        val ovulationDay = cycleLen - 14
+
+        when {
+            cycleDay in 1..periodDur -> CyclePhase.MENSTRUAL
+            cycleDay in (periodDur + 1) until ovulationDay -> CyclePhase.FOLLICULAR
+            cycleDay in ovulationDay..(ovulationDay + 1) -> CyclePhase.OVULATION
+            else -> CyclePhase.LUTEAL
+        }
+    }
 }
 
 @AndroidEntryPoint
@@ -82,12 +110,18 @@ class MainActivity : FragmentActivity() {
         }
 
         setContent {
-            BloomCycleTheme {
+            val viewModel: MainViewModel = hiltViewModel()
+            val cyclePhase by viewModel.currentCyclePhase.collectAsStateWithLifecycle(
+                initialValue = null
+            )
+
+            BloomCycleTheme(cyclePhase = cyclePhase) {
                 BloomCycleApp(
                     activity = this,
                     isAuthenticated = isAuthenticated,
                     onAuthenticated = { isAuthenticated = true },
-                    onLockRequired = { isAuthenticated = false }
+                    onLockRequired = { isAuthenticated = false },
+                    viewModel = viewModel
                 )
             }
         }
@@ -105,7 +139,7 @@ private fun BloomCycleApp(
     isAuthenticated: Boolean,
     onAuthenticated: () -> Unit,
     onLockRequired: () -> Unit,
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel
 ) {
     val startState by viewModel.startState.collectAsStateWithLifecycle(
         initialValue = MainViewModel.StartState.Loading
@@ -191,54 +225,54 @@ private fun BloomCycleApp(
         return
     }
 
+    // ── Minimum splash duration ────────────────────────
+    // DataStore resolves almost instantly, but the bloom animation
+    // takes ~1.2s. Hold the splash for at least 1.5s so it fully plays.
+    var splashFinished by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        delay(1500L)
+        splashFinished = true
+    }
+
+    val showSplash = !splashFinished || startState is MainViewModel.StartState.Loading
+
     // ── Main App Content ────────────────────────────────
-    when (startState) {
-        MainViewModel.StartState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.primary
-                )
+    if (showSplash) {
+        SplashScreen(modifier = Modifier.fillMaxSize())
+        return
+    }
+
+    val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    // Hide the bottom bar during onboarding and full-screen flows
+    val showBottomBar = currentRoute != null &&
+            currentRoute != Screen.Onboarding.route &&
+            !currentRoute.startsWith("daily_tracking") &&
+            currentRoute != Screen.CyclePhaseGuide.route &&
+            currentRoute != Screen.SymptomGuide.route &&
+            !currentRoute.startsWith("health_tips") &&
+            currentRoute != Screen.Reports.route &&
+            currentRoute != Screen.PrivacyPolicy.route
+
+    val startDestination = when (startState) {
+        MainViewModel.StartState.Onboarding -> Screen.Onboarding.route
+        else -> Screen.Home.route
+    }
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            if (showBottomBar) {
+                BloomCycleBottomBar(navController = navController)
             }
         }
-
-        MainViewModel.StartState.Onboarding,
-        MainViewModel.StartState.Main -> {
-            val navController = rememberNavController()
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentRoute = navBackStackEntry?.destination?.route
-
-            // Hide the bottom bar during onboarding and full-screen flows
-            val showBottomBar = currentRoute != null &&
-                    currentRoute != Screen.Onboarding.route &&
-                    !currentRoute.startsWith("daily_tracking") &&
-                    currentRoute != Screen.CyclePhaseGuide.route &&
-                    currentRoute != Screen.SymptomGuide.route &&
-                    !currentRoute.startsWith("health_tips") &&
-                    currentRoute != Screen.Reports.route &&
-                    currentRoute != Screen.PrivacyPolicy.route
-
-            val startDestination = when (startState) {
-                MainViewModel.StartState.Onboarding -> Screen.Onboarding.route
-                else -> Screen.Home.route
-            }
-
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                bottomBar = {
-                    if (showBottomBar) {
-                        BloomCycleBottomBar(navController = navController)
-                    }
-                }
-            ) { innerPadding ->
-                BloomCycleNavHost(
-                    navController = navController,
-                    startDestination = startDestination,
-                    modifier = Modifier.padding(innerPadding)
-                )
-            }
-        }
+    ) { innerPadding ->
+        BloomCycleNavHost(
+            navController = navController,
+            startDestination = startDestination,
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }

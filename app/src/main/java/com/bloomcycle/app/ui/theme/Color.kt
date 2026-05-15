@@ -60,3 +60,62 @@ val SuccessGreen = Color(0xFF4CAF50)
 val WarningAmber = Color(0xFFFFC107)
 val ErrorRed = Color(0xFFF44336)
 val InfoBlue = Color(0xFF2196F3)
+
+// ══════════════════════════════════════════════════════════════
+// ── Phase-Aware Dynamic Theme Colors ─────────────────────────
+// ══════════════════════════════════════════════════════════════
+// Each cycle phase tints the UI with a subtle, warm palette shift.
+// These are used as overrides inside BloomCycleTheme when a phase
+// is known, creating a living, phase-responsive visual identity.
+
+// ── Menstrual Phase (warm rose / coral tones) ────────────────
+val MenstrualPrimary = Color(0xFFD32F2F)
+val MenstrualPrimaryContainer = Color(0xFFFFCDD2)
+val MenstrualSecondary = Color(0xFFC2185B)
+val MenstrualSecondaryContainer = Color(0xFFFCE4EC)
+val MenstrualSurfaceVariant = Color(0xFFFFF0F0)
+
+val DarkMenstrualPrimary = Color(0xFFEF9A9A)
+val DarkMenstrualPrimaryContainer = Color(0xFF8E0000)
+val DarkMenstrualSecondary = Color(0xFFF48FB1)
+val DarkMenstrualSecondaryContainer = Color(0xFF6A0036)
+val DarkMenstrualSurfaceVariant = Color(0xFF3D2527)
+
+// ── Follicular Phase (fresh mint / green tones) ──────────────
+val FollicularPrimary = Color(0xFF2E7D32)
+val FollicularPrimaryContainer = Color(0xFFC8E6C9)
+val FollicularSecondary = Color(0xFF00796B)
+val FollicularSecondaryContainer = Color(0xFFE0F2F1)
+val FollicularSurfaceVariant = Color(0xFFF0FFF0)
+
+val DarkFollicularPrimary = Color(0xFFA5D6A7)
+val DarkFollicularPrimaryContainer = Color(0xFF1B5E20)
+val DarkFollicularSecondary = Color(0xFF80CBC4)
+val DarkFollicularSecondaryContainer = Color(0xFF004D40)
+val DarkFollicularSurfaceVariant = Color(0xFF253D2A)
+
+// ── Ovulation Phase (soft pink / lilac tones) ────────────────
+val OvulationPrimary = Color(0xFFAD1457)
+val OvulationPrimaryContainer = Color(0xFFF8BBD0)
+val OvulationSecondary = Color(0xFF7B1FA2)
+val OvulationSecondaryContainer = Color(0xFFE1BEE7)
+val OvulationSurfaceVariant = Color(0xFFFFF0F7)
+
+val DarkOvulationPrimary = Color(0xFFF48FB1)
+val DarkOvulationPrimaryContainer = Color(0xFF880E4F)
+val DarkOvulationSecondary = Color(0xFFCE93D8)
+val DarkOvulationSecondaryContainer = Color(0xFF4A148C)
+val DarkOvulationSurfaceVariant = Color(0xFF3D2535)
+
+// ── Luteal Phase (warm amber / terracotta tones) ─────────────
+val LutealPrimary = Color(0xFFE65100)
+val LutealPrimaryContainer = Color(0xFFFFE0B2)
+val LutealSecondary = Color(0xFF6D4C41)
+val LutealSecondaryContainer = Color(0xFFD7CCC8)
+val LutealSurfaceVariant = Color(0xFFFFF8F0)
+
+val DarkLutealPrimary = Color(0xFFFFCC80)
+val DarkLutealPrimaryContainer = Color(0xFFBF360C)
+val DarkLutealSecondary = Color(0xFFBCAAA4)
+val DarkLutealSecondaryContainer = Color(0xFF3E2723)
+val DarkLutealSurfaceVariant = Color(0xFF3D3025)

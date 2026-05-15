@@ -7,4 +7,7 @@
     <color name="cream_neutral">#FFFFF8E1</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
+
+    <!-- System splash screen background (Android 12+) -->
+    <color name="splash_background">#FFFFFBFE</color>
 </resources>
