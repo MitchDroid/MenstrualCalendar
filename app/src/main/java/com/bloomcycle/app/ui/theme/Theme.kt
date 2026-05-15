@@ -3,63 +3,31 @@ package com.bloomcycle.app.ui.theme
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.bloomcycle.app.domain.model.CyclePhase
 
-private val LightColorScheme = lightColorScheme(
-    primary = PinkPrimary,
-    onPrimary = androidx.compose.ui.graphics.Color.White,
-    primaryContainer = PinkPrimaryContainer,
-    onPrimaryContainer = OnPinkPrimaryContainer,
-    secondary = LavenderSecondary,
-    onSecondary = androidx.compose.ui.graphics.Color.White,
-    secondaryContainer = LavenderSecondaryContainer,
-    onSecondaryContainer = OnLavenderSecondaryContainer,
-    tertiary = CoralTertiary,
-    onTertiary = androidx.compose.ui.graphics.Color.White,
-    tertiaryContainer = CoralTertiaryContainer,
-    onTertiaryContainer = OnCoralTertiaryContainer,
-    background = LightBackground,
-    onBackground = LightOnSurface,
-    surface = LightSurface,
-    onSurface = LightOnSurface,
-    surfaceVariant = LightSurfaceVariant,
-    onSurfaceVariant = LightOnSurfaceVariant,
-    outline = LightOutline
-)
-
-private val DarkColorScheme = darkColorScheme(
-    primary = DarkPinkPrimary,
-    onPrimary = OnPinkPrimaryContainer,
-    primaryContainer = DarkPinkPrimaryContainer,
-    onPrimaryContainer = DarkOnPinkPrimaryContainer,
-    secondary = DarkLavenderSecondary,
-    onSecondary = OnLavenderSecondaryContainer,
-    secondaryContainer = DarkLavenderSecondaryContainer,
-    onSecondaryContainer = DarkOnLavenderSecondaryContainer,
-    tertiary = DarkCoralTertiary,
-    onTertiary = OnCoralTertiaryContainer,
-    tertiaryContainer = DarkCoralTertiaryContainer,
-    onTertiaryContainer = DarkOnCoralTertiaryContainer,
-    background = DarkBackground,
-    onBackground = DarkOnSurface,
-    surface = DarkSurface,
-    onSurface = DarkOnSurface,
-    surfaceVariant = DarkSurfaceVariant,
-    onSurfaceVariant = DarkOnSurfaceVariant,
-    outline = DarkOutline
-)
-
+/**
+ * BloomCycle's root theme.
+ *
+ * @param cyclePhase The user's current cycle phase, or `null` during
+ *   onboarding / loading. When non-null the primary and secondary color
+ *   slots animate toward the phase-specific palette, making the entire
+ *   app feel responsive to the user's cycle.
+ * @param darkTheme Whether to use the dark color scheme.
+ * @param content The composable content to theme.
+ */
 @Composable
 fun BloomCycleTheme(
+    cyclePhase: CyclePhase? = null,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    // Build the animated, phase-aware color scheme
+    val colorScheme = phaseAwareColorScheme(phase = cyclePhase, darkTheme = darkTheme)
 
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -72,10 +40,14 @@ fun BloomCycleTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = BloomCycleTypography,
-        shapes = BloomCycleShapes,
-        content = content
-    )
+    // Provide the current phase through CompositionLocal so any
+    // composable in the tree can read it with LocalCyclePhase.current
+    CompositionLocalProvider(LocalCyclePhase provides cyclePhase) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = BloomCycleTypography,
+            shapes = BloomCycleShapes,
+            content = content
+        )
+    }
 }
