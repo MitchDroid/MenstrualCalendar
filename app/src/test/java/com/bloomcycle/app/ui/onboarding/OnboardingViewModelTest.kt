@@ -51,24 +51,35 @@ class OnboardingViewModelTest {
     }
 
     @Test
-    fun `nextStep advances to LAST_PERIOD`() = runTest {
+    fun `nextStep advances to YOUR_NAME`() = runTest {
         val viewModel = createViewModel()
 
         viewModel.nextStep()
 
-        assertEquals(OnboardingStep.LAST_PERIOD, viewModel.uiState.value.currentStep)
+        assertEquals(OnboardingStep.YOUR_NAME, viewModel.uiState.value.currentStep)
         assertEquals(1, viewModel.uiState.value.stepIndex)
+    }
+
+    @Test
+    fun `two nextSteps advances to LAST_PERIOD`() = runTest {
+        val viewModel = createViewModel()
+
+        viewModel.nextStep() // WELCOME → YOUR_NAME
+        viewModel.nextStep() // YOUR_NAME → LAST_PERIOD
+
+        assertEquals(OnboardingStep.LAST_PERIOD, viewModel.uiState.value.currentStep)
+        assertEquals(2, viewModel.uiState.value.stepIndex)
     }
 
     @Test
     fun `previousStep goes back after two next steps`() = runTest {
         val viewModel = createViewModel()
 
-        viewModel.nextStep() // WELCOME → LAST_PERIOD
-        viewModel.nextStep() // LAST_PERIOD → CYCLE_LENGTH
-        viewModel.previousStep() // CYCLE_LENGTH → LAST_PERIOD
+        viewModel.nextStep() // WELCOME → YOUR_NAME
+        viewModel.nextStep() // YOUR_NAME → LAST_PERIOD
+        viewModel.previousStep() // LAST_PERIOD → YOUR_NAME
 
-        assertEquals(OnboardingStep.LAST_PERIOD, viewModel.uiState.value.currentStep)
+        assertEquals(OnboardingStep.YOUR_NAME, viewModel.uiState.value.currentStep)
         assertEquals(1, viewModel.uiState.value.stepIndex)
     }
 
@@ -121,7 +132,7 @@ class OnboardingViewModelTest {
 
     @Test
     fun `completeOnboarding saves data to preferences`() = runTest {
-        coEvery { preferencesManager.saveOnboardingData(any(), any(), any(), any(), any()) } returns Unit
+        coEvery { preferencesManager.saveOnboardingData(any(), any(), any(), any(), any(), any()) } returns Unit
         coEvery { preferencesManager.setOnboardingCompleted(true) } returns Unit
 
         val viewModel = createViewModel()
@@ -133,6 +144,6 @@ class OnboardingViewModelTest {
         viewModel.completeOnboarding()
         testDispatcher.scheduler.advanceUntilIdle()
 
-        coVerify { preferencesManager.saveOnboardingData(any(), any(), any(), any(), any()) }
+        coVerify { preferencesManager.saveOnboardingData(any(), any(), any(), any(), any(), any()) }
     }
 }

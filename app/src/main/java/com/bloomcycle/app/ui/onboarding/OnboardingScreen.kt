@@ -127,6 +127,10 @@ fun OnboardingScreen(
             ) { step ->
                 when (step) {
                     OnboardingStep.WELCOME -> WelcomeStep()
+                    OnboardingStep.YOUR_NAME -> NameStep(
+                        name = uiState.userName,
+                        onNameChanged = viewModel::setUserName
+                    )
                     OnboardingStep.LAST_PERIOD -> LastPeriodStep(
                         selectedDate = uiState.lastPeriodDate,
                         showDatePicker = uiState.showDatePicker,

@@ -156,6 +156,7 @@ class UserPreferencesManagerTest {
     fun `saveOnboardingData persists all fields`() = runTest {
         val date = java.time.LocalDate.of(2026, 5, 1)
         preferencesManager.saveOnboardingData(
+            userName = "Karen",
             lastPeriodDate = date,
             averageCycleLength = 30,
             averagePeriodDuration = 6,
@@ -163,6 +164,7 @@ class UserPreferencesManagerTest {
             userGoal = com.bloomcycle.app.domain.model.UserGoal.TRACK_CYCLE
         )
 
+        assertEquals("Karen", preferencesManager.userName.first())
         assertEquals(date, preferencesManager.lastPeriodDate.first())
         assertEquals(30, preferencesManager.averageCycleLength.first())
         assertEquals(6, preferencesManager.averagePeriodDuration.first())

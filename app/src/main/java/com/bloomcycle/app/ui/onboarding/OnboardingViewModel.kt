@@ -18,6 +18,7 @@ import javax.inject.Inject
  */
 enum class OnboardingStep {
     WELCOME,
+    YOUR_NAME,
     LAST_PERIOD,
     CYCLE_LENGTH,
     PERIOD_DURATION,
@@ -29,6 +30,7 @@ enum class OnboardingStep {
  */
 data class OnboardingUiState(
     val currentStep: OnboardingStep = OnboardingStep.WELCOME,
+    val userName: String = "",
     val lastPeriodDate: LocalDate? = null,
     val cycleLength: Int = UserPreferencesManager.DEFAULT_CYCLE_LENGTH,
     val periodDuration: Int = UserPreferencesManager.DEFAULT_PERIOD_DURATION,
@@ -43,6 +45,7 @@ data class OnboardingUiState(
     val canGoBack: Boolean get() = currentStep != OnboardingStep.WELCOME
     val canProceed: Boolean get() = when (currentStep) {
         OnboardingStep.WELCOME -> true
+        OnboardingStep.YOUR_NAME -> true  // Name is optional — can skip
         OnboardingStep.LAST_PERIOD -> lastPeriodDate != null
         OnboardingStep.CYCLE_LENGTH -> cycleLength in 18..45
         OnboardingStep.PERIOD_DURATION -> periodDuration in 1..14
@@ -86,6 +89,10 @@ class OnboardingViewModel @Inject constructor(
 
     // ── Data Updates ─────────────────────────────────────────
 
+    fun setUserName(name: String) {
+        _uiState.update { it.copy(userName = name) }
+    }
+
     fun setLastPeriodDate(date: LocalDate) {
         _uiState.update { it.copy(lastPeriodDate = date) }
     }
@@ -117,6 +124,7 @@ class OnboardingViewModel @Inject constructor(
 
         viewModelScope.launch {
             preferencesManager.saveOnboardingData(
+                userName = state.userName,
                 lastPeriodDate = periodDate,
                 averageCycleLength = state.cycleLength,
                 averagePeriodDuration = state.periodDuration,
