@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -26,12 +27,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -56,6 +59,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.bloomcycle.app.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.domain.model.CyclePhase
+import com.bloomcycle.app.ui.components.ParallaxHeader
+import com.bloomcycle.app.ui.theme.LocalCyclePhase
 import com.bloomcycle.app.domain.model.FertilityStatus
 import com.bloomcycle.app.ui.theme.FertileGreen
 import com.bloomcycle.app.ui.theme.OvulationYellow
@@ -72,6 +77,10 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val cyclePhase = LocalCyclePhase.current
+
+    // ── Shared scroll state drives both parallax header and content ──
+    val scrollState: ScrollState = rememberScrollState()
 
     // ── Staggered entrance animation ─────────────────────
     var showGreeting by remember { mutableStateOf(false) }
@@ -95,196 +104,222 @@ fun HomeScreen(
         showTip = true
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // ── Personalized Greeting ────────────────────────────
-        AnimatedVisibility(
-            visible = showGreeting,
-            enter = fadeIn(tween(500)) + slideInVertically(tween(500)) { -it / 3 }
+    Box(modifier = modifier.fillMaxSize()) {
+        // ── Parallax gradient background (behind content) ────
+        ParallaxHeader(
+            scrollState = scrollState,
+            phase = cyclePhase,
+            headerHeight = 220.dp
+        )
+
+        // ── Scrollable content (overlays the header) ─────────
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(horizontal = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.Start
+            // Top padding — greeting sits inside the gradient zone
+            Spacer(modifier = Modifier.height(48.dp))
+
+            // ── Personalized Greeting (overlays the gradient) ───
+            AnimatedVisibility(
+                visible = showGreeting,
+                enter = fadeIn(tween(500)) + slideInVertically(tween(500)) { -it / 3 }
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Text(
+                        text = timeOfDayGreeting(uiState.userName),
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = stringResource(R.string.home_subtitle),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // ── Animated Cycle Progress Ring (frosted card) ────────
+            AnimatedVisibility(
+                visible = showRing,
+                enter = fadeIn(tween(600))
+            ) {
+                Surface(
+                    modifier = Modifier.size(240.dp),
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
+                    shadowElevation = 4.dp,
+                    tonalElevation = 2.dp
+                ) {
+                    CycleProgressRing(
+                        cycleDay = uiState.cycleDay,
+                        cycleLength = uiState.cycleLength,
+                        phase = uiState.currentPhase,
+                        daysUntilPeriod = uiState.daysUntilNextPeriod,
+                        periodDuration = uiState.periodDuration,
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .size(220.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // ── Cycle day / phase label under ring ──────────────
+            AnimatedVisibility(
+                visible = showInfo,
+                enter = fadeIn(tween(400))
             ) {
                 Text(
-                    text = timeOfDayGreeting(uiState.userName),
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = stringResource(R.string.home_subtitle),
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = stringResource(R.string.home_cycle_progress, uiState.cycleDay, uiState.cycleLength),
+                    style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-        }
 
-        Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-        // ── Animated Cycle Progress Ring ─────────────────────
-        AnimatedVisibility(
-            visible = showRing,
-            enter = fadeIn(tween(600))
-        ) {
-            CycleProgressRing(
-                cycleDay = uiState.cycleDay,
-                cycleLength = uiState.cycleLength,
-                phase = uiState.currentPhase,
-                daysUntilPeriod = uiState.daysUntilNextPeriod,
-                periodDuration = uiState.periodDuration,
-                modifier = Modifier.size(220.dp)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        // ── Cycle day / phase label under ring ──────────────
-        AnimatedVisibility(
-            visible = showInfo,
-            enter = fadeIn(tween(400))
-        ) {
-            Text(
-                text = stringResource(R.string.home_cycle_progress, uiState.cycleDay, uiState.cycleLength),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // ── Quick Stats (horizontal cards) ──────────────────
-        AnimatedVisibility(
-            visible = showStats,
-            enter = fadeIn(tween(400)) + slideInVertically(tween(400)) { it / 4 }
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                StatPill(
-                    emoji = "🩸",
-                    label = stringResource(R.string.home_next_period),
-                    value = "${uiState.daysUntilNextPeriod}d",
-                    accentColor = PeriodRed,
-                    modifier = Modifier.weight(1f)
-                )
-                StatPill(
-                    emoji = "📅",
-                    label = stringResource(R.string.home_cycle_length),
-                    value = "${uiState.cycleLength}d",
-                    accentColor = PredictedPurple,
-                    modifier = Modifier.weight(1f)
-                )
-                StatPill(
-                    emoji = phaseEmoji(uiState.currentPhase),
-                    label = stringResource(R.string.home_fertility),
-                    value = fertilityDisplayName(uiState.fertilityStatus),
-                    accentColor = fertilityColor(uiState.fertilityStatus),
-                    modifier = Modifier.weight(1f)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // ── Log Today CTA ───────────────────────────────────
-        AnimatedVisibility(
-            visible = showCta,
-            enter = fadeIn(tween(350))
-        ) {
-            val todayStr = LocalDate.now().toString()
-            if (uiState.todayLog != null) {
-                Button(
-                    onClick = { onNavigateToTracking(todayStr) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
-                    shape = MaterialTheme.shapes.large,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                ) {
-                    Icon(Icons.Filled.Edit, contentDescription = null, modifier = Modifier.size(20.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = stringResource(R.string.home_edit_today_log),
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-            } else {
-                Button(
-                    onClick = { onNavigateToTracking(todayStr) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
-                    shape = MaterialTheme.shapes.large
-                ) {
-                    Icon(Icons.Filled.Add, contentDescription = null, modifier = Modifier.size(20.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = stringResource(R.string.home_log_today),
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // ── Today's Tip ─────────────────────────────────────
-        AnimatedVisibility(
-            visible = showTip,
-            enter = fadeIn(tween(400)) + slideInVertically(tween(400)) { it / 4 }
-        ) {
-            val phaseAccent by animateColorAsState(
-                targetValue = phaseAccentColor(uiState.currentPhase),
-                animationSpec = tween(600),
-                label = "tipAccent"
-            )
-
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = phaseAccent.copy(alpha = 0.08f)
-                ),
-                shape = RoundedCornerShape(16.dp)
+            // ── Quick Stats (horizontal cards) ──────────────────
+            AnimatedVisibility(
+                visible = showStats,
+                enter = fadeIn(tween(400)) + slideInVertically(tween(400)) { it / 4 }
             ) {
                 Row(
-                    modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.FavoriteBorder,
-                        contentDescription = null,
-                        tint = phaseAccent,
-                        modifier = Modifier.size(24.dp)
+                    StatPill(
+                        emoji = "🩸",
+                        label = stringResource(R.string.home_next_period),
+                        value = "${uiState.daysUntilNextPeriod}d",
+                        accentColor = PeriodRed,
+                        modifier = Modifier.weight(1f)
                     )
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.home_todays_tip),
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurface
+                    StatPill(
+                        emoji = "📅",
+                        label = stringResource(R.string.home_cycle_length),
+                        value = "${uiState.cycleLength}d",
+                        accentColor = PredictedPurple,
+                        modifier = Modifier.weight(1f)
+                    )
+                    StatPill(
+                        emoji = phaseEmoji(uiState.currentPhase),
+                        label = stringResource(R.string.home_fertility),
+                        value = fertilityDisplayName(uiState.fertilityStatus),
+                        accentColor = fertilityColor(uiState.fertilityStatus),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // ── Log Today CTA ───────────────────────────────────
+            AnimatedVisibility(
+                visible = showCta,
+                enter = fadeIn(tween(350))
+            ) {
+                val todayStr = LocalDate.now().toString()
+                if (uiState.todayLog != null) {
+                    Button(
+                        onClick = { onNavigateToTracking(todayStr) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = MaterialTheme.shapes.large,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                         )
+                    ) {
+                        Icon(Icons.Filled.Edit, contentDescription = null, modifier = Modifier.size(20.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = getTipForPhase(uiState.currentPhase),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            text = stringResource(R.string.home_edit_today_log),
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                } else {
+                    Button(
+                        onClick = { onNavigateToTracking(todayStr) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = MaterialTheme.shapes.large
+                    ) {
+                        Icon(Icons.Filled.Add, contentDescription = null, modifier = Modifier.size(20.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.home_log_today),
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.SemiBold
                         )
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // ── Today's Tip ─────────────────────────────────────
+            AnimatedVisibility(
+                visible = showTip,
+                enter = fadeIn(tween(400)) + slideInVertically(tween(400)) { it / 4 }
+            ) {
+                val phaseAccent by animateColorAsState(
+                    targetValue = phaseAccentColor(uiState.currentPhase),
+                    animationSpec = tween(600),
+                    label = "tipAccent"
+                )
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = phaseAccent.copy(alpha = 0.08f)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.FavoriteBorder,
+                            contentDescription = null,
+                            tint = phaseAccent,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = stringResource(R.string.home_todays_tip),
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = getTipForPhase(uiState.currentPhase),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+
+            // Bottom spacing so content clears the bottom nav
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
