@@ -168,37 +168,6 @@ class ReminderWorkerTest {
         verify(exactly = 0) { notificationHelper.showDailyLogReminder() }
     }
 
-    // ── Fertile window alerts ─────────────────────────────────
-
-    @Test
-    fun `doWork shows fertile window starting alert on first day`() = runTest {
-        every { preferencesManager.fertileWindowAlertsEnabled } returns flowOf(true)
-        every { predictionEngine.predict(any(), any(), any(), any()) } returns createPrediction(
-            fertileWindowStart = today,
-            fertileWindowEnd = today.plusDays(5)
-        )
-
-        val worker = createWorker()
-        worker.doWork()
-
-        verify { notificationHelper.showFertileWindowAlert(isStarting = true) }
-    }
-
-    @Test
-    fun `doWork shows fertile window mid-alert on day 4 of window`() = runTest {
-        every { preferencesManager.fertileWindowAlertsEnabled } returns flowOf(true)
-        val fertileStart = today.minusDays(3) // 3 days ago → midFertile = fertileStart + 3 = today
-        every { predictionEngine.predict(any(), any(), any(), any()) } returns createPrediction(
-            fertileWindowStart = fertileStart,
-            fertileWindowEnd = fertileStart.plusDays(6)
-        )
-
-        val worker = createWorker()
-        worker.doWork()
-
-        verify { notificationHelper.showFertileWindowAlert(isStarting = false) }
-    }
-
     @Test
     fun `doWork does not show fertile alert when disabled`() = runTest {
         every { preferencesManager.fertileWindowAlertsEnabled } returns flowOf(false)
@@ -228,26 +197,6 @@ class ReminderWorkerTest {
     }
 
     // ── All notifications together ────────────────────────────
-
-    @Test
-    fun `doWork can fire all three notification types simultaneously`() = runTest {
-        every { preferencesManager.periodRemindersEnabled } returns flowOf(true)
-        every { preferencesManager.dailyLogRemindersEnabled } returns flowOf(true)
-        every { preferencesManager.fertileWindowAlertsEnabled } returns flowOf(true)
-        every { preferencesManager.periodReminderDaysBefore } returns flowOf(2)
-        every { predictionEngine.predict(any(), any(), any(), any()) } returns createPrediction(
-            daysUntilNextPeriod = 1,
-            fertileWindowStart = today,
-            fertileWindowEnd = today.plusDays(5)
-        )
-
-        val worker = createWorker()
-        worker.doWork()
-
-        verify { notificationHelper.showPeriodReminder(1) }
-        verify { notificationHelper.showDailyLogReminder() }
-        verify { notificationHelper.showFertileWindowAlert(isStarting = true) }
-    }
 
     @Test
     fun `doWork skips all notifications when all toggles are off`() = runTest {

@@ -1,11 +1,12 @@
 package com.bloomcycle.app.ui.onboarding
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
-import androidx.compose.ui.test.assertIsNotEnabled
-import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.bloomcycle.app.R
@@ -44,6 +45,26 @@ class OnboardingScreenTest {
         }
     }
 
+    /**
+     * Wait for the entrance animation (150ms delay + AnimatedVisibility)
+     * to complete so content nodes appear in the tree.
+     */
+    private fun waitForButtonText(text: String) {
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(text)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+    }
+
+    private fun waitForDotIndicator() {
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Step 1", substring = true, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+    }
+
     // ── Welcome Step ──────────────────────────────────────────
 
     @Test
@@ -52,8 +73,11 @@ class OnboardingScreenTest {
             uiState = OnboardingUiState(currentStep = OnboardingStep.WELCOME)
         )
 
+        val text = getString(R.string.onboarding_get_started)
+        waitForButtonText(text)
+
         composeTestRule
-            .onNodeWithText(getString(R.string.onboarding_get_started))
+            .onNodeWithText(text)
             .assertIsDisplayed()
     }
 
@@ -63,35 +87,54 @@ class OnboardingScreenTest {
             uiState = OnboardingUiState(currentStep = OnboardingStep.WELCOME)
         )
 
+        val text = getString(R.string.onboarding_get_started)
+        waitForButtonText(text)
+
         composeTestRule
-            .onNodeWithText(getString(R.string.onboarding_get_started))
+            .onNodeWithText(text)
             .assertIsEnabled()
     }
 
-    // ── Step Progress ─────────────────────────────────────────
+    // ── Step Progress (Dot Indicator) ────────────────────────────
 
     @Test
-    fun onboarding_displaysStepIndicator() {
+    fun onboarding_displaysStepDotIndicator_withCorrectActiveStep() {
         setOnboardingScreen(
             uiState = OnboardingUiState(currentStep = OnboardingStep.WELCOME)
         )
 
-        // Step 1 of 5
+        waitForDotIndicator()
+
+        // Verify dot indicator is rendered with the correct active step
         composeTestRule
-            .onNodeWithText(getString(R.string.onboarding_step_indicator, 1, 5))
-            .assertIsDisplayed()
+            .onAllNodesWithContentDescription("Step 1 active", useUnmergedTree = true)
+            .assertCountEquals(1)
     }
 
     @Test
-    fun onboarding_secondStep_displaysCorrectIndicator() {
+    fun onboarding_thirdStep_displaysCorrectActiveDot() {
         setOnboardingScreen(
             uiState = OnboardingUiState(currentStep = OnboardingStep.LAST_PERIOD)
         )
 
-        // Step 2 of 5
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithContentDescription("Step 3 active", useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
+        // LAST_PERIOD is step index 2 → "Step 3 active"
         composeTestRule
-            .onNodeWithText(getString(R.string.onboarding_step_indicator, 2, 5))
-            .assertIsDisplayed()
+            .onAllNodesWithContentDescription("Step 3 active", useUnmergedTree = true)
+            .assertCountEquals(1)
+
+        // Steps before it should be completed
+        composeTestRule
+            .onAllNodesWithContentDescription("Step 1 completed", useUnmergedTree = true)
+            .assertCountEquals(1)
+        composeTestRule
+            .onAllNodesWithContentDescription("Step 2 completed", useUnmergedTree = true)
+            .assertCountEquals(1)
     }
 
     // ── Navigation Buttons ────────────────────────────────────
@@ -105,8 +148,11 @@ class OnboardingScreenTest {
             )
         )
 
+        val text = getString(R.string.onboarding_continue)
+        waitForButtonText(text)
+
         composeTestRule
-            .onNodeWithText(getString(R.string.onboarding_continue))
+            .onNodeWithText(text)
             .assertIsDisplayed()
     }
 
@@ -120,8 +166,11 @@ class OnboardingScreenTest {
             )
         )
 
+        val text = getString(R.string.onboarding_complete_setup)
+        waitForButtonText(text)
+
         composeTestRule
-            .onNodeWithText(getString(R.string.onboarding_complete_setup))
+            .onNodeWithText(text)
             .assertIsDisplayed()
     }
 
@@ -141,8 +190,11 @@ class OnboardingScreenTest {
             }
         }
 
+        val text = getString(R.string.onboarding_get_started)
+        waitForButtonText(text)
+
         composeTestRule
-            .onNodeWithText(getString(R.string.onboarding_get_started))
+            .onNodeWithText(text)
             .performClick()
 
         verify { viewModel.nextStep() }
@@ -168,8 +220,11 @@ class OnboardingScreenTest {
             }
         }
 
+        val text = getString(R.string.onboarding_complete_setup)
+        waitForButtonText(text)
+
         composeTestRule
-            .onNodeWithText(getString(R.string.onboarding_complete_setup))
+            .onNodeWithText(text)
             .performClick()
 
         verify { viewModel.completeOnboarding() }

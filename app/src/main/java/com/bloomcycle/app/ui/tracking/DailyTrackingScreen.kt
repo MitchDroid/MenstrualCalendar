@@ -70,6 +70,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bloomcycle.app.R
+import com.bloomcycle.app.ui.components.DailyTrackingScreenSkeleton
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.domain.model.CervicalMucus
 import com.bloomcycle.app.domain.model.FlowIntensity
@@ -173,15 +174,11 @@ fun DailyTrackingScreen(
         modifier = modifier
     ) { innerPadding ->
         if (uiState.isLoading) {
-            Column(
+            DailyTrackingScreenSkeleton(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator()
-            }
+                    .padding(innerPadding)
+            )
         } else {
             Column(
                 modifier = Modifier

@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
+import java.time.LocalTime
 
 class HomeScreenTest {
 
@@ -45,36 +46,67 @@ class HomeScreenTest {
         }
     }
 
+    /** Wait for staggered entrance animations to reveal content. */
+    private fun waitForContent() {
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.home_subtitle))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+    }
+
+    // ── Skeleton Loading ─────────────────────────────────────
+
+    @Test
+    fun homeScreen_showsSkeleton_whenNotLoaded() {
+        setHomeScreen(uiState = HomeUiState(isLoaded = false))
+
+        // Real content should not be rendered while loading
+        composeTestRule
+            .onNodeWithText(getString(R.string.home_subtitle))
+            .assertDoesNotExist()
+    }
+
     // ── Header ────────────────────────────────────────────────
 
     @Test
-    fun homeScreen_displaysAppName() {
-        setHomeScreen()
+    fun homeScreen_displaysGreeting() {
+        setHomeScreen(uiState = HomeUiState(isLoaded = true, userName = ""))
+        waitForContent()
+
+        val hour = LocalTime.now().hour
+        val expectedGreeting = when {
+            hour < 12 -> getString(R.string.home_greeting_morning_anon)
+            hour < 18 -> getString(R.string.home_greeting_afternoon_anon)
+            else -> getString(R.string.home_greeting_evening_anon)
+        }
 
         composeTestRule
-            .onNodeWithText(getString(R.string.app_name))
+            .onNodeWithText(expectedGreeting)
             .assertIsDisplayed()
     }
 
     @Test
     fun homeScreen_displaysSubtitle() {
         setHomeScreen()
+        waitForContent()
 
         composeTestRule
             .onNodeWithText(getString(R.string.home_subtitle))
             .assertIsDisplayed()
     }
 
-    // ── Cycle Day Circle ──────────────────────────────────────
+    // ── Cycle Progress Ring ──────────────────────────────────
 
     @Test
-    fun homeScreen_displaysCycleDay() {
+    fun homeScreen_displaysCycleProgress() {
         setHomeScreen(
-            uiState = HomeUiState(isLoaded = true, cycleDay = 14)
+            uiState = HomeUiState(isLoaded = true, cycleDay = 14, cycleLength = 28)
         )
+        waitForContent()
 
         composeTestRule
-            .onNodeWithText(getString(R.string.home_cycle_day, 14))
+            .onNodeWithText(getString(R.string.home_cycle_progress, 14, 28))
             .assertIsDisplayed()
     }
 
@@ -83,6 +115,7 @@ class HomeScreenTest {
         setHomeScreen(
             uiState = HomeUiState(isLoaded = true, currentPhase = CyclePhase.OVULATION)
         )
+        waitForContent()
 
         composeTestRule
             .onAllNodesWithText(getString(R.string.phase_ovulation))[0]
@@ -97,12 +130,18 @@ class HomeScreenTest {
             uiState = HomeUiState(isLoaded = true, daysUntilNextPeriod = 12)
         )
 
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.home_next_period))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
         composeTestRule
             .onNodeWithText(getString(R.string.home_next_period))
             .assertIsDisplayed()
 
         composeTestRule
-            .onNodeWithText("12 ${getString(R.string.days)}")
+            .onNodeWithText("12d")
             .assertIsDisplayed()
     }
 
@@ -111,6 +150,12 @@ class HomeScreenTest {
         setHomeScreen(
             uiState = HomeUiState(isLoaded = true, cycleLength = 28)
         )
+
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.home_cycle_length))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
 
         composeTestRule
             .onNodeWithText(getString(R.string.home_cycle_length))
@@ -122,6 +167,12 @@ class HomeScreenTest {
         setHomeScreen(
             uiState = HomeUiState(isLoaded = true, fertilityStatus = FertilityStatus.HIGH)
         )
+
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.fertility_high))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
 
         composeTestRule
             .onNodeWithText(getString(R.string.fertility_high))
@@ -135,6 +186,12 @@ class HomeScreenTest {
         setHomeScreen(
             uiState = HomeUiState(isLoaded = true, todayLog = null)
         )
+
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.home_log_today))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
 
         composeTestRule
             .onNodeWithText(getString(R.string.home_log_today))
@@ -150,6 +207,12 @@ class HomeScreenTest {
             )
         )
 
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.home_edit_today_log))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
         composeTestRule
             .onNodeWithText(getString(R.string.home_edit_today_log))
             .assertIsDisplayed()
@@ -162,6 +225,12 @@ class HomeScreenTest {
             uiState = HomeUiState(isLoaded = true, todayLog = null),
             onNavigateToTracking = onNavigate
         )
+
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.home_log_today))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
 
         composeTestRule
             .onNodeWithText(getString(R.string.home_log_today))
@@ -176,6 +245,12 @@ class HomeScreenTest {
     fun homeScreen_displaysTodaysTipSection() {
         setHomeScreen()
 
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.home_todays_tip))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
         composeTestRule
             .onNodeWithText(getString(R.string.home_todays_tip))
             .assertIsDisplayed()
@@ -188,6 +263,7 @@ class HomeScreenTest {
         setHomeScreen(
             uiState = HomeUiState(isLoaded = true, currentPhase = CyclePhase.MENSTRUAL)
         )
+        waitForContent()
 
         composeTestRule
             .onAllNodesWithText(getString(R.string.phase_menstrual))[0]
@@ -199,6 +275,7 @@ class HomeScreenTest {
         setHomeScreen(
             uiState = HomeUiState(isLoaded = true, currentPhase = CyclePhase.FOLLICULAR)
         )
+        waitForContent()
 
         composeTestRule
             .onAllNodesWithText(getString(R.string.phase_follicular))[0]
@@ -210,6 +287,7 @@ class HomeScreenTest {
         setHomeScreen(
             uiState = HomeUiState(isLoaded = true, currentPhase = CyclePhase.OVULATION)
         )
+        waitForContent()
 
         composeTestRule
             .onAllNodesWithText(getString(R.string.phase_ovulation))[0]
@@ -221,6 +299,7 @@ class HomeScreenTest {
         setHomeScreen(
             uiState = HomeUiState(isLoaded = true, currentPhase = CyclePhase.LUTEAL)
         )
+        waitForContent()
 
         composeTestRule
             .onAllNodesWithText(getString(R.string.phase_luteal))[0]
