@@ -23,7 +23,6 @@ import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.R
+import com.bloomcycle.app.ui.components.InsightsScreenSkeleton
 import com.bloomcycle.app.ui.theme.FertileGreen
 import com.bloomcycle.app.ui.theme.PredictedPurple
 
@@ -53,15 +53,7 @@ fun InsightsScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (!uiState.isLoaded) {
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier.size(40.dp),
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
+        InsightsScreenSkeleton(modifier = modifier)
         return
     }
 

@@ -53,6 +53,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.res.stringResource
 import com.bloomcycle.app.R
+import com.bloomcycle.app.ui.components.ReportsScreenSkeleton
 import com.bloomcycle.app.domain.usecase.CycleHistoryEntry
 import com.bloomcycle.app.domain.usecase.CycleSummaryReport
 import com.bloomcycle.app.ui.util.displayNameRes
@@ -111,17 +112,11 @@ fun ReportsScreen(
         }
     ) { innerPadding ->
         if (!uiState.isLoaded) {
-            Box(
+            ReportsScreenSkeleton(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(40.dp),
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+                    .padding(innerPadding)
+            )
             return@Scaffold
         }
 

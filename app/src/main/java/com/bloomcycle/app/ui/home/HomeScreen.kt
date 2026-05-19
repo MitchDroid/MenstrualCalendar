@@ -59,6 +59,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.bloomcycle.app.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bloomcycle.app.domain.model.CyclePhase
+import com.bloomcycle.app.ui.components.HomeScreenSkeleton
 import com.bloomcycle.app.ui.components.ParallaxHeader
 import com.bloomcycle.app.ui.theme.LocalCyclePhase
 import com.bloomcycle.app.domain.model.FertilityStatus
@@ -111,6 +112,12 @@ fun HomeScreen(
             phase = cyclePhase,
             headerHeight = 220.dp
         )
+
+        // ── Skeleton shimmer while data loads ────────────────
+        if (!uiState.isLoaded) {
+            HomeScreenSkeleton()
+            return
+        }
 
         // ── Scrollable content (overlays the header) ─────────
         Column(

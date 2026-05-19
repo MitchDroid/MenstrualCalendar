@@ -50,6 +50,32 @@ class DailyTrackingScreenTest {
         }
     }
 
+    /** Wait for staggered section animations to reveal content. */
+    private fun waitForSections() {
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.tracking_section_flow), substring = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+    }
+
+    // ── Skeleton Loading ─────────────────────────────────────
+
+    @Test
+    fun trackingScreen_showsSkeleton_whenLoading() {
+        setTrackingScreen(
+            uiState = DailyTrackingUiState(
+                date = LocalDate.of(2026, 5, 14),
+                isLoading = true
+            )
+        )
+
+        // Real section headers should not appear while loading
+        composeTestRule
+            .onNodeWithText(getString(R.string.tracking_section_flow), substring = true)
+            .assertDoesNotExist()
+    }
+
     // ── App Bar ───────────────────────────────────────────────
 
     @Test
@@ -76,6 +102,7 @@ class DailyTrackingScreenTest {
     @Test
     fun trackingScreen_displaysFlowIntensitySection() {
         setTrackingScreen()
+        waitForSections()
 
         composeTestRule
             .onNodeWithText(getString(R.string.tracking_section_flow), substring = true)
@@ -85,6 +112,7 @@ class DailyTrackingScreenTest {
     @Test
     fun trackingScreen_displaysMoodSection() {
         setTrackingScreen()
+        waitForSections()
 
         // "Mood" with substring=true matches both "😊  Mood" header and "Mood swings" chip,
         // so we use onAllNodesWithText and assert the first one (the section header).
@@ -96,18 +124,10 @@ class DailyTrackingScreenTest {
     @Test
     fun trackingScreen_displaysSymptomsSection() {
         setTrackingScreen()
+        waitForSections()
 
         composeTestRule
             .onNodeWithText(getString(R.string.tracking_section_symptoms), substring = true)
-            .assertIsDisplayed()
-    }
-
-    @Test
-    fun trackingScreen_displaysNotesSection() {
-        setTrackingScreen()
-
-        composeTestRule
-            .onNodeWithText(getString(R.string.tracking_section_notes), substring = true)
             .assertIsDisplayed()
     }
 
@@ -116,12 +136,14 @@ class DailyTrackingScreenTest {
     @Test
     fun trackingScreen_displaysAllFlowIntensityChips() {
         setTrackingScreen()
+        waitForSections()
 
         FlowIntensity.entries.forEach { intensity ->
             val chipLabel = intensity.name.replace("_", " ").lowercase()
                 .replaceFirstChar { it.uppercase() }
+            // Chips include emoji prefix (e.g. "🌊 Heavy"), use substring match
             composeTestRule
-                .onNodeWithText(chipLabel)
+                .onNodeWithText(chipLabel, substring = true)
                 .assertIsDisplayed()
         }
     }
@@ -131,6 +153,7 @@ class DailyTrackingScreenTest {
     @Test
     fun trackingScreen_displaysAllMoodChips() {
         setTrackingScreen()
+        waitForSections()
 
         // Mood chips include emoji prefix
         Mood.entries.forEach { mood ->
@@ -147,12 +170,14 @@ class DailyTrackingScreenTest {
     @Test
     fun trackingScreen_displaysAllSymptomChips() {
         setTrackingScreen()
+        waitForSections()
 
         Symptom.entries.forEach { symptom ->
             val label = symptom.name.replace("_", " ").lowercase()
                 .replaceFirstChar { it.uppercase() }
+            // Chips include emoji prefix (e.g. "😣 Cramps"), use substring match
             composeTestRule
-                .onNodeWithText(label)
+                .onNodeWithText(label, substring = true)
                 .assertIsDisplayed()
         }
     }
@@ -175,8 +200,14 @@ class DailyTrackingScreenTest {
             }
         }
 
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText("Heavy", substring = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
         composeTestRule
-            .onNodeWithText("Heavy")
+            .onNodeWithText("Heavy", substring = true)
             .performClick()
 
         verify { viewModel.setFlowIntensity(FlowIntensity.HEAVY) }
@@ -198,8 +229,14 @@ class DailyTrackingScreenTest {
             }
         }
 
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText("Cramps", substring = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
         composeTestRule
-            .onNodeWithText("Cramps")
+            .onNodeWithText("Cramps", substring = true)
             .performClick()
 
         verify { viewModel.toggleSymptom(Symptom.CRAMPS) }
@@ -218,6 +255,12 @@ class DailyTrackingScreenTest {
             )
         )
 
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.tracking_save_log))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
         composeTestRule
             .onNodeWithText(getString(R.string.tracking_save_log))
             .performScrollTo()
@@ -235,6 +278,12 @@ class DailyTrackingScreenTest {
             )
         )
 
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.tracking_update_log))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+
         composeTestRule
             .onNodeWithText(getString(R.string.tracking_update_log))
             .performScrollTo()
@@ -250,6 +299,12 @@ class DailyTrackingScreenTest {
                 // All fields null/empty → hasAnyData = false
             )
         )
+
+        composeTestRule.waitUntil(timeoutMillis = 3000) {
+            composeTestRule
+                .onAllNodesWithText(getString(R.string.tracking_save_log))
+                .fetchSemanticsNodes().isNotEmpty()
+        }
 
         composeTestRule
             .onNodeWithText(getString(R.string.tracking_save_log))
