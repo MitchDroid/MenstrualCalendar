@@ -89,6 +89,16 @@ Built with Jetpack Compose, Material Design 3, and Clean Architecture principles
 - Complete data deletion from Settings
 - Uninstall = complete deletion with zero residual data
 
+### Visual Polish & Animations
+- **Phase-aware dynamic theming** — the entire UI subtly shifts its color palette based on the current cycle phase (warm rose for Menstrual, fresh mint for Follicular, soft lilac for Ovulation, warm amber for Luteal)
+- **Parallax header** — soft gradient header on the Home screen with organic Bezier-curved bottom edge, floating orbs, and half-speed scroll parallax depth
+- **Frosted cycle ring** — the progress ring sits inside a frosted circular `Surface` card with shadow elevation for visual separation from the gradient
+- **Skeleton shimmer loading** — content-matched shimmer skeletons on Home, Insights, Reports, and Daily Tracking screens replace generic spinners during data load
+- **Staggered entrance animations** — UI elements reveal sequentially with `fadeIn` + `slideInVertically` on Home and Daily Tracking screens
+- **Custom bottom navigation** — FAB-centered bottom bar with quick-log shortcut to today's daily tracking
+- **Animated onboarding** — bloom flower with breathing Bezier petals, per-step canvas backgrounds with floating orbs and petal clusters, bouncy spring step transitions, and animated dot step indicator
+- **Animated cycle progress ring** — sweep gradient arc with phase-colored glow and trailing dot indicator
+
 ### Multi-Language Support
 - English (default)
 - Spanish (complete translation of 800+ strings)
@@ -127,9 +137,12 @@ BloomCycle follows **Clean Architecture** with the **MVVM** (Model-View-ViewMode
 
 ### UI Layer
 - **Jetpack Compose** screens with Material Design 3 theming
+- **Phase-aware dynamic theming** — `CyclePhaseTheme` overrides Material3 color scheme per cycle phase
 - **ViewModels** expose `StateFlow<UiState>` consumed by composables
 - State management via `stateIn(SharingStarted.WhileSubscribed(5_000))`
 - Navigation handled by `NavHost` with 11 screen destinations
+- **Skeleton loading** — shimmer-animated content placeholders matching each screen's layout
+- **Staggered entrance animations** — `LaunchedEffect` with sequential `delay()` driving `AnimatedVisibility`
 
 ### Domain Layer
 - **Models**: Pure Kotlin data classes and enums (no Android dependencies)
@@ -231,12 +244,12 @@ app/src/main/java/com/bloomcycle/app/
 │
 └── ui/
     ├── calendar/                      # Calendar screen + grid
-    ├── components/                    # Shared: bottom navigation bar
+    ├── components/                    # Shared: bottom nav bar, parallax header, skeleton loading
     ├── education/                     # Phase guide, symptom guide, health tips
     ├── home/                          # Home dashboard
     ├── insights/                      # Analytics & predictions
     ├── navigation/                    # NavHost + Screen sealed class
-    ├── onboarding/                    # 5-step onboarding flow
+    ├── onboarding/                    # 6-step animated onboarding flow
     ├── privacy/                       # App lock + privacy policy screens
     ├── reports/                       # Reports & data export
     ├── settings/                      # Settings + notifications config
@@ -313,31 +326,50 @@ cd BloomCycle
 
 ## Testing
 
-BloomCycle has **135 unit tests** across 14 test classes, covering all three architecture layers.
+BloomCycle has **231 unit tests** across 18 test classes and **91 instrumented UI tests** across 7 test classes — **322 tests total** covering all three architecture layers.
 
 ### Run all tests
 
 ```bash
+# Unit tests (no device needed)
 ./gradlew testDebugUnitTest
+
+# Instrumented UI tests (requires connected device/emulator)
+./gradlew connectedDebugAndroidTest
 ```
 
-### Test coverage by layer
+### Unit test coverage by layer
 
 | Layer | Class | Tests | What's Covered |
 |-------|-------|-------|----------------|
+| **Data** | `ConvertersTest` | 41 | Room type converters for all domain types |
 | **Domain** | `CyclePredictionEngineTest` | 31 | Phase detection, fertility status, cycle wrapping, date calculations, stats computation, symptom/mood/flow analysis |
-| **Domain** | `ReportGeneratorTest` | 10 | Summary reports, CSV export (headers, data, nulls, escaping, sorting), text report localization |
 | **UI** | `EducationContentProviderTest` | 19 | Phase guides, symptom guides, health tips, filtering, lookups |
-| **UI** | `HomeViewModelTest` | 3 | Initial state, data loading |
-| **UI** | `CalendarViewModelTest` | 5 | Date selection, month navigation, go-to-today |
-| **UI** | `InsightsViewModelTest` | 4 | Initial state, data loading, goal insights |
-| **UI** | `SettingsViewModelTest` | 7 | Toggle preferences, cycle settings, data deletion |
-| **UI** | `DailyTrackingViewModelTest` | 10 | Flow/mood/symptom selection, vitals input, save/delete |
-| **UI** | `OnboardingViewModelTest` | 10 | Step navigation, field updates, completion flow |
-| **UI** | `ReportsViewModelTest` | 5 | Data loading, CSV/text export, event consumption |
-| **Data** | `DailyLogRepositoryImplTest` | 9 | CRUD operations, entity-domain mapping |
-| **Data** | `CycleRepositoryImplTest` | 5 | CRUD operations, query delegation |
 | **Data** | `UserPreferencesManagerTest` | 16 | All preference read/write operations with real DataStore |
+| **UI** | `InsightsViewModelTest` | 16 | Initial state, data loading, goal insights, analytics |
+| **Data** | `DataExporterTest` | 13 | CSV generation, text report formatting, file provider |
+| **Data** | `ReminderWorkerTest` | 13 | Period reminders, fertile window alerts, notification scheduling |
+| **UI** | `HomeViewModelTest` | 13 | Initial state, data loading, phase/fertility computation |
+| **UI** | `OnboardingViewModelTest` | 11 | Step navigation, field updates, completion flow |
+| **Domain** | `ReportGeneratorTest` | 10 | Summary reports, CSV export (headers, data, nulls, escaping, sorting), text report localization |
+| **UI** | `DailyTrackingViewModelTest` | 10 | Flow/mood/symptom selection, vitals input, save/delete |
+| **Data** | `DailyLogRepositoryImplTest` | 9 | CRUD operations, entity-domain mapping |
+| **UI** | `SettingsViewModelTest` | 7 | Toggle preferences, cycle settings, data deletion |
+| **Data** | `NotificationSchedulerTest` | 6 | WorkManager scheduling, alarm configuration |
+| **UI** | `CalendarViewModelTest` | 5 | Date selection, month navigation, go-to-today |
+| **Data** | `CycleRepositoryImplTest` | 5 | CRUD operations, query delegation |
+| **UI** | `ReportsViewModelTest` | 5 | Data loading, CSV/text export, event consumption |
+
+### Instrumented UI tests (Compose Testing)
+
+| Screen | Class | Tests | What's Covered |
+|--------|-------|-------|----------------|
+| **Settings** | `SettingsScreenTest` | 24 | Toggle switches, preference display, navigation |
+| **Home** | `HomeScreenTest` | 16 | Skeleton loading, greeting, cycle ring, stat pills, CTA buttons, phase-specific content |
+| **Tracking** | `DailyTrackingScreenTest` | 15 | Skeleton loading, section headers, emoji-prefixed chip display & interaction, save/delete |
+| **Calendar** | `CalendarScreenTest` | 14 | Month navigation, day selection, legend, selected day card |
+| **Insights** | `InsightsScreenTest` | 13 | Loading states, prediction/stats cards, education navigation |
+| **Onboarding** | `OnboardingScreenTest` | 8 | Dot step indicator, entrance animations, button states, step navigation, completion |
 
 ### Testing libraries
 
@@ -345,6 +377,7 @@ BloomCycle has **135 unit tests** across 14 test classes, covering all three arc
 - **MockK** — Kotlin-native mocking (relaxed mocks, coroutine verification)
 - **kotlinx-coroutines-test** — `StandardTestDispatcher`, `UnconfinedTestDispatcher`, `runTest`
 - **Turbine** — Flow testing utilities
+- **AndroidX Compose UI Test** — `createAndroidComposeRule`, semantic matchers, `waitUntil` animation guards
 - **AndroidX Arch Core Testing** — `InstantTaskExecutorRule` for LiveData
 
 ---
@@ -410,12 +443,20 @@ No other permissions are requested. No camera, storage, location, contacts, or i
 
 ## Roadmap
 
-- [ ] Instrumented UI tests (Compose testing)
-- [ ] Dark theme support
+- [x] Instrumented UI tests (91 Compose tests across 7 screen test classes)
+- [x] Phase-aware dynamic theming (4 cycle phase color palettes)
+- [x] Parallax header with organic gradient on Home screen
+- [x] Skeleton shimmer loading states (Home, Insights, Reports, Tracking)
+- [x] Animated onboarding flow (bloom flower, canvas backgrounds, spring transitions)
+- [x] Custom FAB-centered bottom navigation bar
+- [x] Staggered entrance animations across all major screens
+- [ ] Dark theme polish
 - [ ] Widget for home screen cycle overview
 - [ ] Data backup/restore via local file
 - [ ] Additional language translations
-- [ ] Cycle length trend graphs
+- [ ] Micro-interactions & haptic feedback
+- [ ] Calendar screen redesign
+- [ ] Insights/Reports visual upgrade
 - [ ] Period prediction accuracy improvements with ML
 - [ ] Wear OS companion app
 
